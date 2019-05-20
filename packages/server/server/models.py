@@ -73,7 +73,7 @@ class History(models.Model):
 class HistoryLine(models.Model):
 
     answer = models.CharField(choices=AVAILABLE_ANSWER_CHOICES, max_length=5, null=True)
-    time = models.TimeField(null=True)
+    duration = models.PositiveIntegerField(null=True)
     
     # question
     image = models.CharField(max_length=50)

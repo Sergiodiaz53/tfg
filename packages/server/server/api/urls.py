@@ -7,6 +7,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'histories', views.HistoryView, basename='History')
+router.register(r'history-lines', views.HistoryLineView, basename='HistoryLine')
 
 urlpatterns = [
     path('api-token-auth', authtoken_views.obtain_auth_token),
