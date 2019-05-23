@@ -2,3 +2,4 @@ django
 Pillow
 djangorestframework
 django-extensions
+django-cors-headers

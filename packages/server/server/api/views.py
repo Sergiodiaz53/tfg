@@ -18,7 +18,7 @@ from . import serializers
 
 class UserView(mixins.ListModelMixin, viewsets.ViewSet):
     serializer_class = serializers.UserDetailSerializer
-    authentication_classes = (SessionAuthentication, TokenAuthentication,)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     def list(self, request):
@@ -28,7 +28,7 @@ class UserView(mixins.ListModelMixin, viewsets.ViewSet):
 
 class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.HistoryListSerializer
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
@@ -85,5 +85,5 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
 class HistoryLineView(mixins.UpdateModelMixin, viewsets.GenericViewSet):
     queryset = models.HistoryLine.objects.all()
     serializer_class = serializers.HistoryLineDetailSerializer
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
