@@ -2,5 +2,7 @@
 
 #### Install swagger-codegen
 
+`npm install -g @openapitools/openapi-generator-cli`
+
 #### Create client library from openapi specification
-`swagger-codegen generate -i http://localhost:8000/swagger.yaml -l typescript-angular -o ../client/api`
+`openapi-generator generate -i http://localhost:8000/swagger.yaml -g typescript-angular -o ./client/src/app/modules/api -c swagger-config.json`

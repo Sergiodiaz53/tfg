@@ -6,12 +6,13 @@ from django.urls import path, include
 from . import views
 
 router = DefaultRouter()
+router.register(r'access-token', views.AccessTokenView,
+                base_name='AccessToken')
 router.register(r'user', views.UserView, basename='User')
-router.register(r'histories', views.HistoryView, basename='History')
-router.register(r'history-lines', views.HistoryLineView,
+router.register(r'history', views.HistoryView, basename='History')
+router.register(r'history-line', views.HistoryLineView,
                 basename='HistoryLine')
 
 urlpatterns = [
-    path('api-token-auth', authtoken_views.obtain_auth_token),
-    path('', include(router.urls))
+    path('', include(router.urls)),
 ]

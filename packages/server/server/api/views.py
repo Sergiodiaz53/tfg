@@ -4,22 +4,47 @@ from random import randint
 from django.db.models.aggregates import Count
 from django.apps import apps
 from django.conf import settings
+from django.utils.decorators import method_decorator
 
-from rest_framework import viewsets, mixins, status
+from rest_framework import viewsets, mixins, status, authtoken
 from rest_framework.decorators import action
 from rest_framework.authentication import (
     TokenAuthentication, SessionAuthentication)
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
+from drf_yasg.utils import swagger_auto_schema
+
 from .. import models
 from . import serializers
+
+
+class AccessTokenView(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = authtoken.serializers.AuthTokenSerializer
+    authentication_classes = ()
+
+    @swagger_auto_schema(
+        operation_id='access-token',
+        responses={200: serializers.AccessTokenSerializer(many=False)}
+    )
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = authtoken.models.Token.objects.get_or_create(
+            user=user)
+        return Response(serializers.AccessTokenSerializer(token).data)
 
 
 class UserView(mixins.ListModelMixin, viewsets.ViewSet):
     serializer_class = serializers.UserDetailSerializer
     permission_classes = (IsAuthenticated,)
 
+    @swagger_auto_schema(
+        operation_id='User',
+        responses={200: serializers.UserDetailSerializer(many=False)}
+    )
     def list(self, request):
         return Response(
             serializers.UserDetailSerializer(self.request.user).data)
@@ -50,7 +75,10 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         return Response(
             serializers.HistoryListSerializer(history, many=False).data)
 
-    @action(detail=True, methods=['get'])
+    @swagger_auto_schema(
+        responses={200: serializers.HistoryLineSimpleSerializer(many=False)}
+    )
+    @action(['get'], detail=True)
     def next(self, request, *args, **kwargs):
         history = self.get_object()
 

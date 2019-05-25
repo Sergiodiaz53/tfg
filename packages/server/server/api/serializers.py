@@ -1,9 +1,20 @@
 from django.apps import apps
 from django.conf import settings
 
-from rest_framework import serializers
+from rest_framework import serializers, authtoken
 
 from .. import models
+
+
+class AccessTokenSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
+
+    class Meta:
+        model = authtoken.models.Token
+        fields = ('token',)
+
+    def get_token(self, obj):
+        return obj.key
 
 
 class UserProfileDetailSerializer(serializers.ModelSerializer):
