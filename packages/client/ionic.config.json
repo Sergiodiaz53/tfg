@@ -1,0 +1,7 @@
+{
+  "name": "tfg-client",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
