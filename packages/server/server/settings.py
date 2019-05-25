@@ -132,7 +132,8 @@ AUTH_USER_MODEL = 'auth.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
