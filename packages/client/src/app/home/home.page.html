@@ -8,7 +8,25 @@
 
 <ion-content>
   <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+    <ng-container *ngIf="(user | async).username else loginFormTemplate">
+      {{ user | async | json }}
+    </ng-container>
   </div>
 </ion-content>
+
+<ng-template #loginFormTemplate>
+  <form *ngIf="!(user | async).username" action="">
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="text" name="username" [(ngModel)]="loginCredentials.username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" name="password" [(ngModel)]="loginCredentials.password"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="onLogin(loginCredentials)">
+      Login
+    </ion-button>
+  </form>
+</ng-template>

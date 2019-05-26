@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { ApiTokenAuthService } from './modules/api';
+import { AccessTokenService, Configuration } from './modules/api';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,6 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private api: ApiTokenAuthService
   ) {
     this.initializeApp();
   }
@@ -23,9 +22,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.api.apiTokenAuthCreate().subscribe(d => {
-        console.log(d);
-      })
     });
   }
 }
