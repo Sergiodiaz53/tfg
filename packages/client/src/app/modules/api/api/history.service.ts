@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { HistoryDetail } from '../model/historyDetail';
+import { HistoryLineSimple } from '../model/historyLineSimple';
 import { HistoryList } from '../model/historyList';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -28,7 +29,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class HistoriesService {
+export class HistoryService {
 
     protected basePath = 'http://localhost:8000/api';
     public defaultHeaders = new HttpHeaders();
@@ -67,20 +68,21 @@ export class HistoriesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historiesCreate(data: HistoryList, observe?: 'body', reportProgress?: boolean): Observable<HistoryList>;
-    public historiesCreate(data: HistoryList, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryList>>;
-    public historiesCreate(data: HistoryList, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryList>>;
-    public historiesCreate(data: HistoryList, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyCreate(data: HistoryList, observe?: 'body', reportProgress?: boolean): Observable<HistoryList>;
+    public historyCreate(data: HistoryList, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryList>>;
+    public historyCreate(data: HistoryList, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryList>>;
+    public historyCreate(data: HistoryList, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling historiesCreate.');
+            throw new Error('Required parameter data was null or undefined when calling historyCreate.');
         }
 
         let headers = this.defaultHeaders;
 
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
+
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
             'application/json'
@@ -99,7 +101,7 @@ export class HistoriesService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<HistoryList>(`${this.configuration.basePath}/histories/`,
+        return this.httpClient.post<HistoryList>(`${this.configuration.basePath}/history/`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -116,17 +118,18 @@ export class HistoriesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historiesList(observe?: 'body', reportProgress?: boolean): Observable<Array<HistoryList>>;
-    public historiesList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<HistoryList>>>;
-    public historiesList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<HistoryList>>>;
-    public historiesList(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyList(observe?: 'body', reportProgress?: boolean): Observable<Array<HistoryList>>;
+    public historyList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<HistoryList>>>;
+    public historyList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<HistoryList>>>;
+    public historyList(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
+
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
             'application/json'
@@ -140,7 +143,7 @@ export class HistoriesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<HistoryList>>(`${this.configuration.basePath}/histories/`,
+        return this.httpClient.get<Array<HistoryList>>(`${this.configuration.basePath}/history/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -157,20 +160,21 @@ export class HistoriesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historiesNext(id: string, observe?: 'body', reportProgress?: boolean): Observable<HistoryList>;
-    public historiesNext(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryList>>;
-    public historiesNext(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryList>>;
-    public historiesNext(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyNext(id: string, observe?: 'body', reportProgress?: boolean): Observable<HistoryLineSimple>;
+    public historyNext(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineSimple>>;
+    public historyNext(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineSimple>>;
+    public historyNext(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling historiesNext.');
+            throw new Error('Required parameter id was null or undefined when calling historyNext.');
         }
 
         let headers = this.defaultHeaders;
 
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
+
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
             'application/json'
@@ -184,7 +188,7 @@ export class HistoriesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<HistoryList>(`${this.configuration.basePath}/histories/${encodeURIComponent(String(id))}/next/`,
+        return this.httpClient.get<HistoryLineSimple>(`${this.configuration.basePath}/history/${encodeURIComponent(String(id))}/next/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -201,20 +205,21 @@ export class HistoriesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historiesRead(id: string, observe?: 'body', reportProgress?: boolean): Observable<HistoryDetail>;
-    public historiesRead(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryDetail>>;
-    public historiesRead(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryDetail>>;
-    public historiesRead(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyRead(id: string, observe?: 'body', reportProgress?: boolean): Observable<HistoryDetail>;
+    public historyRead(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryDetail>>;
+    public historyRead(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryDetail>>;
+    public historyRead(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling historiesRead.');
+            throw new Error('Required parameter id was null or undefined when calling historyRead.');
         }
 
         let headers = this.defaultHeaders;
 
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
+
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
             'application/json'
@@ -228,7 +233,7 @@ export class HistoriesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<HistoryDetail>(`${this.configuration.basePath}/histories/${encodeURIComponent(String(id))}/`,
+        return this.httpClient.get<HistoryDetail>(`${this.configuration.basePath}/history/${encodeURIComponent(String(id))}/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

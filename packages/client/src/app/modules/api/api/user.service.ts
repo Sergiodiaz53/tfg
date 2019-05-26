@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { UserDetail } from '../model/userDetail';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -64,19 +65,21 @@ export class UserService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userList(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public userList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public userList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public userList(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public user(observe?: 'body', reportProgress?: boolean): Observable<UserDetail>;
+    public user(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserDetail>>;
+    public user(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserDetail>>;
+    public user(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
+
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -87,7 +90,7 @@ export class UserService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/user/`,
+        return this.httpClient.get<UserDetail>(`${this.configuration.basePath}/user/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -18,6 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { AccessToken } from '../model/accessToken';
+import { AuthToken } from '../model/authToken';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -26,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class ApiTokenAuthService {
+export class AccessTokenService {
 
     protected basePath = 'http://localhost:8000/api';
     public defaultHeaders = new HttpHeaders();
@@ -61,22 +63,28 @@ export class ApiTokenAuthService {
     /**
      * 
      * 
+     * @param data 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiTokenAuthCreate(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiTokenAuthCreate(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiTokenAuthCreate(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiTokenAuthCreate(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accessToken(data: AuthToken, observe?: 'body', reportProgress?: boolean): Observable<AccessToken>;
+    public accessToken(data: AuthToken, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AccessToken>>;
+    public accessToken(data: AuthToken, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AccessToken>>;
+    public accessToken(data: AuthToken, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling accessToken.');
+        }
 
         let headers = this.defaultHeaders;
 
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
+
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
+            'application/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -85,10 +93,15 @@ export class ApiTokenAuthService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api-token-auth`,
-            null,
+        return this.httpClient.post<AccessToken>(`${this.configuration.basePath}/access-token/`,
+            data,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

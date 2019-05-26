@@ -27,7 +27,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class HistoryLinesService {
+export class HistoryLineService {
 
     protected basePath = 'http://localhost:8000/api';
     public defaultHeaders = new HttpHeaders();
@@ -67,23 +67,24 @@ export class HistoryLinesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historyLinesPartialUpdate(id: number, data: HistoryLineDetail, observe?: 'body', reportProgress?: boolean): Observable<HistoryLineDetail>;
-    public historyLinesPartialUpdate(id: number, data: HistoryLineDetail, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineDetail>>;
-    public historyLinesPartialUpdate(id: number, data: HistoryLineDetail, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineDetail>>;
-    public historyLinesPartialUpdate(id: number, data: HistoryLineDetail, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyLinePartialUpdate(id: number, data: HistoryLineDetail, observe?: 'body', reportProgress?: boolean): Observable<HistoryLineDetail>;
+    public historyLinePartialUpdate(id: number, data: HistoryLineDetail, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineDetail>>;
+    public historyLinePartialUpdate(id: number, data: HistoryLineDetail, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineDetail>>;
+    public historyLinePartialUpdate(id: number, data: HistoryLineDetail, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling historyLinesPartialUpdate.');
+            throw new Error('Required parameter id was null or undefined when calling historyLinePartialUpdate.');
         }
         if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling historyLinesPartialUpdate.');
+            throw new Error('Required parameter data was null or undefined when calling historyLinePartialUpdate.');
         }
 
         let headers = this.defaultHeaders;
 
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
+
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
             'application/json'
@@ -102,7 +103,7 @@ export class HistoryLinesService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<HistoryLineDetail>(`${this.configuration.basePath}/history-lines/${encodeURIComponent(String(id))}/`,
+        return this.httpClient.patch<HistoryLineDetail>(`${this.configuration.basePath}/history-line/${encodeURIComponent(String(id))}/`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -121,23 +122,24 @@ export class HistoryLinesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historyLinesUpdate(id: number, data: HistoryLineDetail, observe?: 'body', reportProgress?: boolean): Observable<HistoryLineDetail>;
-    public historyLinesUpdate(id: number, data: HistoryLineDetail, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineDetail>>;
-    public historyLinesUpdate(id: number, data: HistoryLineDetail, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineDetail>>;
-    public historyLinesUpdate(id: number, data: HistoryLineDetail, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyLineUpdate(id: number, data: HistoryLineDetail, observe?: 'body', reportProgress?: boolean): Observable<HistoryLineDetail>;
+    public historyLineUpdate(id: number, data: HistoryLineDetail, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineDetail>>;
+    public historyLineUpdate(id: number, data: HistoryLineDetail, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineDetail>>;
+    public historyLineUpdate(id: number, data: HistoryLineDetail, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling historyLinesUpdate.');
+            throw new Error('Required parameter id was null or undefined when calling historyLineUpdate.');
         }
         if (data === null || data === undefined) {
-            throw new Error('Required parameter data was null or undefined when calling historyLinesUpdate.');
+            throw new Error('Required parameter data was null or undefined when calling historyLineUpdate.');
         }
 
         let headers = this.defaultHeaders;
 
-        // authentication (Basic) required
-        if (this.configuration.username || this.configuration.password) {
-            headers = headers.set('Authorization', 'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password));
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
+
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
             'application/json'
@@ -156,7 +158,7 @@ export class HistoryLinesService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<HistoryLineDetail>(`${this.configuration.basePath}/history-lines/${encodeURIComponent(String(id))}/`,
+        return this.httpClient.put<HistoryLineDetail>(`${this.configuration.basePath}/history-line/${encodeURIComponent(String(id))}/`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,

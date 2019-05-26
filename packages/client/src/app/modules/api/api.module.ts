@@ -3,9 +3,9 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
-import { ApiTokenAuthService } from './api/apiTokenAuth.service';
-import { HistoriesService } from './api/histories.service';
-import { HistoryLinesService } from './api/historyLines.service';
+import { AccessTokenService } from './api/accessToken.service';
+import { HistoryService } from './api/history.service';
+import { HistoryLineService } from './api/historyLine.service';
 import { UserService } from './api/user.service';
 
 @NgModule({
@@ -13,9 +13,9 @@ import { UserService } from './api/user.service';
   declarations: [],
   exports:      [],
   providers: [
-    ApiTokenAuthService,
-    HistoriesService,
-    HistoryLinesService,
+    AccessTokenService,
+    HistoryService,
+    HistoryLineService,
     UserService ]
 })
 export class ApiModule {
