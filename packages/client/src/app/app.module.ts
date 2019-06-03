@@ -7,17 +7,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { NgxsModule } from '@ngxs/store';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-
-import { ApiModule, Configuration } from './modules/api';
+import { ApiModule, Configuration, UserService } from './modules/api';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { environment } from 'src/environments/environment';
-
-import { UserState } from './state/user.state';
 
 export function withConfigurationFactory(): Configuration {
   return new Configuration({
@@ -33,14 +28,13 @@ export function withConfigurationFactory(): Configuration {
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    ApiModule.forRoot(withConfigurationFactory),
-    NgxsModule.forRoot([UserState], { developmentMode: !environment.production }),
-    NgxsReduxDevtoolsPluginModule.forRoot()
+    ApiModule.forRoot(withConfigurationFactory)
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    UserService
   ],
   bootstrap: [AppComponent]
 })
