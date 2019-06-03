@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { tap, flatMap, share, take, catchError, map } from 'rxjs/operators';
 
 import { UserService as UserApiService, UserDetail, AccessTokenService } from '../../modules/api';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -20,8 +20,6 @@ export class UserService {
                 }),
                 flatMap(() => this.userApiService.user()),
                 tap(response => this.user = response),
-                map(response => ({ data: response, error: null })),
-                catchError(response => of({ data: null, error: response.error })),
                 share()
             );           
         
