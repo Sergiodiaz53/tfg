@@ -3,9 +3,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { LoadingController } from '@ionic/angular';
 
-import { UserDetail } from '../modules/api';
 import { UserService } from '../services/user/user.service';
 import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginPage {
     password: new FormControl('49preerhe')
   })
 
-  constructor(private loadingController: LoadingController, private userService: UserService) {}
+  constructor(private router: Router, private loadingController: LoadingController, private userService: UserService) {}
 
   async onLogin() {
     this.credentialErrorsShown = false;
@@ -34,7 +34,7 @@ export class LoginPage {
       )
       .subscribe({
         next: response => {
-          console.log('loggedId');
+          this.router.navigate(['']);
         },
         error: error => {
           this.credentialErrorsShown = true;
