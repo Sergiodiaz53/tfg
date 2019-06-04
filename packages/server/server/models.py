@@ -7,8 +7,8 @@ from django.urls import reverse
 from django.dispatch import receiver
 
 AVAILABLE_ANSWER_CHOICES = (
-    ('LEFT', 'left'),
-    ('RIGHT', 'right'),
+    ('left', 'left'),
+    ('right', 'right'),
 )
 
 
