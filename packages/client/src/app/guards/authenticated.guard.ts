@@ -9,7 +9,7 @@ export class AuthenticatedGuard implements CanActivate {
 
     canActivate() {
         if (!this.userService.user) {
-            this.router.navigate(['login']);
+            this.router.navigate(['login'], { skipLocationChange: true });
 
             return false;
         }

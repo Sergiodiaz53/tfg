@@ -9,7 +9,7 @@ export class AnonymousGuard implements CanActivate {
 
     canActivate() {
         if (this.userService.user) {
-            this.router.navigate(['']);
+            this.router.navigate([''], { skipLocationChange: true });
 
             return false;
         }

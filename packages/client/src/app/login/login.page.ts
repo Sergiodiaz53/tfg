@@ -34,7 +34,7 @@ export class LoginPage {
       )
       .subscribe({
         next: response => {
-          this.router.navigate(['']);
+          this.router.navigate([''], { skipLocationChange: true });
         },
         error: error => {
           this.credentialErrorsShown = true;
