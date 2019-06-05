@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MainPage } from './main.page';
+import { QuestionsPage } from './questions/questions.page';
+import { HistoryGuard } from '../guards/history.guard';
 
 @NgModule({
   imports: [
@@ -15,9 +17,20 @@ import { MainPage } from './main.page';
       {
         path: '',
         component: MainPage
+      },
+      {
+        path: 'questions/:id',
+        component: QuestionsPage,
+        resolve: [HistoryGuard]
       }
     ])
   ],
-  declarations: [MainPage]
+  declarations: [
+    MainPage,
+    QuestionsPage
+  ],
+  providers: [
+    HistoryGuard
+  ]
 })
 export class MainModule {}

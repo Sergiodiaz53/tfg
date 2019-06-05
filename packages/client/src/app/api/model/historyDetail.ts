@@ -15,6 +15,7 @@ import { HistoryLineDetail } from './historyLineDetail';
 export interface HistoryDetail { 
     readonly id?: number;
     level: number;
+    closed?: boolean;
     historyLines: Array<HistoryLineDetail>;
 }
 

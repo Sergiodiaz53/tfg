@@ -19,15 +19,15 @@ export interface HistoryLineDetail {
     correctAnswer: HistoryLineDetail.CorrectAnswerEnum;
 }
 export namespace HistoryLineDetail {
-    export type AnswerEnum = 'LEFT' | 'RIGHT';
+    export type AnswerEnum = 'left' | 'right';
     export const AnswerEnum = {
-        LEFT: 'LEFT' as AnswerEnum,
-        RIGHT: 'RIGHT' as AnswerEnum
+        Left: 'left' as AnswerEnum,
+        Right: 'right' as AnswerEnum
     };
-    export type CorrectAnswerEnum = 'LEFT' | 'RIGHT';
+    export type CorrectAnswerEnum = 'left' | 'right';
     export const CorrectAnswerEnum = {
-        LEFT: 'LEFT' as CorrectAnswerEnum,
-        RIGHT: 'RIGHT' as CorrectAnswerEnum
+        Left: 'left' as CorrectAnswerEnum,
+        Right: 'right' as CorrectAnswerEnum
     };
 }
 
