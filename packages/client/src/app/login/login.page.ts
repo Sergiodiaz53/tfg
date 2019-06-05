@@ -16,8 +16,8 @@ export class LoginPage {
   credentialErrorsShown = false;
 
   loginCredentials = new FormGroup({
-    username: new FormControl('sifaw'),
-    password: new FormControl('49preerhe')
+    username: new FormControl(''),
+    password: new FormControl('')
   })
 
   constructor(private router: Router, private loadingController: LoadingController, private userService: UserService) {}
