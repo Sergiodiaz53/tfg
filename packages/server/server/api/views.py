@@ -13,7 +13,7 @@ from rest_framework.authentication import (
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from drf_yasg.utils import swagger_auto_schema
+from drf_yasg.utils import swagger_auto_schema, no_body
 
 from .. import models
 from . import serializers
@@ -65,6 +65,10 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
 
         return serializers.HistoryListSerializer
 
+    @swagger_auto_schema(
+        request_body=no_body,
+        responses={200: serializers.HistoryLineSimpleSerializer(many=False)}
+    )
     def create(self, request):
         question_level = models.QuestionLevel.objects.get(
             level=self.request.user.profile.level)

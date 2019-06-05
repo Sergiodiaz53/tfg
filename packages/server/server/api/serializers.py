@@ -50,7 +50,7 @@ class HistoryDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.History
-        fields = ('id', 'level', 'history_lines',)
+        fields = ('id', 'level', 'closed', 'history_lines',)
         depth = 1
 
 
