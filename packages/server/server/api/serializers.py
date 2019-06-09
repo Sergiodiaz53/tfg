@@ -37,6 +37,16 @@ class HistoryLineSimpleSerializer(serializers.ModelSerializer):
         fields = ('id', 'image',)
 
 
+class HistoryLineAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.HistoryLine
+        fields = ('id', 'answer', 'duration',)
+        extra_kwargs = {
+            'answer': {'required': True},
+            'duration': {'required': True}
+        }
+
+
 class HistoryLineDetailSerializer(serializers.ModelSerializer):
 
     class Meta:

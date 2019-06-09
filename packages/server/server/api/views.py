@@ -57,6 +57,10 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return models.History.objects.all().filter(user=self.request.user)
 
+    def get_serializer_context(self):
+        print(self.request)
+        return {'request': self.request}
+
     def get_serializer_class(self):
         if (self.action == 'list'):
             return serializers.HistoryListSerializer
@@ -109,9 +113,14 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
             history.save()
 
         return Response(
-            serializers.HistoryLineSimpleSerializer(history_line).data)
+            serializers.HistoryLineSimpleSerializer(
+                history_line, context={'request': request}
+            ).data)
 
 
+@method_decorator(name='update', decorator=swagger_auto_schema(
+    request_body=serializers.HistoryLineAnswerSerializer
+))
 class HistoryLineView(mixins.UpdateModelMixin, viewsets.GenericViewSet):
     queryset = models.HistoryLine.objects.all()
     serializer_class = serializers.HistoryLineDetailSerializer
