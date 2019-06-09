@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HistoryService as HistoryApiService, HistoryLineService } from '../../api';
+import { HistoryService as HistoryApiService, HistoryLineService, HistoryLineAnswer } from '../../api';
 
 @Injectable({ providedIn: 'root' })
 export class HistoryService {
@@ -14,5 +14,13 @@ export class HistoryService {
 
     get(id: number) {
         return this.historyApiService.historyRead(`${id}`)
+    }
+
+    nextQuestion(id: number) {
+        return this.historyApiService.historyNext(`${id}`);
+    }
+
+    sendAnswer(id: number, data: HistoryLineAnswer) {
+        return this.historyLineApiService.historyLineUpdate(id, data);
     }
 }

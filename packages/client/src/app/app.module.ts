@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { UserService } from './services/user/user.service';
 import { HistoryService } from './services/history/history.service';
+import { CommonDirectivesModule } from './directives/directives.module';
 
 export function withConfigurationFactory(): Configuration {
   return new Configuration({

@@ -125,3 +125,9 @@ class HistoryLineView(mixins.UpdateModelMixin, viewsets.GenericViewSet):
     queryset = models.HistoryLine.objects.all()
     serializer_class = serializers.HistoryLineDetailSerializer
     permission_classes = (IsAuthenticated,)
+
+    def get_serializer_class(self):
+        if (self.action == 'update'):
+            return serializers.HistoryLineAnswerSerializer
+        else:
+            return self.serializer_class

@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { HistoryLineAnswer } from '../model/historyLineAnswer';
 import { HistoryLineDetail } from '../model/historyLineDetail';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -122,10 +123,10 @@ export class HistoryLineService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historyLineUpdate(id: number, data: HistoryLineDetail, observe?: 'body', reportProgress?: boolean): Observable<HistoryLineDetail>;
-    public historyLineUpdate(id: number, data: HistoryLineDetail, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineDetail>>;
-    public historyLineUpdate(id: number, data: HistoryLineDetail, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineDetail>>;
-    public historyLineUpdate(id: number, data: HistoryLineDetail, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyLineUpdate(id: number, data: HistoryLineAnswer, observe?: 'body', reportProgress?: boolean): Observable<HistoryLineAnswer>;
+    public historyLineUpdate(id: number, data: HistoryLineAnswer, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineAnswer>>;
+    public historyLineUpdate(id: number, data: HistoryLineAnswer, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineAnswer>>;
+    public historyLineUpdate(id: number, data: HistoryLineAnswer, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling historyLineUpdate.');
         }
@@ -158,7 +159,7 @@ export class HistoryLineService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<HistoryLineDetail>(`${this.configuration.basePath}/history-line/${encodeURIComponent(String(id))}/`,
+        return this.httpClient.put<HistoryLineAnswer>(`${this.configuration.basePath}/history-line/${encodeURIComponent(String(id))}/`,
             data,
             {
                 withCredentials: this.configuration.withCredentials,

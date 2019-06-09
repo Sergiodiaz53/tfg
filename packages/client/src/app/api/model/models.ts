@@ -1,6 +1,7 @@
 export * from './accessToken';
 export * from './authToken';
 export * from './historyDetail';
+export * from './historyLineAnswer';
 export * from './historyLineDetail';
 export * from './historyLineSimple';
 export * from './historyList';

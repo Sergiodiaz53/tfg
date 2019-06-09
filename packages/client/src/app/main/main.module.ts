@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { MainPage } from './main.page';
 import { QuestionsPage } from './questions/questions.page';
 import { HistoryGuard } from '../guards/history.guard';
+import { CommonDirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { HistoryGuard } from '../guards/history.guard';
         component: QuestionsPage,
         resolve: [HistoryGuard]
       }
-    ])
+    ]),
+    CommonDirectivesModule
   ],
   declarations: [
     MainPage,
