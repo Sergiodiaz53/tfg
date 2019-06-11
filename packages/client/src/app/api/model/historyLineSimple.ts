@@ -14,5 +14,6 @@
 export interface HistoryLineSimple { 
     readonly id?: number;
     image: string;
+    readonly historyClosed?: string;
 }
 
