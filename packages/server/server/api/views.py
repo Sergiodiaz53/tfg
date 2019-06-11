@@ -91,7 +91,7 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         history = self.get_object()
 
         if (history.closed):
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
         question_level = models.QuestionLevel.objects.get(level=history.level)
         questions = question_level.questions

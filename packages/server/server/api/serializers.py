@@ -32,9 +32,18 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
 
 class HistoryLineSimpleSerializer(serializers.ModelSerializer):
+
+    history_closed = serializers.SerializerMethodField()
+
     class Meta:
         model = models.HistoryLine
-        fields = ('id', 'image',)
+        fields = ('id', 'image', 'history_closed',)
+
+    def get_history_closed(self, instance):
+        if not instance:
+            return False
+        else:
+            return instance.history.closed
 
 
 class HistoryLineAnswerSerializer(serializers.ModelSerializer):
