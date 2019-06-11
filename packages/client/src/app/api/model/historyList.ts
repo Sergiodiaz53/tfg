@@ -14,5 +14,7 @@
 export interface HistoryList { 
     readonly id?: number;
     level: number;
+    readonly datetime?: Date;
+    closed?: boolean;
 }
 

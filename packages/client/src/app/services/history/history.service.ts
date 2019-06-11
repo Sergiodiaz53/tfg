@@ -12,6 +12,10 @@ export class HistoryService {
         return this.historyApiService.historyCreate();
     }
 
+    getAll() {
+        return this.historyApiService.historyList();
+    }
+
     get(id: number) {
         return this.historyApiService.historyRead(`${id}`)
     }

@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Histories</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list [@historiesAnimation]="histories.length">
+        <ion-item *ngFor="let history of histories" [routerLink]="[history.id]">
+            {{ history.datetime | date:'dd-mm-yyyy' }}
+        </ion-item>
+    </ion-list>
+</ion-content>

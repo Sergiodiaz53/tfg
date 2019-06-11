@@ -8,6 +8,9 @@ import { MainPage } from './main.page';
 import { QuestionsPage } from './questions/questions.page';
 import { HistoryGuard } from '../guards/history.guard';
 import { CommonDirectivesModule } from '../directives/directives.module';
+import { HistoriesPage } from './histories/histories.page';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HistoryPage } from './history/history.page';
 
 @NgModule({
   imports: [
@@ -23,13 +26,23 @@ import { CommonDirectivesModule } from '../directives/directives.module';
         path: 'questions/:id',
         component: QuestionsPage,
         resolve: [HistoryGuard]
+      },
+      {
+        path: 'histories',
+        component: HistoriesPage
+      },
+      {
+        path: 'histories/:id',
+        component: HistoryPage
       }
     ]),
     CommonDirectivesModule
   ],
   declarations: [
     MainPage,
-    QuestionsPage
+    QuestionsPage,
+    HistoriesPage,
+    HistoryPage
   ],
   providers: [
     HistoryGuard

@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>History</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item *ngIf="history">
+        <ion-grid>
+            <ion-row>
+                <ion-col>Answer</ion-col>
+                <ion-col>Duration</ion-col>
+                <ion-col>Correct answer</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let historyLine of history.historyLines">
+                <ion-col>{{ historyLine.answer }}</ion-col>
+                <ion-col>{{ historyLine.duration }}</ion-col>
+                <ion-col>{{ historyLine.correctAnswer }}</ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+</ion-content>
