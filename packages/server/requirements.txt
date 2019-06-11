@@ -3,3 +3,5 @@ Pillow
 djangorestframework
 django-extensions
 django-cors-headers
+djangorestframework-camel-case
+drf_yasg
