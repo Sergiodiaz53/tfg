@@ -55,10 +55,10 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        return models.History.objects.all().filter(user=self.request.user)
+        return models.History.objects.all().filter(
+            user=self.request.user).order_by('pk').reverse()
 
     def get_serializer_context(self):
-        print(self.request)
         return {'request': self.request}
 
     def get_serializer_class(self):

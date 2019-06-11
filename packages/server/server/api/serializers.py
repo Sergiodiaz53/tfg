@@ -69,11 +69,11 @@ class HistoryDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.History
-        fields = ('id', 'level', 'closed', 'history_lines',)
+        fields = ('id', 'level', 'datetime', 'closed', 'history_lines',)
         depth = 1
 
 
 class HistoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.History
-        fields = ('id', 'level',)
+        fields = ('id', 'level', 'datetime', 'closed',)
