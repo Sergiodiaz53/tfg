@@ -31,36 +31,49 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'profile',)
 
 
-class HistoryLineSimpleSerializer(serializers.ModelSerializer):
+class AnswerSerializer(serializers.ModelSerializer):
 
-    history_closed = serializers.SerializerMethodField()
+    question_id = serializers.IntegerField()
 
     class Meta:
         model = models.HistoryLine
-        fields = ('id', 'image', 'history_closed',)
-
-    def get_history_closed(self, instance):
-        if not instance:
-            return False
-        else:
-            return instance.history.closed
-
-
-class HistoryLineAnswerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.HistoryLine
-        fields = ('id', 'answer', 'duration',)
-        extra_kwargs = {
-            'answer': {'required': True},
-            'duration': {'required': True}
-        }
+        fields = ('answer', 'duration', 'question_id',)
+        required_fields = ('answer', 'duration', 'question_id',)
 
 
 class HistoryLineDetailSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.HistoryLine
         fields = ('id', 'answer', 'duration', 'image', 'correct_answer',)
+
+
+class HistoryCreateSerializer(serializers.ModelSerializer):
+
+    answers = AnswerSerializer(many=True)
+
+    class Meta:
+        model = models.History
+        fields = ('level', 'answers',)
+        depth = 1
+
+    def create(self, validated_data):
+        answers = validated_data.pop('answers')
+        history = models.History.objects.create(
+            **validated_data, user=self.context.user)
+
+        for answer in answers:
+            print(answer)
+            question = models.Question.objects.get(
+                id=answer.get('question_id'))
+            models.HistoryLine.objects.create(
+                answer=answer.get('answer'),
+                duration=answer.get('duration'),
+                image=question.image,
+                correct_answer=question.correct_answer,
+                history=history,
+            )
+
+        return history
 
 
 class HistoryDetailSerializer(serializers.ModelSerializer):
@@ -69,11 +82,17 @@ class HistoryDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.History
-        fields = ('id', 'level', 'datetime', 'closed', 'history_lines',)
+        fields = ('id', 'level', 'datetime', 'history_lines',)
         depth = 1
 
 
 class HistoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.History
-        fields = ('id', 'level', 'datetime', 'closed',)
+        fields = ('id', 'level', 'datetime',)
+
+
+class QuestionSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Question
+        fields = ('id', 'image',)

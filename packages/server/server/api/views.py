@@ -50,6 +50,30 @@ class UserView(mixins.ListModelMixin, viewsets.ViewSet):
             serializers.UserDetailSerializer(self.request.user).data)
 
 
+class QuestionView(viewsets.GenericViewSet):
+    serializer_class = serializers.QuestionSimpleSerializer
+    permission_classes = (IsAuthenticated,)
+
+    @swagger_auto_schema(
+        responses={200: serializers.QuestionSimpleSerializer(many=False)}
+    )
+    @action(['get'], detail=False)
+    def random(self, request, *args, **kwargs):
+
+        question_level = models.QuestionLevel.objects.get(
+            level=self.request.user.profile.level)
+        questions = question_level.questions
+
+        count = questions.aggregate(count=Count('id'))['count']
+        random_index = randint(0, count - 1)
+        question = questions.all()[random_index]
+
+        return Response(
+            self.get_serializer(
+                question, context={'request': request}
+            ).data)
+
+
 class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.HistoryListSerializer
     permission_classes = (IsAuthenticated,)
@@ -64,70 +88,26 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     def get_serializer_class(self):
         if (self.action == 'list'):
             return serializers.HistoryListSerializer
-        elif (self.action == 'retrieve'):
+        elif (self.action == 'retrieve' or self.action == 'create'):
             return serializers.HistoryDetailSerializer
 
         return serializers.HistoryListSerializer
 
     @swagger_auto_schema(
-        request_body=no_body,
-        responses={200: serializers.HistoryLineSimpleSerializer(many=False)}
+        request_body=serializers.HistoryCreateSerializer,
+        responses={201: serializers.HistoryDetailSerializer}
     )
     def create(self, request):
-        question_level = models.QuestionLevel.objects.get(
-            level=self.request.user.profile.level)
+        serializer = serializers.HistoryCreateSerializer(
+            data=self.request.data,
+            context=self.request)
 
-        history = models.History(level=question_level.level, user=request.user)
-        history.save()
+        if not serializer.is_valid():
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        history = serializer.save()
 
         return Response(
-            serializers.HistoryListSerializer(history, many=False).data)
-
-    @swagger_auto_schema(
-        responses={200: serializers.HistoryLineSimpleSerializer(many=False)}
-    )
-    @action(['get'], detail=True)
-    def next(self, request, *args, **kwargs):
-        history = self.get_object()
-
-        if (history.closed):
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        question_level = models.QuestionLevel.objects.get(level=history.level)
-        questions = question_level.questions
-
-        count = questions.aggregate(count=Count('id'))['count']
-        random_index = randint(0, count - 1)
-        question = questions.all()[random_index]
-
-        history_line = models.HistoryLine(
-            image=question.image.url,
-            correct_answer=question.correct_answer,
-            history=history
+            self.get_serializer_class()(history, many=False).data,
+            status=status.HTTP_201_CREATED
         )
-
-        history_line.save()
-
-        if (history.history_lines.count() == 10):
-            history.closed = True
-            history.save()
-
-        return Response(
-            serializers.HistoryLineSimpleSerializer(
-                history_line, context={'request': request}
-            ).data)
-
-
-@method_decorator(name='update', decorator=swagger_auto_schema(
-    request_body=serializers.HistoryLineAnswerSerializer
-))
-class HistoryLineView(mixins.UpdateModelMixin, viewsets.GenericViewSet):
-    queryset = models.HistoryLine.objects.all()
-    serializer_class = serializers.HistoryLineDetailSerializer
-    permission_classes = (IsAuthenticated,)
-
-    def get_serializer_class(self):
-        if (self.action == 'update'):
-            return serializers.HistoryLineAnswerSerializer
-        else:
-            return self.serializer_class

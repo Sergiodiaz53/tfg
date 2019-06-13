@@ -10,8 +10,7 @@ router.register(r'access-token', views.AccessTokenView,
                 base_name='AccessToken')
 router.register(r'user', views.UserView, basename='User')
 router.register(r'history', views.HistoryView, basename='History')
-router.register(r'history-line', views.HistoryLineView,
-                basename='HistoryLine')
+router.register(r'question', views.QuestionView, basename='Question')
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -90,7 +90,6 @@ class Question(models.Model):
 class History(models.Model):
 
     datetime = models.DateTimeField('datetime', 'datetime', auto_now=True)
-    closed = models.BooleanField(default=False)
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
     # question level
@@ -110,8 +109,8 @@ class History(models.Model):
 class HistoryLine(models.Model):
 
     answer = models.CharField(
-        choices=AVAILABLE_ANSWER_CHOICES, max_length=5, null=True)
-    duration = models.PositiveIntegerField(null=True)
+        choices=AVAILABLE_ANSWER_CHOICES, max_length=5)
+    duration = models.PositiveIntegerField()
 
     # question
     image = models.CharField(max_length=50)
