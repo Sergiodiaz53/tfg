@@ -26,7 +26,8 @@ export class MainPage {
         finalize(() => loading.dismiss())
       )
       .subscribe(history => {
-        this.router.navigate(['questions', history.id])
+        // TODO: Get from store
+        // this.router.navigate(['questions', history.id])
       })
   }
 }

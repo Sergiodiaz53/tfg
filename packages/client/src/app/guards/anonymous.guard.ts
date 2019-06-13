@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { UserService } from '../services/user/user.service';
+import { Store } from '@ngxs/store';
+import { UserState } from '../states/user/user.state';
 
 @Injectable()
 export class AnonymousGuard implements CanActivate {
 
-    constructor(private router: Router, private userService: UserService) {}
+    constructor(private router: Router, private store: Store) {}
 
     canActivate() {
-        if (this.userService.user) {
+        if (this.store.selectSnapshot(UserState)) {
             this.router.navigate([''], { skipLocationChange: true });
 
             return false;

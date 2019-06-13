@@ -18,8 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { HistoryCreate } from '../model/historyCreate';
 import { HistoryDetail } from '../model/historyDetail';
-import { HistoryLineSimple } from '../model/historyLineSimple';
 import { HistoryList } from '../model/historyList';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -64,13 +64,17 @@ export class HistoryService {
     /**
      * 
      * 
+     * @param data 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historyCreate(observe?: 'body', reportProgress?: boolean): Observable<HistoryLineSimple>;
-    public historyCreate(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineSimple>>;
-    public historyCreate(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineSimple>>;
-    public historyCreate(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyCreate(data: HistoryCreate, observe?: 'body', reportProgress?: boolean): Observable<HistoryDetail>;
+    public historyCreate(data: HistoryCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryDetail>>;
+    public historyCreate(data: HistoryCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryDetail>>;
+    public historyCreate(data: HistoryCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling historyCreate.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -90,10 +94,15 @@ export class HistoryService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.post<HistoryLineSimple>(`${this.configuration.basePath}/history/`,
-            null,
+        return this.httpClient.post<HistoryDetail>(`${this.configuration.basePath}/history/`,
+            data,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -135,51 +144,6 @@ export class HistoryService {
         ];
 
         return this.httpClient.get<Array<HistoryList>>(`${this.configuration.basePath}/history/`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param id 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public historyNext(id: string, observe?: 'body', reportProgress?: boolean): Observable<HistoryLineSimple>;
-    public historyNext(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLineSimple>>;
-    public historyNext(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLineSimple>>;
-    public historyNext(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling historyNext.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Token) required
-        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<HistoryLineSimple>(`${this.configuration.basePath}/history/${encodeURIComponent(String(id))}/next/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

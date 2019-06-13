@@ -9,13 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { HistoryLineDetail } from './historyLineDetail';
 
 
-export interface HistoryDetail { 
+export interface QuestionSimple { 
     readonly id?: number;
-    level: number;
-    readonly datetime?: Date;
-    historyLines: Array<HistoryLineDetail>;
+    readonly image?: string;
 }
 

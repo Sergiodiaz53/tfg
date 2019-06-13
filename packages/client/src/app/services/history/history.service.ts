@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HistoryService as HistoryApiService, HistoryLineService, HistoryLineAnswer } from '../../api';
+import { HistoryService as HistoryApiService } from '../../api';
+import { EMPTY } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HistoryService {
     constructor(
-        private historyApiService: HistoryApiService,
-        private historyLineApiService: HistoryLineService
+        private historyApiService: HistoryApiService
     ) {}
 
+    // TODO: Fix create
     create() {
-        return this.historyApiService.historyCreate();
+        return EMPTY;
+        // return this.historyApiService.historyCreate();
     }
 
     getAll() {
@@ -18,13 +20,5 @@ export class HistoryService {
 
     get(id: number) {
         return this.historyApiService.historyRead(`${id}`)
-    }
-
-    nextQuestion(id: number) {
-        return this.historyApiService.historyNext(`${id}`);
-    }
-
-    sendAnswer(id: number, data: HistoryLineAnswer) {
-        return this.historyLineApiService.historyLineUpdate(id, data);
     }
 }

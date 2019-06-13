@@ -6,6 +6,10 @@ import { LoadingController } from '@ionic/angular';
 import { UserService } from '../services/user/user.service';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Store, Select } from '@ngxs/store';
+import { LoginUser } from '../states/user/user.actions';
+import { UserDetail } from '../api';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +17,19 @@ import { Router } from '@angular/router';
   styleUrls: ['login.page.scss'],
 })
 export class LoginPage {
+
   credentialErrorsShown = false;
 
   loginCredentials = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
+    username: new FormControl('sifaw'),
+    password: new FormControl('49preerhe')
   })
 
-  constructor(private router: Router, private loadingController: LoadingController, private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private loadingController: LoadingController,
+    private store: Store
+  ) {}
 
   async onLogin() {
     this.credentialErrorsShown = false;
@@ -28,7 +37,7 @@ export class LoginPage {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    this.userService.login(this.loginCredentials.value)
+    this.store.dispatch(new LoginUser(this.loginCredentials.value))
       .pipe(
         finalize(() => loading.dismiss())
       )

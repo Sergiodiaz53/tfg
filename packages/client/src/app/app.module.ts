@@ -8,6 +8,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { NgxsModule } from '@ngxs/store';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
 import { ApiModule, Configuration } from './api';
@@ -19,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { UserService } from './services/user/user.service';
 import { HistoryService } from './services/history/history.service';
 import { CommonDirectivesModule } from './directives/directives.module';
+import { UserState } from './states/user/user.state';
 
 export function withConfigurationFactory(): Configuration {
   return new Configuration({
@@ -39,6 +41,9 @@ export function appInitializerFactory(userService: UserService) {
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    NgxsModule.forRoot([
+      UserState
+    ], { developmentMode: !environment.production }),
     NgxWebstorageModule.forRoot({ prefix: 'tfg', separator: '.' }),
     ApiModule.forRoot(withConfigurationFactory)
   ],
@@ -46,7 +51,6 @@ export function appInitializerFactory(userService: UserService) {
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    UserService,
     HistoryService,
     { provide: APP_INITIALIZER, multi: true, useFactory: appInitializerFactory, deps: [UserService] }
   ],

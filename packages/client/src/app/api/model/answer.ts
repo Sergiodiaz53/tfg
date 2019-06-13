@@ -11,23 +11,16 @@
  */
 
 
-export interface HistoryLineDetail { 
-    readonly id?: number;
-    answer: HistoryLineDetail.AnswerEnum;
+export interface Answer { 
+    answer: Answer.AnswerEnum;
     duration: number;
-    image: string;
-    correctAnswer: HistoryLineDetail.CorrectAnswerEnum;
+    questionId: number;
 }
-export namespace HistoryLineDetail {
+export namespace Answer {
     export type AnswerEnum = 'left' | 'right';
     export const AnswerEnum = {
         Left: 'left' as AnswerEnum,
         Right: 'right' as AnswerEnum
-    };
-    export type CorrectAnswerEnum = 'left' | 'right';
-    export const CorrectAnswerEnum = {
-        Left: 'left' as CorrectAnswerEnum,
-        Right: 'right' as CorrectAnswerEnum
     };
 }
 

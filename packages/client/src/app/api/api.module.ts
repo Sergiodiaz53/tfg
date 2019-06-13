@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { AccessTokenService } from './api/accessToken.service';
 import { HistoryService } from './api/history.service';
-import { HistoryLineService } from './api/historyLine.service';
+import { QuestionService } from './api/question.service';
 import { UserService } from './api/user.service';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { UserService } from './api/user.service';
   providers: [
     AccessTokenService,
     HistoryService,
-    HistoryLineService,
+    QuestionService,
     UserService ]
 })
 export class ApiModule {
