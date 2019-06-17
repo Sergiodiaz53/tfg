@@ -11,12 +11,12 @@
  */
 
 
-export interface HistoryLineAnswer { 
-    readonly id?: number;
-    answer: HistoryLineAnswer.AnswerEnum;
+export interface Answer { 
+    answer: Answer.AnswerEnum;
     duration: number;
+    questionId: number;
 }
-export namespace HistoryLineAnswer {
+export namespace Answer {
     export type AnswerEnum = 'left' | 'right';
     export const AnswerEnum = {
         Left: 'left' as AnswerEnum,

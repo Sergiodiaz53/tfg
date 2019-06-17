@@ -1,63 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryLineDetail } from '../../api';
+import { HistoryLineDetail, Question } from '../../api';
 import { HistoryService } from '../../services/history/history.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { flatMap, tap, finalize } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
 import { Location } from '@angular/common';
-import { of } from 'rxjs';
+import { of, EMPTY } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { QuestionState } from '../../states/question/question.state';
+import { GetQuestion, SetAnswer, SaveAnswers } from '../../states/question/question.actions';
+import { Answer } from '../../../../client/src/app/api';
+
+// TODO: Get from server
+const ANSWERS = 10;
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: 'questions.page.html',
-  styleUrls: ['questions.page.scss'],
+    selector: 'app-questions',
+    templateUrl: 'questions.page.html',
+    styleUrls: ['questions.page.scss']
 })
 export class QuestionsPage implements OnInit {
+    @Select(QuestionState.current)
+    question$: Question;
 
-  // TODO: Set correct type
-  question: any;
+    private questionStarted: number;
 
-  private questionStarted: number;
+    constructor(private location: Location, private store: Store) {}
 
-  constructor(
-    private location: Location,
-    private route: ActivatedRoute,
-    private loadingController: LoadingController,
-    private historyService: HistoryService
-  ) {}
+    ngOnInit() {
+        this.getNextQuestion().subscribe();
+    }
 
-  ngOnInit() {
-    // this.getNextQuestion().subscribe();
-  }
+    async answer(answer: Answer.AnswerEnum) {
+        const setAnswer = new SetAnswer({
+            answer,
+            duration: Date.now() - this.questionStarted,
+            questionId: this.store.selectSnapshot(QuestionState.current).id
+        });
 
-  async answer(answer: HistoryLineDetail.AnswerEnum) {
-    const loading = await this.loadingController.create();
-    await loading.present();
+        this.store
+            .dispatch(setAnswer)
+            .pipe(
+                flatMap(() => {
+                    if (
+                        this.store.selectSnapshot(state => state.question.answers).length ===
+                        ANSWERS
+                    ) {
+                        return this.store
+                            .dispatch(new SaveAnswers())
+                            .pipe(tap(() => this.location.back()));
+                    } else {
+                        return this.getNextQuestion();
+                    }
+                })
+            )
+            .subscribe();
+    }
 
-    // TODO: Use store
-    // this.historyService.sendAnswer(this.question.id, {
-    //   answer, duration: Date.now() - this.questionStarted
-    // }).pipe(
-    //   flatMap(() => {
-    //     if (!this.question.historyClosed) {
-    //       return this.getNextQuestion()
-    //     } else {
-    //       return of(this.location.back());
-    //     }
-    //   }),
-    //   finalize(() => loading.dismiss())
-    // ).subscribe();
-  }
-
-  // private getNextQuestion() {
-  //   return this.historyService.nextQuestion(+this.route.snapshot.paramMap.get('id'))
-  //     .pipe(
-  //       tap(
-  //         question => {
-  //           this.question = question;
-  //           this.questionStarted = Date.now();
-  //         }
-  //       )
-  //     );
-  // }
+    private getNextQuestion() {
+        return this.store.dispatch(new GetQuestion()).pipe(
+            tap(() => {
+                this.questionStarted = Date.now();
+            })
+        );
+    }
 }

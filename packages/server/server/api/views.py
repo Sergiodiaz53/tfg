@@ -51,11 +51,11 @@ class UserView(mixins.ListModelMixin, viewsets.ViewSet):
 
 
 class QuestionView(viewsets.GenericViewSet):
-    serializer_class = serializers.QuestionSimpleSerializer
+    serializer_class = serializers.QuestionSerializer
     permission_classes = (IsAuthenticated,)
 
     @swagger_auto_schema(
-        responses={200: serializers.QuestionSimpleSerializer(many=False)}
+        responses={200: serializers.QuestionSerializer(many=False)}
     )
     @action(['get'], detail=False)
     def random(self, request, *args, **kwargs):
@@ -94,13 +94,20 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         return serializers.HistoryListSerializer
 
     @swagger_auto_schema(
-        request_body=serializers.HistoryCreateSerializer,
+        request_body=serializers.AnswerBatchSerializer,
         responses={201: serializers.HistoryDetailSerializer}
     )
     def create(self, request):
+
+        historyData = {
+            "level": request.user.profile.level,
+            "answers": serializers.AnswerBatchSerializer(request.data)
+            .data.get('answers')
+        }
+
         serializer = serializers.HistoryCreateSerializer(
-            data=self.request.data,
-            context=self.request)
+            data=historyData,
+            context=request)
 
         if not serializer.is_valid():
             return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -18,7 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Question } from '../model/question';
+import { UserDetail } from '../model/userDetail';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -27,7 +27,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionService {
+export class UserService {
 
     protected basePath = 'http://localhost:8000/api';
     public defaultHeaders = new HttpHeaders();
@@ -65,10 +65,10 @@ export class QuestionService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public questionRandom(observe?: 'body', reportProgress?: boolean): Observable<Question>;
-    public questionRandom(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Question>>;
-    public questionRandom(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Question>>;
-    public questionRandom(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public user(observe?: 'body', reportProgress?: boolean): Observable<UserDetail>;
+    public user(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserDetail>>;
+    public user(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserDetail>>;
+    public user(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -90,7 +90,7 @@ export class QuestionService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Question>(`${this.configuration.basePath}/question/random/`,
+        return this.httpClient.get<UserDetail>(`${this.configuration.basePath}/user/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

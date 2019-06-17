@@ -11,8 +11,7 @@
  */
 
 
-export interface QuestionSimple { 
-    readonly id?: number;
-    readonly image?: string;
+export interface UserProfileDetail { 
+    level?: number;
 }
 

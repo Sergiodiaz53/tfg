@@ -18,7 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { HistoryCreate } from '../model/historyCreate';
+import { AnswerBatch } from '../model/answerBatch';
 import { HistoryDetail } from '../model/historyDetail';
 import { HistoryList } from '../model/historyList';
 
@@ -68,10 +68,10 @@ export class HistoryService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historyCreate(data: HistoryCreate, observe?: 'body', reportProgress?: boolean): Observable<HistoryDetail>;
-    public historyCreate(data: HistoryCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryDetail>>;
-    public historyCreate(data: HistoryCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryDetail>>;
-    public historyCreate(data: HistoryCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyCreate(data: AnswerBatch, observe?: 'body', reportProgress?: boolean): Observable<HistoryDetail>;
+    public historyCreate(data: AnswerBatch, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryDetail>>;
+    public historyCreate(data: AnswerBatch, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryDetail>>;
+    public historyCreate(data: AnswerBatch, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (data === null || data === undefined) {
             throw new Error('Required parameter data was null or undefined when calling historyCreate.');
         }

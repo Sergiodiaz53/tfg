@@ -12,8 +12,7 @@
 import { Answer } from './answer';
 
 
-export interface HistoryCreate { 
-    level: number;
+export interface AnswerBatch { 
     answers: Array<Answer>;
 }
 

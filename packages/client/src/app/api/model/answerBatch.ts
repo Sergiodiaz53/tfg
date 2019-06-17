@@ -9,11 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Answer } from './answer';
 
 
-export interface HistoryLineSimple { 
-    readonly id?: number;
-    image: string;
-    readonly historyClosed?: string;
+export interface AnswerBatch { 
+    answers: Array<Answer>;
 }
 

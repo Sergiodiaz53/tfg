@@ -62,7 +62,6 @@ class HistoryCreateSerializer(serializers.ModelSerializer):
             **validated_data, user=self.context.user)
 
         for answer in answers:
-            print(answer)
             question = models.Question.objects.get(
                 id=answer.get('question_id'))
             models.HistoryLine.objects.create(
@@ -92,7 +91,16 @@ class HistoryListSerializer(serializers.ModelSerializer):
         fields = ('id', 'level', 'datetime',)
 
 
-class QuestionSimpleSerializer(serializers.ModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Question
         fields = ('id', 'image',)
+
+
+class AnswerBatchSerializer(serializers.Serializer):
+
+    answers = AnswerSerializer(many=True)
+
+    class Meta:
+        fields = ('answers',)
+        depth = 1

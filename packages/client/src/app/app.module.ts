@@ -23,6 +23,7 @@ import { UserState } from './states/user/user.state';
 import { of, EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { LoginUser } from './states/user/user.actions';
+import { QuestionState } from './states/question/question.state';
 
 export function withConfigurationFactory(): Configuration {
     return new Configuration({
@@ -46,7 +47,9 @@ export function onAutologin(store: Store) {
         IonicModule.forRoot(),
         AppRoutingModule,
         HttpClientModule,
-        NgxsModule.forRoot([UserState], { developmentMode: !environment.production }),
+        NgxsModule.forRoot([UserState, QuestionState], {
+            developmentMode: !environment.production
+        }),
         NgxsStoragePluginModule.forRoot({ key: 'user.token' }),
         NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
         ApiModule.forRoot(withConfigurationFactory)

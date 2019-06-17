@@ -5,12 +5,12 @@
 </ion-header>
 
 <ion-content>
-    <ng-container *ngIf="question">
+    <ng-container *ngIf="question$ | async as question">
         <ion-grid>
             <ion-row justify-content-center>
-                <img class="question__image" [src]="question.image" alt="">
+                <img class="question__image" [src]="question.image" alt="" />
             </ion-row>
-    
+
             <ion-row>
                 <ion-col>
                     <ion-button expand="block" (click)="answer('left')">Left</ion-button>

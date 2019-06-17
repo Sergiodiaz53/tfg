@@ -1,33 +1,25 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
 import { HistoryService } from '../services/history/history.service';
+import { Store } from '@ngxs/store';
+import { GetQuestion } from '../states/question/question.actions';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: 'main.page.html',
-  styleUrls: ['main.page.scss'],
+    selector: 'app-main',
+    templateUrl: 'main.page.html',
+    styleUrls: ['main.page.scss']
 })
 export class MainPage {
-  constructor(
-    private router: Router,
-    private loadingController: LoadingController,
-    private historyService: HistoryService
-  ) {}
+    constructor(
+        private router: Router,
+        private loadingController: LoadingController,
+        private store: Store
+    ) {}
 
-  async start() {
-    const loading = await this.loadingController.create();
-    await loading.present();
-
-    this.historyService.create()
-      .pipe(
-        finalize(() => loading.dismiss())
-      )
-      .subscribe(history => {
-        // TODO: Get from store
-        // this.router.navigate(['questions', history.id])
-      })
-  }
+    async start() {
+        this.router.navigate(['questions']);
+    }
 }

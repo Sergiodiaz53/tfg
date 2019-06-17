@@ -18,7 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Question } from '../model/question';
+import { AccessToken } from '../model/accessToken';
+import { AuthToken } from '../model/authToken';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -27,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionService {
+export class AccessTokenService {
 
     protected basePath = 'http://localhost:8000/api';
     public defaultHeaders = new HttpHeaders();
@@ -62,13 +63,17 @@ export class QuestionService {
     /**
      * 
      * 
+     * @param data 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public questionRandom(observe?: 'body', reportProgress?: boolean): Observable<Question>;
-    public questionRandom(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Question>>;
-    public questionRandom(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Question>>;
-    public questionRandom(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public accessToken(data: AuthToken, observe?: 'body', reportProgress?: boolean): Observable<AccessToken>;
+    public accessToken(data: AuthToken, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AccessToken>>;
+    public accessToken(data: AuthToken, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AccessToken>>;
+    public accessToken(data: AuthToken, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling accessToken.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -88,9 +93,15 @@ export class QuestionService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.get<Question>(`${this.configuration.basePath}/question/random/`,
+        return this.httpClient.post<AccessToken>(`${this.configuration.basePath}/access-token/`,
+            data,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
