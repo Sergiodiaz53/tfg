@@ -5,11 +5,10 @@ import { UserState } from '../states/user/user.state';
 
 @Injectable()
 export class AnonymousGuard implements CanActivate {
-
     constructor(private router: Router, private store: Store) {}
 
     canActivate() {
-        if (this.store.selectSnapshot(UserState)) {
+        if (this.store.selectSnapshot(UserState.token)) {
             this.router.navigate([''], { skipLocationChange: true });
 
             return false;

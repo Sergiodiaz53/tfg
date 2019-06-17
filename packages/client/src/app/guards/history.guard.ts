@@ -9,16 +9,12 @@ import { catchError, map } from 'rxjs/operators';
 export class HistoryGuard implements Resolve<HistoryDetail> {
     constructor(private router: Router, private historyService: HistoryService) {}
 
-    resolve(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ) {
-        return this.historyService.get(+route.paramMap.get('id'))
-            .pipe(
-                catchError(() => {
-                    return this.router.navigate(['../']);
-                }),
-                map(() => null)
-            )
+    resolve(route: ActivatedRouteSnapshot) {
+        return this.historyService.get(+route.paramMap.get('id')).pipe(
+            catchError(() => {
+                return this.router.navigate(['../']);
+            }),
+            map(() => null)
+        );
     }
 }

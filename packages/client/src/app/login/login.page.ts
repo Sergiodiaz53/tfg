@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-
-import { LoadingController } from '@ionic/angular';
-
-import { UserService } from '../services/user/user.service';
-import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Store, Select } from '@ngxs/store';
+import { finalize } from 'rxjs/operators';
+import { LoadingController } from '@ionic/angular';
+import { Store } from '@ngxs/store';
+
 import { LoginUser } from '../states/user/user.actions';
-import { UserDetail } from '../api';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
