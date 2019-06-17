@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { NgxsModule, Store } from '@ngxs/store';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import { ApiModule, Configuration } from './api';
 
@@ -20,7 +21,7 @@ import { environment } from 'src/environments/environment';
 import { HistoryService } from './services/history/history.service';
 import { UserState } from './states/user/user.state';
 import { of, EMPTY } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { LoginUser } from './states/user/user.actions';
 
 export function withConfigurationFactory(): Configuration {
@@ -47,6 +48,7 @@ export function onAutologin(store: Store) {
         HttpClientModule,
         NgxsModule.forRoot([UserState], { developmentMode: !environment.production }),
         NgxsStoragePluginModule.forRoot({ key: 'user.token' }),
+        NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
         ApiModule.forRoot(withConfigurationFactory)
     ],
     providers: [
