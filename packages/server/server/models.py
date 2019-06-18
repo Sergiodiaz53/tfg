@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.dispatch import receiver
+from django.core import validators
 
 AVAILABLE_ANSWER_CHOICES = (
     ('left', 'left'),
@@ -90,7 +91,14 @@ class Question(models.Model):
 class History(models.Model):
 
     datetime = models.DateTimeField('datetime', 'datetime', auto_now=True)
-
+    valoration = models.FloatField(
+        'valoration',
+        'valoration',
+        validators=[
+            validators.MinValueValidator(0.0),
+            validators.MaxValueValidator(1.0)
+        ]
+    )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
     # question level
     level = models.PositiveIntegerField('level', 'level')

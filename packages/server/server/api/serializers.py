@@ -53,11 +53,12 @@ class HistoryCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.History
-        fields = ('level', 'answers',)
+        fields = ('level', 'valoration', 'answers',)
         depth = 1
 
     def create(self, validated_data):
         answers = validated_data.pop('answers')
+
         history = models.History.objects.create(
             **validated_data, user=self.context.user)
 
@@ -81,7 +82,7 @@ class HistoryDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.History
-        fields = ('id', 'level', 'datetime', 'history_lines',)
+        fields = ('id', 'level', 'datetime', 'valoration', 'history_lines',)
         depth = 1
 
 
@@ -99,8 +100,9 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class AnswerBatchSerializer(serializers.Serializer):
 
+    valoration = serializers.FloatField()
     answers = AnswerSerializer(many=True)
 
     class Meta:
-        fields = ('answers',)
+        fields = ('answers', 'valoration',)
         depth = 1

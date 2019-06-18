@@ -99,10 +99,19 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     )
     def create(self, request):
 
+        answerBatch = serializers.AnswerBatchSerializer(
+            data=request.data)
+
+        if not answerBatch.is_valid():
+            return Response(
+                answerBatch.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         historyData = {
-            "level": request.user.profile.level,
-            "answers": serializers.AnswerBatchSerializer(request.data)
-            .data.get('answers')
+            'level': request.user.profile.level,
+            'valoration': answerBatch.data.get('valoration'),
+            'answers': answerBatch.data.get('answers')
         }
 
         serializer = serializers.HistoryCreateSerializer(
@@ -110,7 +119,10 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
             context=request)
 
         if not serializer.is_valid():
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         history = serializer.save()
 
