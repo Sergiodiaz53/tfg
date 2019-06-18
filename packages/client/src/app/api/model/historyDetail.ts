@@ -16,6 +16,7 @@ export interface HistoryDetail {
     readonly id?: number;
     level: number;
     readonly datetime?: Date;
+    valoration: number;
     historyLines: Array<HistoryLineDetail>;
 }
 

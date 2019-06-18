@@ -10,6 +10,12 @@ export class SetAnswer {
     constructor(public payload: Answer) {}
 }
 
+export class SetValoration {
+    static readonly type = '[Question] Set Valoration';
+
+    constructor(public valoration: number) {}
+}
+
 export class SaveAnswers {
     static readonly type = '[Question] Save Answer';
 }

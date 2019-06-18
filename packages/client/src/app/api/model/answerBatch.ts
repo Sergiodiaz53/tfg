@@ -13,6 +13,7 @@ import { Answer } from './answer';
 
 
 export interface AnswerBatch { 
+    valoration: number;
     answers: Array<Answer>;
 }
 

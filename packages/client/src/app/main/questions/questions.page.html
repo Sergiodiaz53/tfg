@@ -4,8 +4,8 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ng-container *ngIf="question$ | async as question">
+<ion-content padding>
+    <ng-container *ngIf="question$ | async as question; else valorationTemplate">
         <ion-grid>
             <ion-row justify-content-center>
                 <img class="question__image" [src]="question.image" alt="" />
@@ -22,3 +22,7 @@
         </ion-grid>
     </ng-container>
 </ion-content>
+
+<ng-template #valorationTemplate>
+    <app-valoration (valoration)="onValoration($event)"></app-valoration>
+</ng-template>

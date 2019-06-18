@@ -1,12 +1,17 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { patch, append } from '@ngxs/store/operators';
-import { Question, Answer, QuestionService, HistoryService } from '../../api';
-import { GetQuestion, SetAnswer, SaveAnswers, ResetQuestions } from './question.actions';
+import { Question, Answer, QuestionService, HistoryService, AnswerBatch } from '../../api';
+import {
+    GetQuestion,
+    SetAnswer,
+    SaveAnswers,
+    ResetQuestions,
+    SetValoration
+} from './question.actions';
 import { tap } from 'rxjs/operators';
 
-export interface QuestionModel {
+export interface QuestionModel extends Partial<AnswerBatch> {
     current?: Question;
-    answers?: Answer[];
 }
 
 @State<QuestionModel>({
@@ -36,10 +41,18 @@ export class QuestionState {
         );
     }
 
+    @Action(SetValoration)
+    setValoration(ctx: StateContext<QuestionModel>, { valoration }: SetValoration) {
+        return ctx.patchState({ valoration });
+    }
+
     @Action(SaveAnswers)
     SaveAnswers(ctx: StateContext<QuestionModel>) {
         return this.historyService
-            .historyCreate({ answers: ctx.getState().answers })
+            .historyCreate({
+                answers: ctx.getState().answers,
+                valoration: ctx.getState().valoration
+            })
             .pipe(tap(() => this.resetQuestions(ctx)));
     }
 

@@ -8,7 +8,12 @@ import { Location } from '@angular/common';
 import { of, EMPTY } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { QuestionState } from '../../states/question/question.state';
-import { GetQuestion, SetAnswer, SaveAnswers } from '../../states/question/question.actions';
+import {
+    GetQuestion,
+    SetAnswer,
+    SaveAnswers,
+    SetValoration
+} from '../../states/question/question.actions';
 import { Answer } from '../../../../client/src/app/api';
 
 // TODO: Get from server
@@ -27,8 +32,13 @@ export class QuestionsPage implements OnInit {
 
     constructor(private location: Location, private store: Store) {}
 
-    ngOnInit() {
-        this.getNextQuestion().subscribe();
+    ngOnInit() {}
+
+    onValoration(valoration: number) {
+        this.store
+            .dispatch(new SetValoration(valoration))
+            .pipe(flatMap(() => this.getNextQuestion()))
+            .subscribe();
     }
 
     async answer(answer: Answer.AnswerEnum) {
