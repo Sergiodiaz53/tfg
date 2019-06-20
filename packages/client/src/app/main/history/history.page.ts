@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryService } from '../../services/history/history.service';
 import { LoadingController } from '@ionic/angular';
-import { tap, finalize, flatMap, map } from 'rxjs/operators';
-import { HistoryList, HistoryDetail } from '../../api';
-import { from } from 'rxjs';
-import { state, style, transition, animate, trigger, query, stagger } from '@angular/animations';
+import { finalize, flatMap, map } from 'rxjs/operators';
+import { from, merge } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Store, Select } from '@ngxs/store';
+import { GetHistory } from '../../states/histories/histories.actions';
+import { HistoryDetail } from '../../api';
 
 @Component({
     selector: 'app-history',
@@ -13,35 +13,32 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./history.page.scss']
 })
 export class HistoryPage implements OnInit {
-
-    history: HistoryDetail;
+    @Select(state => state.histories.current)
+    history$: HistoryDetail;
 
     constructor(
-        private loadingController: LoadingController,
         private route: ActivatedRoute,
-        private historyService: HistoryService
-    ) { }
+        private loadingController: LoadingController,
+        private store: Store
+    ) {}
 
     ngOnInit() {
-        this.getHistory().subscribe()
+        this.getHistory().subscribe();
     }
 
     getHistory() {
-        const histories$ = this.historyService.get(this.route.snapshot.params.id)
-            .pipe(
-                tap(history => this.history = history)
-            );
-        
+        const historyId = this.route.snapshot.params.id;
         let loading: HTMLIonLoadingElement;
 
-        return from(this.loadingController.create())
-            .pipe(
-                flatMap(loadingComponent => {
-                    loading = loadingComponent;
-                    return loadingComponent.present();
-                }),
-                flatMap(() => histories$.pipe(map(() => loading))),
-                finalize(() => loading.dismiss())
-            );
+        return from(this.loadingController.create()).pipe(
+            flatMap(loadingComponent => {
+                loading = loadingComponent;
+                return loadingComponent.present();
+            }),
+            flatMap(() => {
+                return this.store.dispatch(new GetHistory(historyId)).pipe(map(() => loading));
+            }),
+            finalize(() => loading.dismiss())
+        );
     }
 }

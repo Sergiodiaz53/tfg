@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryLineDetail, Question } from '../../api';
-import { HistoryService } from '../../services/history/history.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { flatMap, tap, finalize } from 'rxjs/operators';
-import { LoadingController } from '@ionic/angular';
+import { Question, Answer } from '../../api';
+import { flatMap, tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
-import { of, EMPTY } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { QuestionState } from '../../states/question/question.state';
 import {
@@ -14,7 +10,6 @@ import {
     SaveAnswers,
     SetValoration
 } from '../../states/question/question.actions';
-import { Answer } from '../../../../client/src/app/api';
 
 // TODO: Get from server
 const ANSWERS = 10;

@@ -5,8 +5,15 @@
 </ion-header>
 
 <ion-content>
-    <ion-item *ngIf="history">
+    <ion-item *ngIf="history$ | async as history">
         <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-text>
+                        <span>Valoration: {{ history.valoration }}</span>
+                    </ion-text>
+                </ion-col>
+            </ion-row>
             <ion-row>
                 <ion-col>Answer</ion-col>
                 <ion-col>Duration</ion-col>

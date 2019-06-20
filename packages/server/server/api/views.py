@@ -136,6 +136,10 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
             status=status.HTTP_201_CREATED
         )
 
+    @swagger_auto_schema(
+        request_body=no_body,
+        responses={200: serializers.HistoryStatsSerializer}
+    )
     @action(detail=False, methods=['get'])
     def stats(self, request):
         now = timezone.now()

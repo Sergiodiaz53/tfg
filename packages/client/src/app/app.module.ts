@@ -18,12 +18,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { environment } from 'src/environments/environment';
-import { HistoryService } from './services/history/history.service';
 import { UserState } from './states/user/user.state';
 import { of, EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { LoginUser } from './states/user/user.actions';
 import { QuestionState } from './states/question/question.state';
+import { HistoriesState } from './states/histories/histories.state';
 
 export function withConfigurationFactory(): Configuration {
     return new Configuration({
@@ -47,7 +47,7 @@ export function onAutologin(store: Store) {
         IonicModule.forRoot(),
         AppRoutingModule,
         HttpClientModule,
-        NgxsModule.forRoot([UserState, QuestionState], {
+        NgxsModule.forRoot([UserState, QuestionState, HistoriesState], {
             developmentMode: !environment.production
         }),
         NgxsStoragePluginModule.forRoot({ key: 'user.token' }),
@@ -58,7 +58,6 @@ export function onAutologin(store: Store) {
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        HistoryService,
         { provide: APP_INITIALIZER, multi: true, useFactory: onAutologin, deps: [Store] }
     ],
     bootstrap: [AppComponent]

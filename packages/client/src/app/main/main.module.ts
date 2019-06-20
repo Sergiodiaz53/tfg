@@ -34,8 +34,8 @@ import { ValorationComponent } from './questions/valoration/valoration.component
                 path: 'histories/:id',
                 component: HistoryPage
             }
-        ]),
-        ChartsModule
+        ])
+        // ChartsModule
     ],
     declarations: [MainPage, QuestionsPage, ValorationComponent, HistoriesPage, HistoryPage]
 })

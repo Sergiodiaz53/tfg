@@ -205,9 +205,9 @@ export class HistoryService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historyStats(observe?: 'body', reportProgress?: boolean): Observable<Array<HistoryStats>>;
-    public historyStats(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<HistoryStats>>>;
-    public historyStats(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<HistoryStats>>>;
+    public historyStats(observe?: 'body', reportProgress?: boolean): Observable<HistoryStats>;
+    public historyStats(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryStats>>;
+    public historyStats(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryStats>>;
     public historyStats(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -230,7 +230,7 @@ export class HistoryService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<HistoryStats>>(`${this.configuration.basePath}/history/stats/`,
+        return this.httpClient.get<HistoryStats>(`${this.configuration.basePath}/history/stats/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
