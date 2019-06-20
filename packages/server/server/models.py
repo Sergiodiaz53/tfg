@@ -1,7 +1,10 @@
 import os.path
+import pytz
 
 from django.utils.translation import gettext as _
+from django.utils import timezone
 from django.db import models
+from django.db.models import Sum, F
 from django.conf import settings
 from django.urls import reverse
 from django.dispatch import receiver
@@ -90,7 +93,7 @@ class Question(models.Model):
 
 class History(models.Model):
 
-    datetime = models.DateTimeField('datetime', 'datetime', auto_now=True)
+    created = models.DateTimeField('created', 'created')
     valoration = models.FloatField(
         'valoration',
         'valoration',
@@ -108,10 +111,19 @@ class History(models.Model):
         verbose_name_plural = _('Historys')
 
     def __str__(self):
-        return '{}/{}'.format(self.user.pk, self.datetime)
+        return '{}/{}'.format(self.user.pk, self.created)
 
     def get_absolute_url(self):
         return reverse('History_detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        if self.created is None:
+            self.created = timezone.now()
+        super(History, self).save(*args, **kwargs)
+
+    @property
+    def correct_answers(self):
+        return self.history_lines.filter(answer=F('correct_answer')).count()
 
 
 class HistoryLine(models.Model):
@@ -137,3 +149,7 @@ class HistoryLine(models.Model):
 
     def get_absolute_url(self):
         return reverse('HistoryLine_detail', kwargs={'pk': self.pk})
+
+    @property
+    def is_correct(self):
+        return self.answer == self.correct_answer

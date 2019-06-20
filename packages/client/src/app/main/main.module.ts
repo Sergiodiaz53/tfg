@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ChartsModule } from 'ng2-charts';
 
 import { MainPage } from './main.page';
 import { QuestionsPage } from './questions/questions.page';
@@ -33,7 +34,8 @@ import { ValorationComponent } from './questions/valoration/valoration.component
                 path: 'histories/:id',
                 component: HistoryPage
             }
-        ])
+        ]),
+        ChartsModule
     ],
     declarations: [MainPage, QuestionsPage, ValorationComponent, HistoriesPage, HistoryPage]
 })

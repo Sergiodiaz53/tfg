@@ -14,6 +14,6 @@
 export interface HistoryList { 
     readonly id?: number;
     level: number;
-    readonly datetime?: Date;
+    created: Date;
 }
 

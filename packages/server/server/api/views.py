@@ -1,7 +1,10 @@
 
 from random import randint
+from django.utils import timezone
+import pytz
 
-from django.db.models.aggregates import Count
+from django.db.models import IntegerField, Count, Sum, F, Avg, Case, When
+from django.db.models.functions import TruncDay
 from django.apps import apps
 from django.conf import settings
 from django.utils.decorators import method_decorator
@@ -90,6 +93,8 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
             return serializers.HistoryListSerializer
         elif (self.action == 'retrieve' or self.action == 'create'):
             return serializers.HistoryDetailSerializer
+        elif (self.action == 'stats'):
+            return serializers.HistoryStatsSerializer
 
         return serializers.HistoryListSerializer
 
@@ -129,4 +134,33 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         return Response(
             self.get_serializer_class()(history, many=False).data,
             status=status.HTTP_201_CREATED
+        )
+
+    @action(detail=False, methods=['get'])
+    def stats(self, request):
+        now = timezone.now()
+        from_date = now - timezone.timedelta(days=7)
+
+        correct_answers_query = Sum(
+            Case(
+                When(
+                    history_lines__answer=F('history_lines__correct_answer'),
+                    then=1
+                ),
+                default=0,
+                output_field=IntegerField())
+        )
+
+        stats = models.History.objects.filter(
+            user=request.user,
+            created__range=(from_date, now)
+        ).annotate(
+            day=TruncDay('created')
+        ).values('day').annotate(
+            correct_answers=correct_answers_query,
+            valoration=Avg('valoration')
+        )
+
+        return Response(
+            self.get_serializer_class()(stats, many=True).data
         )

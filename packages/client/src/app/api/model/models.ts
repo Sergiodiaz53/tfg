@@ -5,6 +5,7 @@ export * from './authToken';
 export * from './historyDetail';
 export * from './historyLineDetail';
 export * from './historyList';
+export * from './historyStats';
 export * from './question';
 export * from './userDetail';
 export * from './userProfileDetail';

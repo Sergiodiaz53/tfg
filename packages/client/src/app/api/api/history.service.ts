@@ -21,6 +21,7 @@ import { Observable }                                        from 'rxjs';
 import { AnswerBatch } from '../model/answerBatch';
 import { HistoryDetail } from '../model/historyDetail';
 import { HistoryList } from '../model/historyList';
+import { HistoryStats } from '../model/historyStats';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -189,6 +190,47 @@ export class HistoryService {
         ];
 
         return this.httpClient.get<HistoryDetail>(`${this.configuration.basePath}/history/${encodeURIComponent(String(id))}/`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public historyStats(observe?: 'body', reportProgress?: boolean): Observable<Array<HistoryStats>>;
+    public historyStats(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<HistoryStats>>>;
+    public historyStats(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<HistoryStats>>>;
+    public historyStats(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<HistoryStats>>(`${this.configuration.basePath}/history/stats/`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -82,14 +82,14 @@ class HistoryDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.History
-        fields = ('id', 'level', 'datetime', 'valoration', 'history_lines',)
+        fields = ('id', 'level', 'created', 'valoration', 'history_lines',)
         depth = 1
 
 
 class HistoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.History
-        fields = ('id', 'level', 'datetime',)
+        fields = ('id', 'level', 'created',)
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -106,3 +106,13 @@ class AnswerBatchSerializer(serializers.Serializer):
     class Meta:
         fields = ('answers', 'valoration',)
         depth = 1
+
+
+class HistoryStatsSerializer(serializers.Serializer):
+
+    day = serializers.DateTimeField()
+    correct_answers = serializers.IntegerField()
+    valoration = serializers.FloatField()
+
+    class Meta:
+        fields = ('day', 'correct_answers', 'valoration',)
