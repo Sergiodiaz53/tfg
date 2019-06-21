@@ -1,6 +1,7 @@
 import os
 
 from django.core.management.base import BaseCommand, CommandError
+from server.models import QuestionLevel, Question
 
 
 class Command(BaseCommand):
@@ -8,8 +9,34 @@ class Command(BaseCommand):
 
     def handle(self, *rgs, **options):
         media_path = os.path.join(os.getcwd(), 'media')
-        fixtures_path = os.path.join(media_path, 'fixtures')
-        questions_path = os.path.join(fixtures_path, 'questions')
+        questions_path = os.path.join(media_path, 'questions')
 
         # TODO: Check path ./media/fixtures/questions exists
-        self.stdout.write(os.listdir())
+        for dir in os.listdir(questions_path):
+            question_level_path = os.path.join(questions_path, dir)
+
+            if os.path.isdir(question_level_path):
+                self.save_question_level(question_level_path)
+
+    def save_question_level(self, path):
+        level = path.split(os.path.sep)[-1]
+        question_level = QuestionLevel.objects.get_or_create(
+            level=level
+        )[0]
+
+        for question in os.listdir(path):
+            question_path = os.path.join(path, question)
+
+            if os.path.isfile(question_path):
+                self.save_question(question_level, question_path)
+
+    def save_question(self, question_level, question_path):
+        media_path = question_path.replace(os.getcwd(), '')
+        question_name = media_path.split(os.path.sep)[-1]
+        correct_answer = question_name[0:1]
+
+        Question(
+            image=media_path,
+            correct_answer=correct_answer,
+            question_level=question_level
+        ).save()
