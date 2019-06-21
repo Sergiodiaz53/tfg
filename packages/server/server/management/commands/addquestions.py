@@ -35,8 +35,13 @@ class Command(BaseCommand):
         question_name = media_path.split(os.path.sep)[-1]
         correct_answer = question_name[0:1]
 
+        answers = {
+            'I': 'left',
+            'D': 'right'
+        }
+
         Question(
             image=media_path,
-            correct_answer=correct_answer,
+            correct_answer=answers[correct_answer],
             question_level=question_level
         ).save()
