@@ -16,10 +16,17 @@ from rest_framework.authentication import (
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema, no_body
 
 from .. import models
 from . import serializers
+
+question_exclude_param = openapi.Parameter(
+    'exclude', openapi.IN_QUERY,
+    description="question exclude param",
+    type=openapi.TYPE_ARRAY,
+    items=openapi.Items(openapi.TYPE_NUMBER))
 
 
 class AccessTokenView(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -63,13 +70,20 @@ class QuestionView(viewsets.GenericViewSet):
     @action(['get'], detail=False)
     def random(self, request, *args, **kwargs):
 
+        exclude_param = request.GET.get('exclude')
+        exclude_questions = []
+        if (exclude_param):
+            exclude_questions = [
+                int(x) for x in exclude_param.split(',')
+            ]
+
         question_level = models.QuestionLevel.objects.get(
             level=self.request.user.profile.level)
-        questions = question_level.questions
+        questions = question_level.questions.exclude(id__in=exclude_questions)
 
         count = questions.aggregate(count=Count('id'))['count']
         random_index = randint(0, count - 1)
-        question = questions.all()[random_index]
+        question = questions[random_index]
 
         return Response(
             self.get_serializer(

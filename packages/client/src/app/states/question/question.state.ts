@@ -15,7 +15,8 @@ export interface QuestionModel extends Partial<AnswerBatch> {
 }
 
 @State<QuestionModel>({
-    name: 'question'
+    name: 'question',
+    defaults: { answers: [] }
 })
 export class QuestionState {
     @Selector()
@@ -27,8 +28,15 @@ export class QuestionState {
 
     @Action(GetQuestion)
     getQuestion(ctx: StateContext<QuestionModel>) {
+        const answers = ctx.getState().answers;
+        let exclude = null;
+
+        if (answers.length) {
+            exclude = answers.map(answer => answer.questionId);
+        }
+
         return this.questionService
-            .questionRandom()
+            .questionRandom(exclude)
             .pipe(tap(result => ctx.patchState({ current: result })));
     }
 
@@ -58,6 +66,6 @@ export class QuestionState {
 
     @Action(ResetQuestions)
     resetQuestions(ctx: StateContext<QuestionModel>) {
-        return ctx.setState({});
+        return ctx.setState({ answers: [] });
     }
 }
