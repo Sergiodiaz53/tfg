@@ -4,7 +4,7 @@ import pytz
 from django.utils.translation import gettext as _
 from django.utils import timezone
 from django.db import models
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Avg
 from django.conf import settings
 from django.urls import reverse
 from django.dispatch import receiver
@@ -33,6 +33,14 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse('User_profile', kwargs={'pk': self.pk})
 
+    def level_up(self):
+        self.level = min(self.level + 1, 10)
+        self.save()
+
+    def level_down(self):
+        self.level = max(self.level - 1, 1)
+        self.save()
+
 
 @receiver(models.signals.post_save, sender=settings.AUTH_USER_MODEL)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -51,6 +59,15 @@ def question_image_directory_path(instance, filename):
 class QuestionLevel(models.Model):
 
     level = models.PositiveIntegerField('level', 'level', unique=True)
+    average_duration = models.PositiveIntegerField(
+        validators=[
+            validators.MinValueValidator(0)
+        ])
+    duration_threshold = models.PositiveIntegerField(
+        validators=[
+            validators.MinValueValidator(0),
+            validators.MaxValueValidator(100)
+        ])
 
     class Meta:
         verbose_name = _('QuestionLevel')
@@ -61,6 +78,14 @@ class QuestionLevel(models.Model):
 
     def get_absolute_url(self):
         return reverse('QuestionLevel_detail', kwargs={'pk': self.pk})
+
+    @property
+    def level_down_threshold(self):
+        return self.average_duration * ((100 + self.duration_threshold) / 100)
+
+    @property
+    def level_up_threshold(self):
+        return self.average_duration * ((100 - self.duration_threshold) / 100)
 
 
 class Question(models.Model):
@@ -124,6 +149,11 @@ class History(models.Model):
     @property
     def correct_answers(self):
         return self.history_lines.filter(answer=F('correct_answer')).count()
+
+    @property
+    def average_duration(self):
+        return self.history_lines.aggregate(
+            Avg('duration')).get('duration__avg')
 
 
 class HistoryLine(models.Model):

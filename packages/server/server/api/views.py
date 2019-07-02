@@ -145,6 +145,18 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
 
         history = serializer.save()
 
+        # test if user go to level up or not
+        question_level = models.QuestionLevel.objects.get(id=history.level)
+
+        average_duration = history.average_duration
+        is_level_down = average_duration >= question_level.level_down_threshold
+        is_level_up = average_duration <= question_level.level_up_threshold
+
+        if is_level_down:
+            request.user.profile.level_down()
+        elif is_level_up:
+            request.user.profile.level_up()
+
         return Response(
             self.get_serializer_class()(history, many=False).data,
             status=status.HTTP_201_CREATED
