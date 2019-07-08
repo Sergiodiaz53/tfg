@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { finalize, flatMap, map } from 'rxjs/operators';
-import { HistoryList } from '../../api';
+import { HistoryList, HistoryStats } from '../../api';
 import { from, merge, Observable } from 'rxjs';
 import { style, transition, animate, trigger, query, stagger } from '@angular/animations';
 import { Store, Select } from '@ngxs/store';
@@ -29,6 +29,9 @@ import { GetHistories, GetStats } from '../../states/histories/histories.actions
 export class HistoriesPage implements OnInit {
     @Select(state => state.histories.histories)
     histories$: Observable<HistoryList[]>;
+
+    @Select(state => state.histories.stats)
+    stats$: Observable<HistoryStats[]>;
 
     constructor(private loadingController: LoadingController, private store: Store) {}
 

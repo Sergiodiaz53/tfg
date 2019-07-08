@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ChartsModule } from 'ng2-charts';
 
 import { MainPage } from './main.page';
 import { QuestionsPage } from './questions/questions.page';
 import { HistoriesPage } from './histories/histories.page';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HistoryPage } from './history/history.page';
 import { ValorationComponent } from './questions/valoration/valoration.component';
+import { HistoryStatsComponent } from './history-stats/history-stats.component';
+import { ChartDirective } from '../directives/chart-js/chart-js.directive';
 
 @NgModule({
     imports: [
@@ -35,8 +35,15 @@ import { ValorationComponent } from './questions/valoration/valoration.component
                 component: HistoryPage
             }
         ])
-        // ChartsModule
     ],
-    declarations: [MainPage, QuestionsPage, ValorationComponent, HistoriesPage, HistoryPage]
+    declarations: [
+        MainPage,
+        QuestionsPage,
+        ValorationComponent,
+        HistoriesPage,
+        HistoryPage,
+        HistoryStatsComponent,
+        ChartDirective
+    ]
 })
 export class MainModule {}
