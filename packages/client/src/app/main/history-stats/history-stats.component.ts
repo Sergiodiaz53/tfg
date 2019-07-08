@@ -28,7 +28,8 @@ export class HistoryStatsComponent implements OnInit {
                     backgroundColor: 'rgba(255, 99, 132, 0.5)',
                     type: 'line',
                     yAxisID: 'valoration',
-                    fill: false
+                    fill: false,
+                    lineTension: 0
                 }
             ]
         },
@@ -54,7 +55,6 @@ export class HistoryStatsComponent implements OnInit {
             }
         }
     };
-    // valorationStats: ChartConfiguration = {};
 
     constructor() {}
 
