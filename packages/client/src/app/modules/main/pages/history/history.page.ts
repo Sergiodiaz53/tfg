@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { finalize, flatMap, map } from 'rxjs/operators';
-import { from, merge } from 'rxjs';
+import { from } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import { GetHistory } from '../../../../shared/states/histories/histories.actions';

@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { LoginPage } from './pages/login/login.page';
+import { SignUpPage } from './pages/signup/signup.page';
 
 @NgModule({
     imports: [
@@ -15,9 +16,13 @@ import { LoginPage } from './pages/login/login.page';
             {
                 path: '',
                 component: LoginPage
+            },
+            {
+                path: 'signup',
+                component: SignUpPage
             }
         ])
     ],
-    declarations: [LoginPage]
+    declarations: [LoginPage, SignUpPage]
 })
 export class LoginPageModule {}

@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { HomePage } from './pages/home/home.page';
 import { QuestionsPage } from './pages/questions/questions.page';
 import { HistoriesPage } from './pages/histories/histories.page';
-import { HistoryPage } from './components/history/history.page';
+import { HistoryPage } from './pages/history/history.page';
 import { ValorationComponent } from './components/valoration/valoration.component';
 import { HistoryStatsComponent } from './components/history-stats/history-stats.component';
 import { ChartDirective } from '../../shared/directives/chart-js/chart-js.directive';
