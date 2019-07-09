@@ -12,18 +12,18 @@ import { NgxsModule, Store } from '@ngxs/store';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
-import { ApiModule, Configuration } from './api';
+import { ApiModule, Configuration } from './core/api';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { environment } from 'src/environments/environment';
-import { UserState } from './states/user/user.state';
+import { UserState } from './shared/states/user/user.state';
 import { of, EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { LoginUser } from './states/user/user.actions';
-import { QuestionState } from './states/question/question.state';
-import { HistoriesState } from './states/histories/histories.state';
+import { LoginUser } from './shared/states/user/user.actions';
+import { QuestionState } from './shared/states/question/question.state';
+import { HistoriesState } from './shared/states/histories/histories.state';
 
 export function withConfigurationFactory(): Configuration {
     return new Configuration({
