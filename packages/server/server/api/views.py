@@ -65,6 +65,7 @@ class QuestionView(viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
 
     @swagger_auto_schema(
+        manual_parameters=[question_exclude_param],
         responses={200: serializers.QuestionSerializer(many=False)}
     )
     @action(['get'], detail=False)
