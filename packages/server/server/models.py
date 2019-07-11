@@ -5,21 +5,59 @@ from django.utils.translation import gettext as _
 from django.utils import timezone
 from django.db import models
 from django.db.models import Sum, F, Avg
+from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.urls import reverse
 from django.dispatch import receiver
 from django.core import validators
 
-AVAILABLE_ANSWER_CHOICES = (
+ANSWER_CHOICES = (
     ('left', 'left'),
     ('right', 'right'),
+)
+
+SEX_CHOICES = (
+    ('male', 'female'),
+    ('male', 'female')
+)
+
+FREQUENCY_CHOICES = (
+    ('never', 'never'),
+    ('rarely', 'rarely'),
+    ('sometimes', 'sometimes'),
+    ('many_times', 'many_times'),
+    ('usually', 'usually'),
+    ('always', 'always')
+)
+
+PAIN_CHOICES = (
+    ('none', 'none'),
+    ('a_little', 'a little'),
+    ('some', 'some'),
+    ('lot', 'lot')
+)
+
+LOVE_CHOICES = (
+    ('charmed', 'charmed'),
+    ('very_satisfied', 'very satisfied'),
+    ('satisfied', 'satisfied'),
+    ('confused', 'confused'),
+    ('dissatisfied', 'dissatisfied'),
+    ('discontent', 'discontent'),
+    ('fatal', 'fatal')
 )
 
 
 class UserProfile(models.Model):
     level = models.PositiveIntegerField(default=1)
+    sex = models.CharField(
+        choices=SEX_CHOICES, max_length=6)
+    years = models.PositiveSmallIntegerField()
+    weigh = models.PositiveSmallIntegerField()
+    heigh = models.PositiveSmallIntegerField()
+
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+        get_user_model(),
         related_name='profile',
         on_delete=models.CASCADE)
 
@@ -92,7 +130,7 @@ class Question(models.Model):
 
     image = models.ImageField(upload_to=question_image_directory_path)
     correct_answer = models.CharField(
-        choices=AVAILABLE_ANSWER_CHOICES, max_length=5)
+        choices=ANSWER_CHOICES, max_length=5)
     question_level = models.ForeignKey(
         QuestionLevel, models.CASCADE, related_name='questions')
 
@@ -159,13 +197,13 @@ class History(models.Model):
 class HistoryLine(models.Model):
 
     answer = models.CharField(
-        choices=AVAILABLE_ANSWER_CHOICES, max_length=5)
+        choices=ANSWER_CHOICES, max_length=5)
     duration = models.PositiveIntegerField()
 
     # question
     image = models.CharField(max_length=50)
     correct_answer = models.CharField(
-        choices=AVAILABLE_ANSWER_CHOICES, max_length=5)
+        choices=ANSWER_CHOICES, max_length=5)
 
     history = models.ForeignKey(
         History, models.CASCADE, related_name='history_lines')
@@ -183,3 +221,40 @@ class HistoryLine(models.Model):
     @property
     def is_correct(self):
         return self.answer == self.correct_answer
+
+
+class Questionary(models.Model):
+
+    perineal_area_pain = models.BooleanField()
+    vulva_pain = models.BooleanField()
+    clitoris_pain = models.BooleanField()
+    bladder_pain = models.BooleanField()
+    pain_frequency = models.CharField(
+        choices=FREQUENCY_CHOICES, max_length=10
+    )
+    pee_pain = models.BooleanField()
+    sexual_relations_pain = models.BooleanField(null=True)
+    pain_intensity = models.PositiveIntegerField(
+        validators=[validators.MinValueValidator(0), validators.MaxValueValidator(10)])
+    stop_doing_things = models.CharField(
+        choices=PAIN_CHOICES, max_length=8
+    )
+    think_symptoms = models.CharField(
+        choices=PAIN_CHOICES, max_length=8
+    )
+    same_health_life = models.CharField(
+        choices=LOVE_CHOICES, max_length=8
+    )
+
+    user = models.OneToOneField(
+        get_user_model(), null=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _('Questionary')
+        verbose_name_plural = _('Questionaries')
+
+    def __str__(self):
+        return '{}'.format(self.user)
+
+    def get_absolute_url(self):
+        return reverse('Survey', kwargs={'pk': self.pk})

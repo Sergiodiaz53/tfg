@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from server.models import (
-    UserProfile, QuestionLevel, Question, History, HistoryLine)
+from server import models
 
-admin.site.register(UserProfile)
-admin.site.register(QuestionLevel)
-admin.site.register(Question)
-admin.site.register(History)
-admin.site.register(HistoryLine)
+admin.site.register(models.UserProfile)
+admin.site.register(models.QuestionLevel)
+admin.site.register(models.Question)
+admin.site.register(models.History)
+admin.site.register(models.HistoryLine)
+admin.site.register(models.Questionary)
