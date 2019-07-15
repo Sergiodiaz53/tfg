@@ -230,11 +230,12 @@ class Questionary(models.Model):
     clitoris_pain = models.BooleanField()
     bladder_pain = models.BooleanField()
     pain_frequency = models.CharField(
-        choices=FREQUENCY_CHOICES, max_length=10
+        null=True, choices=FREQUENCY_CHOICES, max_length=10
     )
     pee_pain = models.BooleanField()
     sexual_relations_pain = models.BooleanField(null=True)
     pain_intensity = models.PositiveIntegerField(
+        null=True,
         validators=[validators.MinValueValidator(0), validators.MaxValueValidator(10)])
     stop_doing_things = models.CharField(
         choices=PAIN_CHOICES, max_length=8

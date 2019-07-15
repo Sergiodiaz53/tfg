@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
@@ -12,19 +12,24 @@ import { LoginUser } from '../../../../shared/states/user/user.actions';
     templateUrl: 'login.page.html',
     styleUrls: ['login.page.scss']
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
     credentialErrorsShown = false;
 
-    loginCredentials = new FormGroup({
-        username: new FormControl('sifaw'),
-        password: new FormControl('49preerhe')
-    });
+    loginCredentials: FormGroup;
 
     constructor(
         private router: Router,
+        private fb: FormBuilder,
         private loadingController: LoadingController,
         private store: Store
     ) {}
+
+    ngOnInit() {
+        this.loginCredentials = this.fb.group({
+            username: [''],
+            password: ['']
+        });
+    }
 
     async onLogin() {
         this.credentialErrorsShown = false;

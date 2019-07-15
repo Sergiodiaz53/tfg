@@ -14,7 +14,7 @@ from rest_framework.decorators import action
 from rest_framework.authentication import (
     TokenAuthentication, SessionAuthentication)
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema, no_body
@@ -47,17 +47,39 @@ class AccessTokenView(mixins.CreateModelMixin, viewsets.GenericViewSet):
         return Response(serializers.AccessTokenSerializer(token).data)
 
 
-class UserView(mixins.ListModelMixin, viewsets.ViewSet):
+class UserView(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.ViewSet):
     serializer_class = serializers.UserDetailSerializer
-    permission_classes = (IsAuthenticated,)
+
+    def get_permission_classes(self):
+        if self.action == 'create':
+            return (AllowAny,)
+        else:
+            return (IsAuthenticated,)
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return serializers.UserCreateSerializer
+        else:
+            return serializers.UserDetailSerializer
 
     @swagger_auto_schema(
-        operation_id='User',
         responses={200: serializers.UserDetailSerializer(many=False)}
     )
     def list(self, request):
         return Response(
-            serializers.UserDetailSerializer(self.request.user).data)
+            self.get_serializer_class()(self.request.user).data)
+
+    @swagger_auto_schema(
+        request_body=serializers.UserCreateSerializer,
+        responses={200: ''}
+    )
+    def create(self, request):
+        userCreateSerializer = self.get_serializer_class()(data=self.request.data)
+
+        userCreateSerializer.is_valid(raise_exception=True)
+        userCreateSerializer.save()
+
+        return Response(status=status.HTTP_200_OK)
 
 
 class QuestionView(viewsets.GenericViewSet):
@@ -104,14 +126,12 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         return {'request': self.request}
 
     def get_serializer_class(self):
-        if (self.action == 'list'):
-            return serializers.HistoryListSerializer
-        elif (self.action == 'retrieve' or self.action == 'create'):
+        if (self.action == 'retrieve' or self.action == 'create'):
             return serializers.HistoryDetailSerializer
         elif (self.action == 'stats'):
             return serializers.HistoryStatsSerializer
-
-        return serializers.HistoryListSerializer
+        else:
+            return serializers.HistoryListSerializer
 
     @swagger_auto_schema(
         request_body=serializers.AnswerBatchSerializer,
@@ -122,11 +142,7 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         answerBatch = serializers.AnswerBatchSerializer(
             data=request.data)
 
-        if not answerBatch.is_valid():
-            return Response(
-                answerBatch.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        answerBatch.is_valid(raise_exception=True)
 
         historyData = {
             'level': request.user.profile.level,
@@ -138,11 +154,7 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
             data=historyData,
             context=request)
 
-        if not serializer.is_valid():
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        serializer.is_valid(raise_exception=True)
 
         history = serializer.save()
 

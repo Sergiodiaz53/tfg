@@ -7,5 +7,7 @@ export * from './historyLineDetail';
 export * from './historyList';
 export * from './historyStats';
 export * from './question';
+export * from './questionary';
+export * from './userCreate';
 export * from './userDetail';
 export * from './userProfileDetail';

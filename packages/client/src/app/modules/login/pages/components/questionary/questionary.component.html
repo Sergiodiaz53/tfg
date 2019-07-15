@@ -1,0 +1,88 @@
+<form [formGroup]="form">
+    <ion-item>
+        <ion-label>Perineal area?</ion-label>
+        <ion-toggle formControlName="perinealAreaPain"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>vulva?</ion-label>
+        <ion-toggle formControlName="vulvaPain"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>clitoris?</ion-label>
+        <ion-toggle formControlName="clitorisPain"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>bladder?</ion-label>
+        <ion-toggle formControlName="bladderPain"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Frequency</ion-label>
+        <ion-select formControlName="painFrequency">
+            <ion-select-option *ngFor="let painFrequency of PainFrequencyEnum | keyvalue">
+                {{ painFrequency.value }}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>pee?</ion-label>
+        <ion-toggle formControlName="peePain"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>sexual relations?</ion-label>
+        <ion-toggle formControlName="sexualRelationsPain"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-label>pain intensity?</ion-label>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-range
+                        formControlName="painIntensity"
+                        min="0"
+                        max="10"
+                        step="1"
+                        snaps="true"
+                    ></ion-range>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Stop doing things</ion-label>
+        <ion-select formControlName="stopDoingThings">
+            <ion-select-option *ngFor="let stopDoingThings of StopDoingThingsEnum | keyvalue">
+                {{ stopDoingThings.value }}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Think symtons</ion-label>
+        <ion-select formControlName="thinkSymptoms">
+            <ion-select-option *ngFor="let thinkSymptoms of ThinkSymptomsEnum | keyvalue">
+                {{ thinkSymptoms.value }}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Same health life</ion-label>
+        <ion-select formControlName="sameHealthLife">
+            <ion-select-option *ngFor="let sameHealthLife of SameHealthLifeEnum | keyvalue">
+                {{ sameHealthLife.value }}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+</form>

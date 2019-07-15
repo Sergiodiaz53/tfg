@@ -1,5 +1,6 @@
 from django.apps import apps
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from rest_framework import serializers, authtoken
 
@@ -27,7 +28,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
     profile = UserProfileDetailSerializer(many=False)
 
     class Meta:
-        model = apps.get_model(settings.AUTH_USER_MODEL)
+        model = get_user_model()
         fields = ('username', 'email', 'profile',)
 
 
@@ -116,3 +117,39 @@ class HistoryStatsSerializer(serializers.Serializer):
 
     class Meta:
         fields = ('day', 'correct_answers', 'valoration',)
+
+
+class QuestionarySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Questionary
+        fields = '__all__'
+
+
+class UserCreateSerializer(serializers.ModelSerializer):
+
+    questionary = QuestionarySerializer(many=False)
+    confirm_password = serializers.CharField()
+
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password', 'confirm_password', 'questionary',)
+
+    def validate(self, data):
+        if not data.get('password') or not data.get('confirm_password'):
+            raise serializers.ValidationError(
+                "Please enter a password and confirm it.")
+
+        if data.get('password') != data.get('confirm_password'):
+            raise serializers.ValidationError("Passwords don't match.")
+
+        return data
+
+    def create(self, validated_data):
+        user = get_user_model().objects.create(
+            username=validated_data['username'])
+        user.set_password(validated_data['password'])
+
+        user.save()
+
+        return user

@@ -36,7 +36,7 @@ export class UserState {
     }
 
     private login(token: string) {
-        return this.userService.user().pipe(map(user => ({ ...user, ...{ token } })));
+        return this.userService.userList().pipe(map(user => ({ ...user, ...{ token } })));
     }
 
     private getAccessToken(username: string, password: string) {
