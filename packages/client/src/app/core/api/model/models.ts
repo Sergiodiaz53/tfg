@@ -10,4 +10,5 @@ export * from './question';
 export * from './questionary';
 export * from './userCreate';
 export * from './userDetail';
+export * from './userProfileCreate';
 export * from './userProfileDetail';

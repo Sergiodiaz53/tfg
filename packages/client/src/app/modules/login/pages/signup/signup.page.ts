@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class SignUpPage implements OnInit {
     signupParams: FormGroup;
     questionayForm: FormGroup;
+    profileForm: FormGroup;
 
     constructor(
         private router: Router,
@@ -23,7 +24,7 @@ export class SignUpPage implements OnInit {
     ngOnInit() {
         this.signupParams = this.fb.group(
             {
-                username: ['sifaw2', [Validators.required]],
+                username: ['9', [Validators.required]],
                 password: ['1234', [Validators.required]],
                 confirmPassword: ['1234', [Validators.required]]
             },
@@ -38,7 +39,8 @@ export class SignUpPage implements OnInit {
         this.userApiService
             .userCreate({
                 ...this.signupParams.getRawValue(),
-                questionary: this.questionayForm.getRawValue()
+                questionary: this.questionayForm.getRawValue(),
+                profile: this.profileForm.getRawValue()
             })
             .pipe(finalize(() => loading.dismiss()))
             .subscribe({

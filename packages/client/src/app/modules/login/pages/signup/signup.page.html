@@ -15,12 +15,14 @@
             <ion-input type="password" formControlName="confirmPassword" required></ion-input>
         </ion-item>
 
+        <app-profile [(form)]="profileForm"></app-profile>
+
         <app-questionary [(form)]="questionayForm"></app-questionary>
 
         <ion-button
             expand="block"
             type="submit"
-            [disabled]="signupParams.invalid || questionayForm.invalid"
+            [disabled]="signupParams.invalid || questionayForm.invalid || profileForm.invalid"
         >
             Signup
         </ion-button>

@@ -6,7 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { LoginPage } from './pages/login/login.page';
 import { SignUpPage } from './pages/signup/signup.page';
-import { QuestionaryComponent } from './pages/components/questionary/questionary.component';
+import { QuestionaryComponent } from './components/questionary/questionary.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
     imports: [
@@ -24,6 +25,6 @@ import { QuestionaryComponent } from './pages/components/questionary/questionary
             }
         ])
     ],
-    declarations: [LoginPage, SignUpPage, QuestionaryComponent]
+    declarations: [LoginPage, SignUpPage, QuestionaryComponent, ProfileComponent]
 })
 export class LoginPageModule {}

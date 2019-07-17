@@ -126,14 +126,23 @@ class QuestionarySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserProfileCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.UserProfile
+        exclude = ('level', 'user',)
+
+
 class UserCreateSerializer(serializers.ModelSerializer):
 
-    questionary = QuestionarySerializer(many=False)
     confirm_password = serializers.CharField()
+    questionary = QuestionarySerializer(many=False)
+    profile = UserProfileCreateSerializer(many=False)
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password', 'confirm_password', 'questionary',)
+        fields = (
+            'username', 'password', 'confirm_password', 'questionary', 'profile')
 
     def validate(self, data):
         if not data.get('password') or not data.get('confirm_password'):
@@ -146,10 +155,17 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        user = get_user_model().objects.create(
-            username=validated_data['username'])
-        user.set_password(validated_data['password'])
+        profile = validated_data.pop('profile')
+        questionary = validated_data.pop('questionary')
+        username = validated_data.pop('username')
+        password = validated_data.pop('password')
 
-        user.save()
+        user = get_user_model().objects.create(
+            username=username)
+        user.set_password(password)
+
+        models.UserProfile.objects.filter(user=user).update(**profile)
+
+        models.Questionary.objects.create(**questionary, user=user)
 
         return user

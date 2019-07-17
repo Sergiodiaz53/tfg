@@ -22,7 +22,10 @@
     <ion-item>
         <ion-label>Frequency</ion-label>
         <ion-select formControlName="painFrequency">
-            <ion-select-option *ngFor="let painFrequency of PainFrequencyEnum | keyvalue">
+            <ion-select-option
+                *ngFor="let painFrequency of PainFrequencyEnum | keyvalue"
+                [value]="painFrequency.value"
+            >
                 {{ painFrequency.value }}
             </ion-select-option>
         </ion-select>
@@ -62,7 +65,10 @@
     <ion-item>
         <ion-label>Stop doing things</ion-label>
         <ion-select formControlName="stopDoingThings">
-            <ion-select-option *ngFor="let stopDoingThings of StopDoingThingsEnum | keyvalue">
+            <ion-select-option
+                *ngFor="let stopDoingThings of StopDoingThingsEnum | keyvalue"
+                [value]="stopDoingThings.value"
+            >
                 {{ stopDoingThings.value }}
             </ion-select-option>
         </ion-select>
@@ -71,7 +77,10 @@
     <ion-item>
         <ion-label>Think symtons</ion-label>
         <ion-select formControlName="thinkSymptoms">
-            <ion-select-option *ngFor="let thinkSymptoms of ThinkSymptomsEnum | keyvalue">
+            <ion-select-option
+                *ngFor="let thinkSymptoms of ThinkSymptomsEnum | keyvalue"
+                [value]="thinkSymptoms.value"
+            >
                 {{ thinkSymptoms.value }}
             </ion-select-option>
         </ion-select>
@@ -80,7 +89,10 @@
     <ion-item>
         <ion-label>Same health life</ion-label>
         <ion-select formControlName="sameHealthLife">
-            <ion-select-option *ngFor="let sameHealthLife of SameHealthLifeEnum | keyvalue">
+            <ion-select-option
+                *ngFor="let sameHealthLife of SameHealthLifeEnum | keyvalue"
+                [value]="sameHealthLife.value"
+            >
                 {{ sameHealthLife.value }}
             </ion-select-option>
         </ion-select>

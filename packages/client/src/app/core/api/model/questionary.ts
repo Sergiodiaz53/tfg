@@ -17,10 +17,10 @@ export interface Questionary {
     vulvaPain: boolean;
     clitorisPain: boolean;
     bladderPain: boolean;
-    painFrequency: Questionary.PainFrequencyEnum;
+    painFrequency?: Questionary.PainFrequencyEnum | null;
     peePain: boolean;
     sexualRelationsPain?: boolean | null;
-    painIntensity: number;
+    painIntensity?: number | null;
     stopDoingThings: Questionary.StopDoingThingsEnum;
     thinkSymptoms: Questionary.ThinkSymptomsEnum;
     sameHealthLife: Questionary.SameHealthLifeEnum;

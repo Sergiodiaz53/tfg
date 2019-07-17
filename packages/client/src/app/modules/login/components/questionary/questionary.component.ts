@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Questionary } from '../../../../../core/api';
+import { Questionary } from '../../../../core/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({

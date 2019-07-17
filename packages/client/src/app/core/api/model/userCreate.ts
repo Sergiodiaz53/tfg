@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { Questionary } from './questionary';
+import { UserProfileCreate } from './userProfileCreate';
 
 
 export interface UserCreate { 
@@ -20,5 +21,6 @@ export interface UserCreate {
     password: string;
     confirmPassword: string;
     questionary: Questionary;
+    profile: UserProfileCreate;
 }
 

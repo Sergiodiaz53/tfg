@@ -74,7 +74,9 @@ class UserView(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.ViewSet)
         responses={200: ''}
     )
     def create(self, request):
-        userCreateSerializer = self.get_serializer_class()(data=self.request.data)
+        userCreateSerializer = self.get_serializer_class()(
+            data=self.request.data,
+            context=request)
 
         userCreateSerializer.is_valid(raise_exception=True)
         userCreateSerializer.save()

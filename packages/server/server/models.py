@@ -17,8 +17,8 @@ ANSWER_CHOICES = (
 )
 
 SEX_CHOICES = (
-    ('male', 'female'),
-    ('male', 'female')
+    ('male', 'male'),
+    ('female', 'female')
 )
 
 FREQUENCY_CHOICES = (
@@ -51,10 +51,10 @@ LOVE_CHOICES = (
 class UserProfile(models.Model):
     level = models.PositiveIntegerField(default=1)
     sex = models.CharField(
-        choices=SEX_CHOICES, max_length=6)
-    years = models.PositiveSmallIntegerField()
-    weigh = models.PositiveSmallIntegerField()
-    heigh = models.PositiveSmallIntegerField()
+        choices=SEX_CHOICES, max_length=6, null=True)
+    years = models.PositiveSmallIntegerField(null=True)
+    weight = models.PositiveSmallIntegerField(null=True)
+    height = models.PositiveSmallIntegerField(null=True)
 
     user = models.OneToOneField(
         get_user_model(),
@@ -96,7 +96,7 @@ def question_image_directory_path(instance, filename):
 
 class QuestionLevel(models.Model):
 
-    level = models.PositiveIntegerField('level', 'level', unique=True)
+    level = models.PositiveIntegerField(unique=True)
     average_duration = models.PositiveIntegerField(
         validators=[
             validators.MinValueValidator(0)
@@ -156,10 +156,8 @@ class Question(models.Model):
 
 class History(models.Model):
 
-    created = models.DateTimeField('created', 'created')
+    created = models.DateTimeField()
     valoration = models.FloatField(
-        'valoration',
-        'valoration',
         validators=[
             validators.MinValueValidator(0.0),
             validators.MaxValueValidator(1.0)
@@ -167,7 +165,7 @@ class History(models.Model):
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
     # question level
-    level = models.PositiveIntegerField('level', 'level')
+    level = models.PositiveIntegerField()
 
     class Meta:
         verbose_name = _('History')
@@ -230,12 +228,12 @@ class Questionary(models.Model):
     clitoris_pain = models.BooleanField()
     bladder_pain = models.BooleanField()
     pain_frequency = models.CharField(
-        null=True, choices=FREQUENCY_CHOICES, max_length=10
+        blank=True, choices=FREQUENCY_CHOICES, max_length=10
     )
     pee_pain = models.BooleanField()
-    sexual_relations_pain = models.BooleanField(null=True)
+    sexual_relations_pain = models.BooleanField(blank=True)
     pain_intensity = models.PositiveIntegerField(
-        null=True,
+        blank=True,
         validators=[validators.MinValueValidator(0), validators.MaxValueValidator(10)])
     stop_doing_things = models.CharField(
         choices=PAIN_CHOICES, max_length=8
@@ -248,7 +246,7 @@ class Questionary(models.Model):
     )
 
     user = models.OneToOneField(
-        get_user_model(), null=True, on_delete=models.CASCADE)
+        get_user_model(), on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('Questionary')
