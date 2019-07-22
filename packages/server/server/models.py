@@ -98,10 +98,12 @@ class QuestionLevel(models.Model):
 
     level = models.PositiveIntegerField(unique=True)
     average_duration = models.PositiveIntegerField(
+        default=0,
         validators=[
             validators.MinValueValidator(0)
         ])
     duration_threshold = models.PositiveIntegerField(
+        default=0,
         validators=[
             validators.MinValueValidator(0),
             validators.MaxValueValidator(100)
