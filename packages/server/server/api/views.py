@@ -51,10 +51,10 @@ class UserView(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.ViewSet)
     serializer_class = serializers.UserDetailSerializer
 
     def get_permission_classes(self):
-        if self.action == 'create':
-            return (AllowAny,)
-        else:
-            return (IsAuthenticated,)
+        # if self.action == 'create':
+        #     return (AllowAny,)
+        # else:
+        return (IsAuthenticated,)
 
     def get_serializer_class(self):
         if self.action == 'create':

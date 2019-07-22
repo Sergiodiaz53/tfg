@@ -228,12 +228,13 @@ class Questionary(models.Model):
     clitoris_pain = models.BooleanField()
     bladder_pain = models.BooleanField()
     pain_frequency = models.CharField(
-        blank=True, choices=FREQUENCY_CHOICES, max_length=10
+        blank=True, null=True, choices=FREQUENCY_CHOICES, max_length=10
     )
     pee_pain = models.BooleanField()
-    sexual_relations_pain = models.BooleanField(blank=True)
+    sexual_relations_pain = models.BooleanField(default=False)
     pain_intensity = models.PositiveIntegerField(
         blank=True,
+        null=True,
         validators=[validators.MinValueValidator(0), validators.MaxValueValidator(10)])
     stop_doing_things = models.CharField(
         choices=PAIN_CHOICES, max_length=8
@@ -246,7 +247,9 @@ class Questionary(models.Model):
     )
 
     user = models.OneToOneField(
-        get_user_model(), on_delete=models.CASCADE)
+        get_user_model(),
+        null=True,
+        on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('Questionary')
