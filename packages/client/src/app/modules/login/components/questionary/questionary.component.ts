@@ -32,9 +32,9 @@ export class QuestionaryComponent implements OnInit {
                 peePain: [false],
                 sexualRelationsPain: [false],
                 painIntensity: [null],
-                stopDoingThings: [Questionary.StopDoingThingsEnum.ALittle, [Validators.required]],
-                thinkSymptoms: [Questionary.ThinkSymptomsEnum.Some, [Validators.required]],
-                sameHealthLife: [Questionary.SameHealthLifeEnum.Fatal, [Validators.required]]
+                stopDoingThings: [null, [Validators.required]],
+                thinkSymptoms: [null, [Validators.required]],
+                sameHealthLife: [null, [Validators.required]]
             },
             { validators: [this.painFrequencyValidator, this.sexualPainIntensityValidator] }
         );

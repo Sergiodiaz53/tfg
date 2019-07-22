@@ -19,10 +19,10 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            sex: [UserProfileCreate.SexEnum.Male, [Validators.required]],
-            years: [23, [Validators.required, Validators.min(0)]],
-            weight: [63, [Validators.required, Validators.min(0)]],
-            height: [177, [Validators.required, Validators.min(0)]]
+            sex: [null, [Validators.required]],
+            years: [null, [Validators.required, Validators.min(0)]],
+            weight: [null, [Validators.required, Validators.min(0)]],
+            height: [null, [Validators.required, Validators.min(0)]]
         });
 
         this.formChange.emit(this.form);
