@@ -164,6 +164,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
             username=username)
         user.set_password(password)
 
+        user.save()
+
         models.UserProfile.objects.filter(user=user).update(**profile)
 
         models.Questionary.objects.create(**questionary, user=user)
