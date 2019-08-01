@@ -19,7 +19,7 @@ export interface Questionary {
     bladderPain: boolean;
     painFrequency?: Questionary.PainFrequencyEnum | null;
     peePain: boolean;
-    sexualRelationsPain?: boolean | null;
+    sexualRelationsPain?: boolean;
     painIntensity?: number | null;
     stopDoingThings: Questionary.StopDoingThingsEnum;
     thinkSymptoms: Questionary.ThinkSymptomsEnum;
@@ -27,33 +27,33 @@ export interface Questionary {
     user?: number | null;
 }
 export namespace Questionary {
-    export type PainFrequencyEnum = 'never' | 'rarely' | 'sometimes' | 'many_times' | 'usually' | 'always';
+    export type PainFrequencyEnum = 'never' | 'rarely' | 'sometimes' | 'many times' | 'usually' | 'always';
     export const PainFrequencyEnum = {
         Never: 'never' as PainFrequencyEnum,
         Rarely: 'rarely' as PainFrequencyEnum,
         Sometimes: 'sometimes' as PainFrequencyEnum,
-        ManyTimes: 'many_times' as PainFrequencyEnum,
+        ManyTimes: 'many times' as PainFrequencyEnum,
         Usually: 'usually' as PainFrequencyEnum,
         Always: 'always' as PainFrequencyEnum
     };
-    export type StopDoingThingsEnum = 'none' | 'a_little' | 'some' | 'lot';
+    export type StopDoingThingsEnum = 'none' | 'a little' | 'some' | 'lot';
     export const StopDoingThingsEnum = {
         None: 'none' as StopDoingThingsEnum,
-        ALittle: 'a_little' as StopDoingThingsEnum,
+        ALittle: 'a little' as StopDoingThingsEnum,
         Some: 'some' as StopDoingThingsEnum,
         Lot: 'lot' as StopDoingThingsEnum
     };
-    export type ThinkSymptomsEnum = 'none' | 'a_little' | 'some' | 'lot';
+    export type ThinkSymptomsEnum = 'none' | 'a little' | 'some' | 'lot';
     export const ThinkSymptomsEnum = {
         None: 'none' as ThinkSymptomsEnum,
-        ALittle: 'a_little' as ThinkSymptomsEnum,
+        ALittle: 'a little' as ThinkSymptomsEnum,
         Some: 'some' as ThinkSymptomsEnum,
         Lot: 'lot' as ThinkSymptomsEnum
     };
-    export type SameHealthLifeEnum = 'charmed' | 'very_satisfied' | 'satisfied' | 'confused' | 'dissatisfied' | 'discontent' | 'fatal';
+    export type SameHealthLifeEnum = 'charmed' | 'very satisfied' | 'satisfied' | 'confused' | 'dissatisfied' | 'discontent' | 'fatal';
     export const SameHealthLifeEnum = {
         Charmed: 'charmed' as SameHealthLifeEnum,
-        VerySatisfied: 'very_satisfied' as SameHealthLifeEnum,
+        VerySatisfied: 'very satisfied' as SameHealthLifeEnum,
         Satisfied: 'satisfied' as SameHealthLifeEnum,
         Confused: 'confused' as SameHealthLifeEnum,
         Dissatisfied: 'dissatisfied' as SameHealthLifeEnum,

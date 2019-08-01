@@ -25,21 +25,21 @@ FREQUENCY_CHOICES = (
     ('never', 'never'),
     ('rarely', 'rarely'),
     ('sometimes', 'sometimes'),
-    ('many_times', 'many_times'),
+    ('many times', 'many times'),
     ('usually', 'usually'),
     ('always', 'always')
 )
 
 PAIN_CHOICES = (
     ('none', 'none'),
-    ('a_little', 'a little'),
+    ('a little', 'a little'),
     ('some', 'some'),
     ('lot', 'lot')
 )
 
 LOVE_CHOICES = (
     ('charmed', 'charmed'),
-    ('very_satisfied', 'very satisfied'),
+    ('very satisfied', 'very satisfied'),
     ('satisfied', 'satisfied'),
     ('confused', 'confused'),
     ('dissatisfied', 'dissatisfied'),

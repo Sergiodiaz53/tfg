@@ -1,27 +1,27 @@
 <ion-content padding>
     <form [formGroup]="loginCredentials" (ngSubmit)="onLogin()">
         <ion-item>
-            <ion-label position="floating">Username</ion-label>
+            <ion-label position="floating" translate>Username</ion-label>
             <ion-input type="text" formControlName="username" required></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label position="floating">Password</ion-label>
+            <ion-label position="floating" translate>Password</ion-label>
             <ion-input type="password" formControlName="password" required></ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit" [disabled]="loginCredentials.invalid">
+        <ion-button expand="block" type="submit" [disabled]="loginCredentials.invalid" translate>
             Login
         </ion-button>
 
         <ion-text *ngIf="credentialErrorsShown" color="danger">
-            <h6>Incorrect username or password</h6>
+            <h6 translate>Incorrect username or password</h6>
         </ion-text>
     </form>
 
     <ion-grid>
         <ion-row justify-content-center>
             <ion-col size="auto">
-                <a routerLink="./signup">Create Account</a>
+                <a routerLink="./signup" translate>Create Account</a>
             </ion-col>
         </ion-row>
     </ion-grid>

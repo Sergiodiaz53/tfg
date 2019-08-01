@@ -1,17 +1,17 @@
 <ion-content padding>
     <form [formGroup]="signupParams" (ngSubmit)="onSignup()">
         <ion-item>
-            <ion-label position="floating">Username</ion-label>
+            <ion-label position="floating" translate>Username</ion-label>
             <ion-input type="text" formControlName="username" required></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label position="floating">Password</ion-label>
+            <ion-label position="floating" translate>Password</ion-label>
             <ion-input type="password" formControlName="password" required></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label position="floating">Confirm password</ion-label>
+            <ion-label position="floating" translate>Confirm password</ion-label>
             <ion-input type="password" formControlName="confirmPassword" required></ion-input>
         </ion-item>
 
@@ -23,6 +23,7 @@
             expand="block"
             type="submit"
             [disabled]="signupParams.invalid || questionayForm.invalid || profileForm.invalid"
+            translate
         >
             Signup
         </ion-button>

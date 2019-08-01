@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Questions</ion-title>
+        <ion-title translate>Questions</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -13,10 +13,14 @@
 
             <ion-row>
                 <ion-col>
-                    <ion-button expand="block" (click)="answer('left')">Left</ion-button>
+                    <ion-button expand="block" (click)="answer('left')" translate>
+                        Left
+                    </ion-button>
                 </ion-col>
                 <ion-col>
-                    <ion-button expand="block" (click)="answer('right')">Right</ion-button>
+                    <ion-button expand="block" (click)="answer('right')" translate>
+                        Right
+                    </ion-button>
                 </ion-col>
             </ion-row>
         </ion-grid>

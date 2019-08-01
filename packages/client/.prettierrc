@@ -15,6 +15,12 @@
             }
         },
         {
+            "files": "*.json",
+            "options": {
+                "trailingComma": "all"
+            }
+        },
+        {
             "files": "package.json",
             "options": {
                 "tabWidth": 2

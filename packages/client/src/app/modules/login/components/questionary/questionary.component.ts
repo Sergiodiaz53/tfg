@@ -8,10 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     templateUrl: 'questionary.component.html'
 })
 export class QuestionaryComponent implements OnInit {
-    PainFrequencyEnum = Questionary.PainFrequencyEnum;
-    StopDoingThingsEnum = Questionary.StopDoingThingsEnum;
-    ThinkSymptomsEnum = Questionary.ThinkSymptomsEnum;
-    SameHealthLifeEnum = Questionary.SameHealthLifeEnum;
+    questionaryModel = Questionary;
 
     @Input()
     form: FormGroup;

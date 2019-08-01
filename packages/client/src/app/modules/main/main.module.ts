@@ -11,6 +11,7 @@ import { HistoryPage } from './pages/history/history.page';
 import { ValorationComponent } from './components/valoration/valoration.component';
 import { HistoryStatsComponent } from './components/history-stats/history-stats.component';
 import { ChartDirective } from '../../shared/directives/chart-js/chart-js.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { ChartDirective } from '../../shared/directives/chart-js/chart-js.direct
                 path: 'histories/:id',
                 component: HistoryPage
             }
-        ])
+        ]),
+        TranslateModule.forChild()
     ],
     declarations: [
         HomePage,

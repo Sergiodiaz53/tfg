@@ -13,11 +13,10 @@
 
 export interface UserProfileCreate { 
     readonly id?: number;
-    sex: UserProfileCreate.SexEnum;
-    years: number;
-    weight: number;
-    height: number;
-    user: number;
+    sex?: UserProfileCreate.SexEnum | null;
+    years?: number | null;
+    weight?: number | null;
+    height?: number | null;
 }
 export namespace UserProfileCreate {
     export type SexEnum = 'male' | 'female';

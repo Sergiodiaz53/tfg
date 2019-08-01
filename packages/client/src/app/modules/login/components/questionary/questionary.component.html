@@ -1,43 +1,57 @@
 <form [formGroup]="form">
+    <ion-item translate>
+        In the last week, have you suffered any pain or discomfort in the following areas?
+    </ion-item>
     <ion-item>
-        <ion-label>Perineal area?</ion-label>
+        <ion-label translate>Perineal area (between anus and vagina)</ion-label>
         <ion-toggle formControlName="perinealAreaPain"></ion-toggle>
     </ion-item>
 
     <ion-item>
-        <ion-label>vulva?</ion-label>
+        <ion-label translate>Vulva</ion-label>
         <ion-toggle formControlName="vulvaPain"></ion-toggle>
     </ion-item>
 
     <ion-item>
-        <ion-label>clitoris?</ion-label>
+        <ion-label translate>
+            Clitoris
+        </ion-label>
         <ion-toggle formControlName="clitorisPain"></ion-toggle>
     </ion-item>
 
     <ion-item>
-        <ion-label>bladder?</ion-label>
+        <ion-label translate>
+            Under your belly button, in the area of the pubis or bladder
+        </ion-label>
         <ion-toggle formControlName="bladderPain"></ion-toggle>
     </ion-item>
 
     <ion-item>
-        <ion-label>Frequency</ion-label>
-        <ion-select formControlName="painFrequency">
+        <ion-label translate>
+            In the last week, how often have you had pain or discomfort in some of these areas?
+        </ion-label>
+        <ion-select formControlName="painFrequency" interface="popover">
             <ion-select-option
-                *ngFor="let painFrequency of PainFrequencyEnum | keyvalue"
+                *ngFor="let painFrequency of questionaryModel.PainFrequencyEnum | keyvalue"
                 [value]="painFrequency.value"
+                translate
             >
                 {{ painFrequency.value }}
             </ion-select-option>
         </ion-select>
     </ion-item>
 
+    <ion-item translate>
+        In the last week, do you have...
+    </ion-item>
+
     <ion-item>
-        <ion-label>pee?</ion-label>
+        <ion-label translate>pain or "burning" when urinating?</ion-label>
         <ion-toggle formControlName="peePain"></ion-toggle>
     </ion-item>
 
     <ion-item>
-        <ion-label>sexual relations?</ion-label>
+        <ion-label translate>pain or discomfort during or after sex (orgasm)?</ion-label>
         <ion-toggle formControlName="sexualRelationsPain"></ion-toggle>
     </ion-item>
 
@@ -45,7 +59,10 @@
         <ion-grid>
             <ion-row>
                 <ion-col>
-                    <ion-label>pain intensity?</ion-label>
+                    <ion-label translate>
+                        How would you rate that degree of pain or discomfort in the days you had it
+                        last week?
+                    </ion-label>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -63,11 +80,15 @@
     </ion-item>
 
     <ion-item>
-        <ion-label>Stop doing things</ion-label>
-        <ion-select formControlName="stopDoingThings">
+        <ion-label translate>
+            During the past week, how much have your symptoms prevented you from doing the things
+            you usually do?
+        </ion-label>
+        <ion-select formControlName="stopDoingThings" interface="popover">
             <ion-select-option
-                *ngFor="let stopDoingThings of StopDoingThingsEnum | keyvalue"
+                *ngFor="let stopDoingThings of questionaryModel.StopDoingThingsEnum | keyvalue"
                 [value]="stopDoingThings.value"
+                translate
             >
                 {{ stopDoingThings.value }}
             </ion-select-option>
@@ -75,11 +96,14 @@
     </ion-item>
 
     <ion-item>
-        <ion-label>Think symtons</ion-label>
-        <ion-select formControlName="thinkSymptoms">
+        <ion-label translate>
+            How much did you think about your symptoms last week?
+        </ion-label>
+        <ion-select formControlName="thinkSymptoms" interface="popover">
             <ion-select-option
-                *ngFor="let thinkSymptoms of ThinkSymptomsEnum | keyvalue"
+                *ngFor="let thinkSymptoms of questionaryModel.ThinkSymptomsEnum | keyvalue"
                 [value]="thinkSymptoms.value"
+                translate
             >
                 {{ thinkSymptoms.value }}
             </ion-select-option>
@@ -87,11 +111,15 @@
     </ion-item>
 
     <ion-item>
-        <ion-label>Same health life</ion-label>
-        <ion-select formControlName="sameHealthLife">
+        <ion-label translate>
+            How would you feel if you had to spend the rest of your life with a level of health
+            equal to last week?
+        </ion-label>
+        <ion-select formControlName="sameHealthLife" interface="popover">
             <ion-select-option
-                *ngFor="let sameHealthLife of SameHealthLifeEnum | keyvalue"
+                *ngFor="let sameHealthLife of questionaryModel.SameHealthLifeEnum | keyvalue"
                 [value]="sameHealthLife.value"
+                translate
             >
                 {{ sameHealthLife.value }}
             </ion-select-option>
