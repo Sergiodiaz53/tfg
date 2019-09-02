@@ -50,10 +50,13 @@
     "@types/chart.js": "^2.7.55",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/jsonfile": "^5.0.0",
     "@types/node": "~12.0.0",
+    "@types/yargs": "^13.0.2",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
+    "jsonfile": "^5.0.0",
     "karma": "~4.1.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
@@ -65,11 +68,12 @@
     "stylelint": "^10.1.0",
     "stylelint-config-primer": "^7.0.0",
     "stylelint-scss": "^3.8.0",
-    "ts-node": "~8.1.0",
+    "ts-node": "^8.1.1",
     "tslint": "^5.18.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "~3.1.6"
+    "typescript": "~3.1.6",
+    "yargs": "^13.3.0"
   },
   "description": "An Ionic project"
 }

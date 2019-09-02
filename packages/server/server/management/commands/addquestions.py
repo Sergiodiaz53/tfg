@@ -11,7 +11,6 @@ class Command(BaseCommand):
         media_path = os.path.join(os.getcwd(), 'media')
         questions_path = os.path.join(media_path, 'questions')
 
-        # TODO: Check path ./media/fixtures/questions exists
         for dir in os.listdir(questions_path):
             question_level_path = os.path.join(questions_path, dir)
 
@@ -40,8 +39,13 @@ class Command(BaseCommand):
             'D': 'right'
         }
 
-        Question(
-            image=media_path,
-            correct_answer=answers[correct_answer],
-            question_level=question_level
-        ).save()
+        question = Question.objects.filter(
+            image=media_path
+        )
+
+        if not question:
+            Question(
+                image=media_path,
+                correct_answer=answers[correct_answer],
+                question_level=question_level
+            ).save()

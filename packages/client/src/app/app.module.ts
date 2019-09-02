@@ -23,10 +23,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { UserState } from './shared/states/user/user.state';
 import { of, EMPTY } from 'rxjs';
-import { flatMap, catchError } from 'rxjs/operators';
+import { flatMap, catchError, map } from 'rxjs/operators';
 import { LoginUser } from './shared/states/user/user.actions';
 import { QuestionState } from './shared/states/question/question.state';
 import { HistoriesState } from './shared/states/histories/histories.state';
+import { AvailableLanguagesService } from './shared/services/available-languages/available-languages.service';
 
 export function configurationFactory(): Configuration {
     return new Configuration({
@@ -45,11 +46,24 @@ export function httpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/lang/', '.json');
 }
 
-export function onInitLanguage(translateService: TranslateService) {
+export function onInitLanguage(
+    translateService: TranslateService,
+    availableLanguagesService: AvailableLanguagesService
+) {
     return () =>
-        translateService
-            .use(translateService.getBrowserLang())
-            .pipe(catchError(() => translateService.use('en')))
+        availableLanguagesService
+            .init()
+            .pipe(
+                map(() => {
+                    const browserLang = translateService.getBrowserLang();
+                    const language = availableLanguagesService.has(browserLang)
+                        ? browserLang
+                        : 'en';
+
+                    return language;
+                }),
+                flatMap(language => translateService.use(language))
+            )
             .toPromise();
 }
 
@@ -81,12 +95,13 @@ export function onInitLanguage(translateService: TranslateService) {
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        AvailableLanguagesService,
         { provide: APP_INITIALIZER, multi: true, useFactory: onAutologin, deps: [Store] },
         {
             provide: APP_INITIALIZER,
             multi: true,
             useFactory: onInitLanguage,
-            deps: [TranslateService]
+            deps: [TranslateService, AvailableLanguagesService]
         }
     ],
     bootstrap: [AppComponent]
