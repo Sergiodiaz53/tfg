@@ -9,7 +9,7 @@
     <ng-container *ngIf="histories$ | async as histories">
         <ion-list [@historiesAnimation]="histories.length">
             <ion-item *ngFor="let history of histories" [routerLink]="[history.id]">
-                {{ history.created | date: 'dd-mm-yyyy' }}
+                {{ history.created | date: 'dd-MM-yyyy' }}
             </ion-item>
         </ion-list>
     </ng-container>

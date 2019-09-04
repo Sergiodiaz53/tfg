@@ -160,8 +160,10 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
 
         history = serializer.save()
 
+        print(history.level)
+
         # test if user go to level up or not
-        question_level = models.QuestionLevel.objects.get(id=history.level)
+        question_level = models.QuestionLevel.objects.get(level=history.level)
 
         average_duration = history.average_duration
         is_level_down = average_duration >= question_level.level_down_threshold
