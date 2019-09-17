@@ -18,6 +18,11 @@ export class UserState {
         return state.token;
     }
 
+    @Selector()
+    static data(state: UserModel) {
+        return state;
+    }
+
     constructor(private accessTokenService: AccessTokenService, private userService: UserService) {}
 
     @Action(LoginUser)

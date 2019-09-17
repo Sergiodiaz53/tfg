@@ -5,7 +5,7 @@ import { UserState } from '../../shared/states/user/user.state';
 
 @Injectable()
 export class AuthenticatedGuard implements CanActivate {
-    constructor(private router: Router, private store: Store) {}
+    constructor(protected router: Router, protected store: Store) {}
 
     canActivate() {
         if (!this.store.selectSnapshot(UserState.token)) {

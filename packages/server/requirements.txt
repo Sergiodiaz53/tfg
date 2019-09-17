@@ -11,6 +11,7 @@ django-rest-framework==0.1.0
 django-rest-swagger==2.2.0
 djangorestframework==3.9.4
 djangorestframework-camel-case==1.0.3
+drf-schema-adapter==2.0.6
 drf-yasg==1.15.0
 Faker==1.0.7
 idna==2.8

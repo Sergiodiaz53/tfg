@@ -14,5 +14,15 @@
 export interface Question { 
     readonly id?: number;
     readonly image?: string;
+    correctAnswer: Question.CorrectAnswerEnum;
+    questionLevel: number;
+    readonly str?: string;
+}
+export namespace Question {
+    export type CorrectAnswerEnum = 'left' | 'right';
+    export const CorrectAnswerEnum = {
+        Left: 'left' as CorrectAnswerEnum,
+        Right: 'right' as CorrectAnswerEnum
+    };
 }
 

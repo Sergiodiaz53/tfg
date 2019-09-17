@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
+    'drf_auto_endpoint',
     'django_extensions',
     'server'
 ]
@@ -141,8 +142,12 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PARSER_CLASSES': (
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
-    )
+    ),
+
+    'DEFAULT_METADATA_CLASS': 'drf_auto_endpoint.metadata.AutoMetadata'
 }
+
+DRF_AUTO_METADATA_ADAPTER = 'server.api.adapters.NgxFormlyAdapter'
 
 CORS_ORIGIN_ALLOW_ALL = True
 

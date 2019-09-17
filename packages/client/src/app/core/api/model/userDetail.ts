@@ -18,6 +18,14 @@ export interface UserDetail {
      */
     username: string;
     email?: string;
+    /**
+     * Designates that this user has all permissions without explicitly assigning them.
+     */
+    isSuperuser?: boolean;
+    /**
+     * Designates whether the user can log into this admin site.
+     */
+    isStaff?: boolean;
     profile: UserProfileDetail;
 }
 

@@ -1,6 +1,12 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { patch, append } from '@ngxs/store/operators';
-import { Question, Answer, QuestionService, HistoryService, AnswerBatch } from '../../../core/api';
+import {
+    QuestionSimple,
+    Answer,
+    QuestionService,
+    HistoryService,
+    AnswerBatch
+} from '../../../core/api';
 import {
     GetQuestion,
     SetAnswer,
@@ -11,7 +17,7 @@ import {
 import { tap } from 'rxjs/operators';
 
 export interface QuestionModel extends Partial<AnswerBatch> {
-    current?: Question;
+    current?: QuestionSimple;
 }
 
 @State<QuestionModel>({

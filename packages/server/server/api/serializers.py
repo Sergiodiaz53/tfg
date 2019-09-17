@@ -29,7 +29,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'profile',)
+        fields = ('username', 'email', 'is_superuser', 'is_staff', 'profile',)
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -93,7 +93,7 @@ class HistoryListSerializer(serializers.ModelSerializer):
         fields = ('id', 'level', 'created',)
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+class QuestionSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Question
         fields = ('id', 'image',)

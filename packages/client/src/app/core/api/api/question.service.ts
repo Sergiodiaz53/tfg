@@ -18,7 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Question } from '../model/question';
+import { QuestionSimple } from '../model/questionSimple';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -66,9 +66,9 @@ export class QuestionService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public questionRandom(exclude?: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<Question>;
-    public questionRandom(exclude?: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Question>>;
-    public questionRandom(exclude?: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Question>>;
+    public questionRandom(exclude?: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<QuestionSimple>;
+    public questionRandom(exclude?: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuestionSimple>>;
+    public questionRandom(exclude?: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuestionSimple>>;
     public questionRandom(exclude?: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -96,7 +96,7 @@ export class QuestionService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Question>(`${this.configuration.basePath}/question/random/`,
+        return this.httpClient.get<QuestionSimple>(`${this.configuration.basePath}/question/random/`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

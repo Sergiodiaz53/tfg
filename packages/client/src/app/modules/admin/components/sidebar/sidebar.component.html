@@ -1,0 +1,15 @@
+<div class="sidebar">
+    <div class="sidebar__section">
+        {{ 'models' | translate }}
+    </div>
+    <div class="sidebar__list">
+        <div
+            *ngFor="let model of models"
+            class="sidebar__list-item"
+            [class.sidebar__list-item--selected]="model.endpoint === selected"
+            (click)="select.emit(model.endpoint)"
+        >
+            {{ model.name }}
+        </div>
+    </div>
+</div>

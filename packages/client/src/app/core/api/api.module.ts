@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { AccessTokenService } from './api/accessToken.service';
+import { AdminService } from './api/admin.service';
 import { HistoryService } from './api/history.service';
 import { QuestionService } from './api/question.service';
 import { UserService } from './api/user.service';
@@ -14,6 +15,7 @@ import { UserService } from './api/user.service';
   exports:      [],
   providers: [
     AccessTokenService,
+    AdminService,
     HistoryService,
     QuestionService,
     UserService ]

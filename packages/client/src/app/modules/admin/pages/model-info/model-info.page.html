@@ -1,0 +1,11 @@
+<div class="model-info">
+    <div class="model-info__title">
+        Name here
+    </div>
+    <div class="model__form">
+        <form [formGroup]="form" (submit)="onSubmit(model)">
+            <formly-form [form]="form" [fields]="formSpecs" [model]="model"></formly-form>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>

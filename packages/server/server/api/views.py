@@ -85,12 +85,12 @@ class UserView(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.ViewSet)
 
 
 class QuestionView(viewsets.GenericViewSet):
-    serializer_class = serializers.QuestionSerializer
+    serializer_class = serializers.QuestionSimpleSerializer
     permission_classes = (IsAuthenticated,)
 
     @swagger_auto_schema(
         manual_parameters=[question_exclude_param],
-        responses={200: serializers.QuestionSerializer(many=False)}
+        responses={200: serializers.QuestionSimpleSerializer(many=False)}
     )
     @action(['get'], detail=False)
     def random(self, request, *args, **kwargs):
