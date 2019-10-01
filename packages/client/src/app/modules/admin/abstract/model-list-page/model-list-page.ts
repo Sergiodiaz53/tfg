@@ -11,6 +11,7 @@ export abstract class ModelListPage<M> implements OnInit {
         size: 25,
         pageNumber: 0
     };
+    isLoadingData = false;
 
     ColumnMode = ColumnMode;
 
@@ -25,7 +26,9 @@ export abstract class ModelListPage<M> implements OnInit {
 
     nextPage(pageInfo = { offset: 0 }) {
         this.page.pageNumber = pageInfo.offset;
+        this.isLoadingData = true;
         this.getPage(this.page.pageNumber + 1).subscribe(data => {
+            this.isLoadingData = false;
             this.rows = [...((data.results as unknown) as M[])];
 
             this.page.totalElements = data.count;

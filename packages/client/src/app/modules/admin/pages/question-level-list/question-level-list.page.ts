@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { QuestionLevel, AdminService } from '../../../../core/api';
 import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
+import { TableColumn } from '@swimlane/ngx-datatable';
+import { SizePipe } from '../../../../pipes/size/size.pipe';
 
 @Component({
     selector: 'tfg-question-level-list',
@@ -8,7 +10,12 @@ import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
     styleUrls: ['./question-level-list.page.scss']
 })
 export class QuestionLevelListPage extends ModelListPage<QuestionLevel> {
-    columns = [{ name: 'id', prop: 'id' }, { name: 'Info', prop: '_Str__' }];
+    columns: TableColumn[] = [
+        { name: 'id', prop: 'id' },
+        { name: 'Info', prop: '_Str__' },
+        { name: 'Level', prop: 'level' },
+        { name: 'Questions', prop: 'questions', pipe: new SizePipe() }
+    ];
 
     constructor(protected adminService: AdminService) {
         super();

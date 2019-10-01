@@ -17,6 +17,7 @@ import { QuestionListPage } from './pages/question-list/question-list.page';
 import { HistoryLineListPage } from './pages/history-line-list/history-line-list.page';
 import { HistoryListPage } from './pages/history-list/history-list.page';
 import { QuestionaryListPage } from './pages/questionary/questionary.page';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
     declarations: [
@@ -85,8 +86,8 @@ import { QuestionaryListPage } from './pages/questionary/questionary.page';
         ReactiveFormsModule,
         FormlyModule.forRoot(),
         FormlyIonicModule,
-        // AgGridModule.withComponents([])
-        NgxDatatableModule
+        NgxDatatableModule,
+        PipesModule
     ],
     providers: []
 })

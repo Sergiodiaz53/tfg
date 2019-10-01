@@ -1,7 +1,7 @@
 <ion-content [forceOverscroll]="true">
     <div class="model-list">
         <div class="model-list__title">
-            Name here
+            Histories
         </div>
         <div class="model__form">
             <ngx-datatable
@@ -17,7 +17,8 @@
                 [count]="page.totalElements"
                 [offset]="page.pageNumber"
                 [limit]="page.size"
-                (page)="getPage($event)"
+                [loadingIndicator]="isLoadingData"
+                (page)="nextPage($event)"
             >
             </ngx-datatable>
         </div>

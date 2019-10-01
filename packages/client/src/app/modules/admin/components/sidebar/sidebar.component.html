@@ -1,15 +1,22 @@
 <div class="sidebar">
-    <div class="sidebar__section">
-        {{ 'models' | translate }}
-    </div>
+    <div class="sidebar__section"></div>
     <div class="sidebar__list">
-        <div
-            *ngFor="let model of models"
-            class="sidebar__list-item"
-            [routerLink]="model.url"
-            routerLinkActive="sidebar__list-item--selected"
-        >
-            {{ model.name }}
-        </div>
+        <ion-list>
+            <ion-list-header>
+                <ion-label>
+                    {{ 'models' | translate }}
+                </ion-label>
+            </ion-list-header>
+            <ion-item
+                *ngFor="let model of models"
+                class="sidebar__list-item"
+                [routerLink]="model.url"
+                routerLinkActive="sidebar__list-item--selected"
+            >
+                <ion-label>
+                    {{ model.name }}
+                </ion-label>
+            </ion-item>
+        </ion-list>
     </div>
 </div>

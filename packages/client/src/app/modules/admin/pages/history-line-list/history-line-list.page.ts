@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { QuestionLevel, AdminService, HistoryLine } from '../../../../core/api';
 import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
+import { TableColumn } from '@swimlane/ngx-datatable';
 
 @Component({
     selector: 'tfg-history-line-list',
@@ -8,7 +9,13 @@ import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
     styleUrls: ['./history-line-list.page.scss']
 })
 export class HistoryLineListPage extends ModelListPage<HistoryLine> {
-    columns = [{ name: 'id', prop: 'id' }, { name: 'Info', prop: '_Str__' }];
+    columns: TableColumn[] = [
+        { name: 'id', prop: 'id' },
+        { name: 'History', prop: 'history' },
+        { name: 'Answer', prop: 'answer' },
+        { name: 'Correct answer', prop: 'correctAnswer' },
+        { name: 'Duration', prop: 'duration' }
+    ];
 
     constructor(protected adminService: AdminService) {
         super();
