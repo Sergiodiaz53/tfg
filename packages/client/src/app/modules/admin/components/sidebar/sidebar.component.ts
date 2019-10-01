@@ -6,10 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-    @Input() models: { name: string; singular: string; endpoint: string }[];
-    @Input() selected: string;
-
-    @Output() select = new EventEmitter<string>();
+    @Input() models: { name: string; url: string }[];
 
     constructor() {}
 

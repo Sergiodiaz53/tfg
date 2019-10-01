@@ -1,17 +1,13 @@
 <ion-content>
-    <ion-grid>
+    <ion-grid style="height: 100%">
         <ion-row>
             <ion-col size="12">
                 <tfg-header [title]="name"></tfg-header>
             </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row style="height: 100%">
             <ion-col size="3">
-                <tfg-sidebar
-                    [models]="models"
-                    [selected]="selected"
-                    (select)="openModelInfo($event)"
-                ></tfg-sidebar>
+                <tfg-sidebar [models]="models"></tfg-sidebar>
             </ion-col>
             <ion-col>
                 <ion-router-outlet></ion-router-outlet>

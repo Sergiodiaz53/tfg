@@ -18,11 +18,17 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { History } from '../model/history';
+import { HistoryLine } from '../model/historyLine';
 import { InlineResponse200 } from '../model/inlineResponse200';
 import { InlineResponse2001 } from '../model/inlineResponse2001';
 import { InlineResponse2002 } from '../model/inlineResponse2002';
+import { InlineResponse2003 } from '../model/inlineResponse2003';
+import { InlineResponse2004 } from '../model/inlineResponse2004';
+import { InlineResponse2005 } from '../model/inlineResponse2005';
 import { Question } from '../model/question';
 import { QuestionLevel } from '../model/questionLevel';
+import { Questionary } from '../model/questionary';
 import { User } from '../model/user';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -63,6 +69,610 @@ export class AdminService {
         return false;
     }
 
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryCreate(data: History, observe?: 'body', reportProgress?: boolean): Observable<History>;
+    public adminHistoryCreate(data: History, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<History>>;
+    public adminHistoryCreate(data: History, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<History>>;
+    public adminHistoryCreate(data: History, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminHistoryCreate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<History>(`${this.configuration.basePath}/admin/history/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this History.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryDelete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminHistoryDelete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminHistoryDelete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminHistoryDelete(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminHistoryDelete.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<any>(`${this.configuration.basePath}/admin/history/${encodeURIComponent(String(id))}/`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryLineCreate(data: HistoryLine, observe?: 'body', reportProgress?: boolean): Observable<HistoryLine>;
+    public adminHistoryLineCreate(data: HistoryLine, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLine>>;
+    public adminHistoryLineCreate(data: HistoryLine, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLine>>;
+    public adminHistoryLineCreate(data: HistoryLine, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminHistoryLineCreate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<HistoryLine>(`${this.configuration.basePath}/admin/history-line/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this HistoryLine.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryLineDelete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminHistoryLineDelete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminHistoryLineDelete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminHistoryLineDelete(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminHistoryLineDelete.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<any>(`${this.configuration.basePath}/admin/history-line/${encodeURIComponent(String(id))}/`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param page A page number within the paginated result set.
+     * @param pageSize Number of results to return per page.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryLineList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
+    public adminHistoryLineList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
+    public adminHistoryLineList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
+    public adminHistoryLineList(page?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (pageSize !== undefined && pageSize !== null) {
+            queryParameters = queryParameters.set('page_size', <any>pageSize);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<InlineResponse200>(`${this.configuration.basePath}/admin/history-line/`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this HistoryLine.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryLinePartialUpdate(id: number, data: HistoryLine, observe?: 'body', reportProgress?: boolean): Observable<HistoryLine>;
+    public adminHistoryLinePartialUpdate(id: number, data: HistoryLine, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLine>>;
+    public adminHistoryLinePartialUpdate(id: number, data: HistoryLine, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLine>>;
+    public adminHistoryLinePartialUpdate(id: number, data: HistoryLine, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminHistoryLinePartialUpdate.');
+        }
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminHistoryLinePartialUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.patch<HistoryLine>(`${this.configuration.basePath}/admin/history-line/${encodeURIComponent(String(id))}/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this HistoryLine.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryLineRead(id: number, observe?: 'body', reportProgress?: boolean): Observable<HistoryLine>;
+    public adminHistoryLineRead(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLine>>;
+    public adminHistoryLineRead(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLine>>;
+    public adminHistoryLineRead(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminHistoryLineRead.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<HistoryLine>(`${this.configuration.basePath}/admin/history-line/${encodeURIComponent(String(id))}/`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this HistoryLine.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryLineUpdate(id: number, data: HistoryLine, observe?: 'body', reportProgress?: boolean): Observable<HistoryLine>;
+    public adminHistoryLineUpdate(id: number, data: HistoryLine, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryLine>>;
+    public adminHistoryLineUpdate(id: number, data: HistoryLine, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryLine>>;
+    public adminHistoryLineUpdate(id: number, data: HistoryLine, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminHistoryLineUpdate.');
+        }
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminHistoryLineUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<HistoryLine>(`${this.configuration.basePath}/admin/history-line/${encodeURIComponent(String(id))}/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param page A page number within the paginated result set.
+     * @param pageSize Number of results to return per page.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2001>;
+    public adminHistoryList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2001>>;
+    public adminHistoryList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2001>>;
+    public adminHistoryList(page?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (pageSize !== undefined && pageSize !== null) {
+            queryParameters = queryParameters.set('page_size', <any>pageSize);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<InlineResponse2001>(`${this.configuration.basePath}/admin/history/`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this History.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryPartialUpdate(id: number, data: History, observe?: 'body', reportProgress?: boolean): Observable<History>;
+    public adminHistoryPartialUpdate(id: number, data: History, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<History>>;
+    public adminHistoryPartialUpdate(id: number, data: History, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<History>>;
+    public adminHistoryPartialUpdate(id: number, data: History, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminHistoryPartialUpdate.');
+        }
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminHistoryPartialUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.patch<History>(`${this.configuration.basePath}/admin/history/${encodeURIComponent(String(id))}/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this History.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryRead(id: number, observe?: 'body', reportProgress?: boolean): Observable<History>;
+    public adminHistoryRead(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<History>>;
+    public adminHistoryRead(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<History>>;
+    public adminHistoryRead(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminHistoryRead.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<History>(`${this.configuration.basePath}/admin/history/${encodeURIComponent(String(id))}/`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this History.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminHistoryUpdate(id: number, data: History, observe?: 'body', reportProgress?: boolean): Observable<History>;
+    public adminHistoryUpdate(id: number, data: History, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<History>>;
+    public adminHistoryUpdate(id: number, data: History, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<History>>;
+    public adminHistoryUpdate(id: number, data: History, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminHistoryUpdate.');
+        }
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminHistoryUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<History>(`${this.configuration.basePath}/admin/history/${encodeURIComponent(String(id))}/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * 
@@ -262,9 +872,9 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminQuestionLevelList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
-    public adminQuestionLevelList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
-    public adminQuestionLevelList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
+    public adminQuestionLevelList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2002>;
+    public adminQuestionLevelList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2002>>;
+    public adminQuestionLevelList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2002>>;
     public adminQuestionLevelList(page?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -295,7 +905,7 @@ export class AdminService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<InlineResponse200>(`${this.configuration.basePath}/admin/question-level/`,
+        return this.httpClient.get<InlineResponse2002>(`${this.configuration.basePath}/admin/question-level/`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -469,9 +1079,9 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminQuestionList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2001>;
-    public adminQuestionList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2001>>;
-    public adminQuestionList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2001>>;
+    public adminQuestionList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2003>;
+    public adminQuestionList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2003>>;
+    public adminQuestionList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2003>>;
     public adminQuestionList(page?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -502,7 +1112,7 @@ export class AdminService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<InlineResponse2001>(`${this.configuration.basePath}/admin/question/`,
+        return this.httpClient.get<InlineResponse2003>(`${this.configuration.basePath}/admin/question/`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -675,6 +1285,308 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
+    public adminQuestionaryCreate(data: Questionary, observe?: 'body', reportProgress?: boolean): Observable<Questionary>;
+    public adminQuestionaryCreate(data: Questionary, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Questionary>>;
+    public adminQuestionaryCreate(data: Questionary, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Questionary>>;
+    public adminQuestionaryCreate(data: Questionary, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminQuestionaryCreate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Questionary>(`${this.configuration.basePath}/admin/questionary/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this Questionary.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminQuestionaryDelete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public adminQuestionaryDelete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public adminQuestionaryDelete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public adminQuestionaryDelete(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminQuestionaryDelete.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<any>(`${this.configuration.basePath}/admin/questionary/${encodeURIComponent(String(id))}/`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param page A page number within the paginated result set.
+     * @param pageSize Number of results to return per page.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminQuestionaryList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2004>;
+    public adminQuestionaryList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2004>>;
+    public adminQuestionaryList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2004>>;
+    public adminQuestionaryList(page?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (pageSize !== undefined && pageSize !== null) {
+            queryParameters = queryParameters.set('page_size', <any>pageSize);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<InlineResponse2004>(`${this.configuration.basePath}/admin/questionary/`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this Questionary.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminQuestionaryPartialUpdate(id: number, data: Questionary, observe?: 'body', reportProgress?: boolean): Observable<Questionary>;
+    public adminQuestionaryPartialUpdate(id: number, data: Questionary, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Questionary>>;
+    public adminQuestionaryPartialUpdate(id: number, data: Questionary, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Questionary>>;
+    public adminQuestionaryPartialUpdate(id: number, data: Questionary, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminQuestionaryPartialUpdate.');
+        }
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminQuestionaryPartialUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.patch<Questionary>(`${this.configuration.basePath}/admin/questionary/${encodeURIComponent(String(id))}/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this Questionary.
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminQuestionaryRead(id: number, observe?: 'body', reportProgress?: boolean): Observable<Questionary>;
+    public adminQuestionaryRead(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Questionary>>;
+    public adminQuestionaryRead(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Questionary>>;
+    public adminQuestionaryRead(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminQuestionaryRead.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Questionary>(`${this.configuration.basePath}/admin/questionary/${encodeURIComponent(String(id))}/`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param id A unique integer value identifying this Questionary.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adminQuestionaryUpdate(id: number, data: Questionary, observe?: 'body', reportProgress?: boolean): Observable<Questionary>;
+    public adminQuestionaryUpdate(id: number, data: Questionary, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Questionary>>;
+    public adminQuestionaryUpdate(id: number, data: Questionary, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Questionary>>;
+    public adminQuestionaryUpdate(id: number, data: Questionary, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling adminQuestionaryUpdate.');
+        }
+        if (data === null || data === undefined) {
+            throw new Error('Required parameter data was null or undefined when calling adminQuestionaryUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Token) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<Questionary>(`${this.configuration.basePath}/admin/questionary/${encodeURIComponent(String(id))}/`,
+            data,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * A viewset that provides default &#x60;create()&#x60;, &#x60;retrieve()&#x60;, &#x60;update()&#x60;, &#x60;partial_update()&#x60;, &#x60;destroy()&#x60; and &#x60;list()&#x60; actions.
+     * @param data 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
     public adminUserCreate(data: User, observe?: 'body', reportProgress?: boolean): Observable<User>;
     public adminUserCreate(data: User, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
     public adminUserCreate(data: User, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
@@ -771,9 +1683,9 @@ export class AdminService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminUserList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2002>;
-    public adminUserList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2002>>;
-    public adminUserList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2002>>;
+    public adminUserList(page?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2005>;
+    public adminUserList(page?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2005>>;
+    public adminUserList(page?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2005>>;
     public adminUserList(page?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
@@ -804,7 +1716,7 @@ export class AdminService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<InlineResponse2002>(`${this.configuration.basePath}/admin/user/`,
+        return this.httpClient.get<InlineResponse2005>(`${this.configuration.basePath}/admin/user/`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

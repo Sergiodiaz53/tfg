@@ -9,13 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { History } from './history';
 
 
-export interface InlineResponse2001 { 
-    next?: string | null;
-    previous?: string | null;
-    count: number;
-    results: Array<History>;
+export interface History { 
+    readonly historyLines?: Array<number>;
+    readonly id?: number;
+    created: Date;
+    valoration: number;
+    user: number;
+    level: number;
+    readonly str?: string;
 }
 

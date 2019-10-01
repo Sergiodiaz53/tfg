@@ -15,6 +15,8 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { ApiModule, Configuration } from './core/api';
 
 import { AppComponent } from './app.component';
@@ -89,6 +91,7 @@ export function onInitLanguage(
         }),
         NgxsStoragePluginModule.forRoot({ key: 'user.token' }),
         NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
+        NgxDatatableModule,
         ApiModule.forRoot(configurationFactory)
     ],
     providers: [

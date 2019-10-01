@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { QuestionLevel } from './questionLevel';
 
 
 export interface InlineResponse2002 { 
     next?: string | null;
     previous?: string | null;
     count: number;
-    results: Array<User>;
+    results: Array<QuestionLevel>;
 }
 

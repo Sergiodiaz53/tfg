@@ -6,30 +6,17 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './admin.page.html',
     styleUrls: ['./admin.page.scss']
 })
-export class HomePage implements OnInit {
+export class AdminPage implements OnInit {
     name: string;
-    models: { name: string; singular: string; endpoint: string }[] = [];
-    selected: string;
+    models: { name: string; url: string }[] = [
+        { name: 'Question Levels', url: 'model/question-level' },
+        { name: 'Questions', url: 'model/question' },
+        { name: 'History Lines', url: 'model/history-line' },
+        { name: 'Histories', url: 'model/history' },
+        { name: 'Questionaries', url: 'model/questionary' }
+    ];
 
-    constructor(private router: Router, private route: ActivatedRoute) {}
+    constructor() {}
 
-    ngOnInit() {
-        const data = this.route.snapshot.data;
-
-        this.name = data.adminSpecs.name;
-        this.models = data.adminSpecs.models;
-
-        this.openModelInfo(this.models[0].endpoint);
-    }
-
-    openModelInfo(model: string) {
-        this.router
-            .navigate(['model-info'], {
-                queryParams: { model },
-                relativeTo: this.route
-            })
-            .then(() => {
-                this.selected = model;
-            });
-    }
+    ngOnInit() {}
 }

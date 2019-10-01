@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { History } from './history';
+import { User } from './user';
 
 
-export interface InlineResponse2001 { 
+export interface InlineResponse2005 { 
     next?: string | null;
     previous?: string | null;
     count: number;
-    results: Array<History>;
+    results: Array<User>;
 }
 

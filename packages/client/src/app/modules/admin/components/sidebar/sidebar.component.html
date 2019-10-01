@@ -6,8 +6,8 @@
         <div
             *ngFor="let model of models"
             class="sidebar__list-item"
-            [class.sidebar__list-item--selected]="model.endpoint === selected"
-            (click)="select.emit(model.endpoint)"
+            [routerLink]="model.url"
+            routerLinkActive="sidebar__list-item--selected"
         >
             {{ model.name }}
         </div>

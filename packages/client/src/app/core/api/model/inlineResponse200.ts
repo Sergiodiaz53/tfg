@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { QuestionLevel } from './questionLevel';
+import { HistoryLine } from './historyLine';
 
 
 export interface InlineResponse200 { 
     next?: string | null;
     previous?: string | null;
     count: number;
-    results: Array<QuestionLevel>;
+    results: Array<HistoryLine>;
 }
 

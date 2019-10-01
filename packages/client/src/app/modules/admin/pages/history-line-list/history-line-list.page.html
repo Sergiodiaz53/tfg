@@ -1,0 +1,25 @@
+<ion-content [forceOverscroll]="true">
+    <div class="model-list">
+        <div class="model-list__title">
+            Name here
+        </div>
+        <div class="model__form">
+            <ngx-datatable
+                style="height: 100%"
+                class="material striped"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                rowHeight="auto"
+                [rows]="rows"
+                [columns]="columns"
+                [columnMode]="ColumnMode.force"
+                [externalPaging]="true"
+                [count]="page.totalElements"
+                [offset]="page.pageNumber"
+                [limit]="page.size"
+                (page)="getPage($event)"
+            >
+            </ngx-datatable>
+        </div>
+    </div>
+</ion-content>
