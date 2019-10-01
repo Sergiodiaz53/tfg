@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import path, include
 
 from . import views
+from . import serializers
 from .. import models
 
 router.registerViewSet(r'access-token', views.AccessTokenView,
@@ -17,7 +18,8 @@ router.register(models.Question, url=r'admin/question')
 router.register(models.QuestionLevel, url=r'admin/question-level')
 router.register(models.History, url=r'admin/history')
 router.register(models.HistoryLine, url=r'admin/history-line'),
-router.register(models.Questionary, url=r'admin/questionary'),
+router.register(models.Questionary, url=r'admin/questionary',
+                serializer=serializers.QuestionarySerializer),
 router.register(get_user_model(), url=r'admin/user')
 
 urlpatterns = [
