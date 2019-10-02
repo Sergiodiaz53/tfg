@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { QuestionLevel, AdminService, History } from '../../../../core/api';
-import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
-import { SizePipe } from '../../../../pipes/size/size.pipe';
+import { DatePipe, PercentPipe } from '@angular/common';
+import { Component, Injector } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
-import { DecimalPipe, PercentPipe, DatePipe } from '@angular/common';
 import { merge } from 'rxjs';
+import { History } from '../../../../core/api';
+import { SizePipe } from '../../../../pipes/size/size.pipe';
+import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 
 @Component({
     selector: 'tfg-history-list',
@@ -21,8 +21,8 @@ export class HistoryListPage extends ModelListPage<History> {
         { name: 'History lines', prop: 'historyLines', pipe: new SizePipe() }
     ];
 
-    constructor(protected adminService: AdminService) {
-        super();
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     getPage(page: number) {

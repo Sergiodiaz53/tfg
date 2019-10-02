@@ -1,8 +1,11 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Injector } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { Observable, Subject } from 'rxjs';
 import { map, tap, flatMap } from 'rxjs/operators';
 import { AdminService } from '../../../../core/api';
+import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { getComponentRouteUrl } from '../../../../shared/utils';
 
 export abstract class ModelListPage<M> implements OnInit {
     abstract columns: TableColumn[];
@@ -15,8 +18,18 @@ export abstract class ModelListPage<M> implements OnInit {
     };
     loadingIndicator = false;
 
+    createUpdateUrl = '/edit';
+
     protected pageSize = 25;
-    protected abstract adminService: AdminService;
+    protected adminService: AdminService;
+    protected navController: NavController;
+    protected activatedRoute: ActivatedRoute;
+
+    constructor(injector: Injector) {
+        this.adminService = injector.get(AdminService);
+        this.navController = injector.get(NavController);
+        this.activatedRoute = injector.get(ActivatedRoute);
+    }
 
     ngOnInit() {
         this.onPage();
@@ -27,6 +40,13 @@ export abstract class ModelListPage<M> implements OnInit {
 
     onPage(pageInfo = { offset: 0 }) {
         this.nextPage(pageInfo.offset).subscribe();
+    }
+
+    onAdd() {
+        const url = getComponentRouteUrl(this.activatedRoute);
+        this.navController.navigateForward(`${url}${this.createUpdateUrl}`, {
+            relativeTo: this.activatedRoute
+        });
     }
 
     onRemove(data: M[]) {

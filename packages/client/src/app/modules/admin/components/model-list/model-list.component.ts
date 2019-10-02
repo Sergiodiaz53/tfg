@@ -17,6 +17,7 @@ export class ModelListComponent implements OnInit {
 
     @Output() pageChange = new EventEmitter<number>();
     @Output() remove = new EventEmitter<any[]>();
+    @Output() add = new EventEmitter<void>();
 
     ColumnMode = ColumnMode;
     SelectionType = SelectionType;

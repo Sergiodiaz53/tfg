@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { QuestionLevel, AdminService } from '../../../../core/api';
-import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
+import { Component, Injector } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
-import { SizePipe } from '../../../../pipes/size/size.pipe';
 import { merge } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { QuestionLevel } from '../../../../core/api';
+import { SizePipe } from '../../../../pipes/size/size.pipe';
+import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 
 @Component({
     selector: 'tfg-question-level-list',
@@ -19,8 +18,8 @@ export class QuestionLevelListPage extends ModelListPage<QuestionLevel> {
         { name: 'Questions', prop: 'questions', pipe: new SizePipe() }
     ];
 
-    constructor(protected adminService: AdminService) {
-        super();
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     getPage(page: number) {

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { QuestionLevel, AdminService, Questionary } from '../../../../core/api';
-import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
+import { Component, Injector } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { merge } from 'rxjs';
+import { Questionary } from '../../../../core/api';
+import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 
 @Component({
     selector: 'tfg-questionary',
@@ -12,8 +12,8 @@ import { merge } from 'rxjs';
 export class QuestionaryListPage extends ModelListPage<Questionary> {
     columns: TableColumn[] = [{ name: 'id', prop: 'id' }, { name: 'Info', prop: '_Str__' }];
 
-    constructor(protected adminService: AdminService) {
-        super();
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     getPage(page: number) {

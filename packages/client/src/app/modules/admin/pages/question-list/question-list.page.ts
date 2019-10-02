@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { QuestionLevel, AdminService, Question } from '../../../../core/api';
-import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
+import { Component, Injector } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { merge } from 'rxjs';
+import { Question } from '../../../../core/api';
+import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 
 @Component({
     selector: 'tfg-question-list',
@@ -17,8 +17,8 @@ export class QuestionListPage extends ModelListPage<Question> {
         { name: 'Question level', prop: 'questionLevel' }
     ];
 
-    constructor(protected adminService: AdminService) {
-        super();
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     getPage(page: number) {

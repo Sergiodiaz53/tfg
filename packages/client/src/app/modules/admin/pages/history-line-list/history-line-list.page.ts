@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-import { QuestionLevel, AdminService, HistoryLine } from '../../../../core/api';
-import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
+import { Component, Injector } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
-import { Observable, merge } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { merge } from 'rxjs';
+import { HistoryLine } from '../../../../core/api';
+import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 
 @Component({
     selector: 'tfg-history-line-list',
@@ -19,8 +18,8 @@ export class HistoryLineListPage extends ModelListPage<HistoryLine> {
         { name: 'Duration', prop: 'duration' }
     ];
 
-    constructor(protected adminService: AdminService) {
-        super();
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     getPage(page: number) {

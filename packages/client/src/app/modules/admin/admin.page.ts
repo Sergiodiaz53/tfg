@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { getComponentRouteUrl } from '../../shared/utils';
 
 @Component({
     selector: 'app-admin-home-page',
@@ -17,20 +17,14 @@ export class AdminPage implements OnInit {
         { name: 'Questionaries', url: 'model/questionary' }
     ];
 
-    constructor(private route: ActivatedRoute) {
-        console.log(this.route);
-    }
+    constructor(private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.configModelUrls();
     }
 
     private configModelUrls() {
-        const url = this.getComponentRouteUrl();
+        const url = getComponentRouteUrl(this.route);
         this.models = this.models.map(model => ({ ...model, url: `${url}/${model.url}` }));
-    }
-
-    private getComponentRouteUrl() {
-        return this.route.snapshot.pathFromRoot.map(route => route.url.join('/')).join('/');
     }
 }

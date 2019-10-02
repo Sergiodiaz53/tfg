@@ -19,6 +19,7 @@ import { HistoryListPage } from './pages/history-list/history-list.page';
 import { QuestionaryListPage } from './pages/questionary/questionary.page';
 import { PipesModule } from '../../pipes/pipes.module';
 import { ModelListComponent } from './components/model-list/model-list.component';
+import { QuestionLevelCreatePage } from './pages/question-level-create/question-level-create.page';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import { ModelListComponent } from './components/model-list/model-list.component
         SidebarComponent,
         HeaderComponent,
         QuestionLevelListPage,
+        QuestionLevelCreatePage,
         QuestionListPage,
         HistoryLineListPage,
         HistoryListPage,
@@ -46,8 +48,8 @@ import { ModelListComponent } from './components/model-list/model-list.component
                         component: QuestionLevelListPage
                     },
                     {
-                        path: 'model/question-level/:id',
-                        component: QuestionLevelListPage
+                        path: 'model/question-level/edit',
+                        component: QuestionLevelCreatePage
                     },
                     {
                         path: 'model/question',
