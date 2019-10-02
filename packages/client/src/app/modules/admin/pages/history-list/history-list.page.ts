@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { QuestionLevel, AdminService } from '../../../../core/api';
+import { QuestionLevel, AdminService, History } from '../../../../core/api';
 import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 import { SizePipe } from '../../../../pipes/size/size.pipe';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { DecimalPipe, PercentPipe, DatePipe } from '@angular/common';
+import { merge } from 'rxjs';
 
 @Component({
     selector: 'tfg-history-list',
@@ -26,5 +27,11 @@ export class HistoryListPage extends ModelListPage<History> {
 
     getPage(page: number) {
         return this.adminService.adminHistoryList(page, this.pageSize);
+    }
+
+    remove(data: History[]) {
+        const delete$ = data.map(model => this.adminService.adminHistoryDelete(model.id));
+
+        return merge(...delete$);
     }
 }

@@ -4,23 +4,15 @@
             History lines
         </div>
         <div class="model__form">
-            <ngx-datatable
-                style="height: 100%"
-                class="material striped"
-                [headerHeight]="50"
-                [footerHeight]="50"
-                rowHeight="auto"
+            <tfg-model-list
                 [rows]="rows"
                 [columns]="columns"
-                [columnMode]="ColumnMode.force"
-                [externalPaging]="true"
+                [pageSize]="page.size"
                 [count]="page.totalElements"
-                [offset]="page.pageNumber"
-                [limit]="page.size"
-                [loadingIndicator]="isLoadingData"
-                (page)="nextPage($event)"
-            >
-            </ngx-datatable>
+                [page]="page.pageNumber"
+                (pageChange)="onPage($event)"
+                (remove)="onRemove($event)"
+            ></tfg-model-list>
         </div>
     </div>
 </ion-content>

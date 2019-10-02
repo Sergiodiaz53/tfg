@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { QuestionLevel, AdminService, Question } from '../../../../core/api';
 import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 import { TableColumn } from '@swimlane/ngx-datatable';
+import { merge } from 'rxjs';
 
 @Component({
     selector: 'tfg-question-list',
@@ -22,5 +23,11 @@ export class QuestionListPage extends ModelListPage<Question> {
 
     getPage(page: number) {
         return this.adminService.adminQuestionList(page, this.pageSize);
+    }
+
+    remove(data: Question[]) {
+        const delete$ = data.map(model => this.adminService.adminQuestionDelete(model.id));
+
+        return merge(...delete$);
     }
 }

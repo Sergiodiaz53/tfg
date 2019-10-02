@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { QuestionLevel, AdminService, HistoryLine } from '../../../../core/api';
 import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 import { TableColumn } from '@swimlane/ngx-datatable';
+import { Observable, merge } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'tfg-history-line-list',
@@ -23,5 +25,11 @@ export class HistoryLineListPage extends ModelListPage<HistoryLine> {
 
     getPage(page: number) {
         return this.adminService.adminHistoryLineList(page, this.pageSize);
+    }
+
+    remove(data: HistoryLine[]) {
+        const delete$ = data.map(model => this.adminService.adminHistoryLineDelete(model.id));
+
+        return merge(...delete$);
     }
 }

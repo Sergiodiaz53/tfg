@@ -1,0 +1,31 @@
+<ion-grid>
+    <ion-row class="ion-justify-content-between">
+        <ion-button color="danger" (click)="onRemove()" [disabled]="!(selected | size)">
+            <ion-icon name="trash"></ion-icon>
+        </ion-button>
+        <ion-button>
+            <ion-icon name="add"></ion-icon>
+        </ion-button>
+    </ion-row>
+</ion-grid>
+
+<ngx-datatable
+    style="height: 100%"
+    class="material striped"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    rowHeight="auto"
+    [rows]="rows"
+    [columns]="columns"
+    [columnMode]="ColumnMode.force"
+    [externalPaging]="true"
+    [count]="count"
+    [offset]="page"
+    [limit]="pageSize"
+    [loadingIndicator]="loadingIndicator"
+    [selected]="selected"
+    [selectionType]="SelectionType.checkbox"
+    [selectAllRowsOnPage]="false"
+    (select)="onSelect($event)"
+    (page)="pageChange.emit($event)"
+></ngx-datatable>

@@ -3,6 +3,8 @@ import { QuestionLevel, AdminService } from '../../../../core/api';
 import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { SizePipe } from '../../../../pipes/size/size.pipe';
+import { merge } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'tfg-question-level-list',
@@ -23,5 +25,11 @@ export class QuestionLevelListPage extends ModelListPage<QuestionLevel> {
 
     getPage(page: number) {
         return this.adminService.adminQuestionLevelList(page, this.pageSize);
+    }
+
+    remove(data: QuestionLevel[]) {
+        const delete$ = data.map(model => this.adminService.adminQuestionLevelDelete(model.id));
+
+        return merge(...delete$);
     }
 }

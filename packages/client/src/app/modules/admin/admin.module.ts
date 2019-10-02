@@ -18,6 +18,7 @@ import { HistoryLineListPage } from './pages/history-line-list/history-line-list
 import { HistoryListPage } from './pages/history-list/history-list.page';
 import { QuestionaryListPage } from './pages/questionary/questionary.page';
 import { PipesModule } from '../../pipes/pipes.module';
+import { ModelListComponent } from './components/model-list/model-list.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { PipesModule } from '../../pipes/pipes.module';
         QuestionListPage,
         HistoryLineListPage,
         HistoryListPage,
-        QuestionaryListPage
+        QuestionaryListPage,
+        ModelListComponent
     ],
     imports: [
         CommonModule,

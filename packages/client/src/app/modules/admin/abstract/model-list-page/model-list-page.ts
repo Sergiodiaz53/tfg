@@ -1,5 +1,7 @@
 import { OnInit } from '@angular/core';
-import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
+import { TableColumn } from '@swimlane/ngx-datatable';
+import { Observable, Subject } from 'rxjs';
+import { map, tap, flatMap } from 'rxjs/operators';
 import { AdminService } from '../../../../core/api';
 
 export abstract class ModelListPage<M> implements OnInit {
@@ -11,27 +13,44 @@ export abstract class ModelListPage<M> implements OnInit {
         size: 25,
         pageNumber: 0
     };
-    isLoadingData = false;
-
-    ColumnMode = ColumnMode;
+    loadingIndicator = false;
 
     protected pageSize = 25;
     protected abstract adminService: AdminService;
 
     ngOnInit() {
-        this.nextPage();
+        this.onPage();
     }
 
-    abstract getPage(page: number);
+    abstract getPage(page: number): Observable<{ count: number; results: M[] }>;
+    abstract remove(models: M[]): Observable<void>;
 
-    nextPage(pageInfo = { offset: 0 }) {
-        this.page.pageNumber = pageInfo.offset;
-        this.isLoadingData = true;
-        this.getPage(this.page.pageNumber + 1).subscribe(data => {
-            this.isLoadingData = false;
-            this.rows = [...((data.results as unknown) as M[])];
+    onPage(pageInfo = { offset: 0 }) {
+        this.nextPage(pageInfo.offset).subscribe();
+    }
 
-            this.page.totalElements = data.count;
-        });
+    onRemove(data: M[]) {
+        this.loadingIndicator = true;
+
+        this.remove(data)
+            .pipe(flatMap(() => this.nextPage(this.page.pageNumber)))
+            .subscribe();
+    }
+
+    private nextPage(page: number) {
+        this.page.pageNumber = page;
+        this.loadingIndicator = true;
+
+        return this.getPage(this.page.pageNumber + 1).pipe(
+            map(data => {
+                this.page.totalElements = data.count;
+
+                return data.results;
+            }),
+            tap(data => {
+                this.rows = data;
+                this.loadingIndicator = false;
+            })
+        );
     }
 }
