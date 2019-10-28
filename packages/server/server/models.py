@@ -87,11 +87,15 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 def question_image_directory_path(instance, filename):
-    extenstion = os.path.splitext(filename)[1]
-    return 'media/questions/{0}/{1}{2}'.format(
-        instance.question_level.pk,
-        instance.pk,
-        extenstion)
+    extension = os.path.splitext(filename)[1]
+
+    answers = {ANSWER_CHOICES[0][0]: 'I', ANSWER_CHOICES[1][0]: 'D'}
+    return 'media/questions/{}/{}-{}{}'.format(
+        instance.question_level.level,
+        answers[instance.correct_answer],
+        timezone.now().strftime('%Y-%m-%d'),
+        extension
+    )
 
 
 class QuestionLevel(models.Model):
@@ -110,8 +114,8 @@ class QuestionLevel(models.Model):
         ])
 
     class Meta:
-        verbose_name = _('QuestionLevel')
-        verbose_name_plural = _('QuestionLevels')
+        verbose_name = _('Question level')
+        verbose_name_plural = _('Question levels')
 
     def __str__(self):
         return '{}'.format(self.level)
@@ -146,19 +150,10 @@ class Question(models.Model):
     def get_absolute_url(self):
         return reverse('Question_detail', kwargs={'pk': self.pk})
 
-    def save(self, *args, **kwargs):
-        if self.id is None:
-            saved_image = self.image
-            self.image = None
-            super(Question, self).save(*args, **kwargs)
-            self.image = saved_image
-
-        super(Question, self).save(*args, **kwargs)
-
 
 class History(models.Model):
 
-    created = models.DateTimeField()
+    created = models.DateTimeField(auto_now=True)
     valoration = models.FloatField(
         validators=[
             validators.MinValueValidator(0.0),
@@ -178,11 +173,6 @@ class History(models.Model):
 
     def get_absolute_url(self):
         return reverse('History_detail', kwargs={'pk': self.pk})
-
-    def save(self, *args, **kwargs):
-        if self.created is None:
-            self.created = timezone.now()
-        super(History, self).save(*args, **kwargs)
 
     @property
     def correct_answers(self):

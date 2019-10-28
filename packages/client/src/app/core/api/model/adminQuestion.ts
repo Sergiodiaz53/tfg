@@ -11,14 +11,13 @@
  */
 
 
-export interface Question { 
+export interface AdminQuestion { 
     readonly id?: number;
     readonly image?: string;
-    correctAnswer: Question.CorrectAnswerEnum;
+    correctAnswer: AdminQuestion.CorrectAnswerEnum;
     questionLevel: number;
-    readonly str?: string;
 }
-export namespace Question {
+export namespace AdminQuestion {
     export type CorrectAnswerEnum = 'left' | 'right';
     export const CorrectAnswerEnum = {
         Left: 'left' as CorrectAnswerEnum,

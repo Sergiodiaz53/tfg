@@ -15,7 +15,7 @@ import { HistoryLineDetail } from './historyLineDetail';
 export interface HistoryDetail { 
     readonly id?: number;
     level: number;
-    created: Date;
+    readonly created?: Date;
     valoration: number;
     historyLines: Array<HistoryLineDetail>;
 }

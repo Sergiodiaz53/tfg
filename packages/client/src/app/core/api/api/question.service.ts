@@ -62,16 +62,20 @@ export class QuestionService {
     /**
      * 
      * 
+     * @param ordering Which field to use when ordering the results.
      * @param exclude question exclude param
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public questionRandom(exclude?: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<QuestionSimple>;
-    public questionRandom(exclude?: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuestionSimple>>;
-    public questionRandom(exclude?: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuestionSimple>>;
-    public questionRandom(exclude?: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public questionRandom(ordering?: string, exclude?: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<QuestionSimple>;
+    public questionRandom(ordering?: string, exclude?: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<QuestionSimple>>;
+    public questionRandom(ordering?: string, exclude?: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<QuestionSimple>>;
+    public questionRandom(ordering?: string, exclude?: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (ordering !== undefined && ordering !== null) {
+            queryParameters = queryParameters.set('ordering', <any>ordering);
+        }
         if (exclude) {
             queryParameters = queryParameters.set('exclude', exclude.join(COLLECTION_FORMATS['csv']));
         }

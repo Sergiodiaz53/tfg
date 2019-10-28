@@ -14,10 +14,9 @@
 export interface History { 
     readonly historyLines?: Array<number>;
     readonly id?: number;
-    created: Date;
+    readonly created?: Date;
     valoration: number;
     user: number;
     level: number;
-    readonly str?: string;
 }
 

@@ -9,7 +9,7 @@ from django.apps import apps
 from django.conf import settings
 from django.utils.decorators import method_decorator
 
-from rest_framework import viewsets, mixins, status, authtoken
+from rest_framework import viewsets, mixins, status, authtoken, parsers
 from rest_framework.decorators import action
 from rest_framework.authentication import (
     TokenAuthentication, SessionAuthentication)
@@ -20,7 +20,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema, no_body
 
 from .. import models
-from . import serializers
+from . import serializers, paginations
 
 question_exclude_param = openapi.Parameter(
     'exclude', openapi.IN_QUERY,
@@ -211,3 +211,19 @@ class HistoryView(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         return Response(
             self.get_serializer_class()(stats, many=True).data
         )
+
+
+class AdminQuestionViewSet(viewsets.ModelViewSet):
+
+    queryset = models.Question.objects.all()
+    serializer_class = serializers.AdminQuestionSerializer
+    parser_classes = (parsers.MultiPartParser,)
+    pagination_class = paginations.PageSizePagination
+
+    def create(self, request):
+        question_level = models.QuestionLevel.objects.get(
+            pk=request.POST.get('question_level'))
+
+        print(question_level)
+
+        return super(AdminQuestionViewSet, self).create(request)

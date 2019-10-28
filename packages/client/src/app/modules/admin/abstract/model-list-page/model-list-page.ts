@@ -35,6 +35,10 @@ export abstract class ModelListPage<M> implements OnInit {
         this.onPage();
     }
 
+    ionViewWillEnter() {
+        this.onPage();
+    }
+
     abstract getPage(page: number): Observable<{ count: number; results: M[] }>;
     abstract remove(models: M[]): Observable<void>;
 

@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { merge } from 'rxjs';
-import { Question } from '../../../../core/api';
+import { AdminQuestion } from '../../../../core/api';
 import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
 
 @Component({
@@ -9,7 +9,7 @@ import { ModelListPage } from '../../abstract/model-list-page/model-list-page';
     templateUrl: './question-list.page.html',
     styleUrls: ['./question-list.page.scss']
 })
-export class QuestionListPage extends ModelListPage<Question> {
+export class QuestionListPage extends ModelListPage<AdminQuestion> {
     columns: TableColumn[] = [
         { name: 'id', prop: 'id' },
         { name: 'Info', prop: '_Str__' },
@@ -25,7 +25,7 @@ export class QuestionListPage extends ModelListPage<Question> {
         return this.adminService.adminQuestionList(page, this.pageSize);
     }
 
-    remove(data: Question[]) {
+    remove(data: AdminQuestion[]) {
         const delete$ = data.map(model => this.adminService.adminQuestionDelete(model.id));
 
         return merge(...delete$);

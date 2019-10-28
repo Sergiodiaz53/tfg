@@ -116,13 +116,19 @@ export class HistoryService {
     /**
      * 
      * 
+     * @param ordering Which field to use when ordering the results.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historyList(observe?: 'body', reportProgress?: boolean): Observable<Array<HistoryList>>;
-    public historyList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<HistoryList>>>;
-    public historyList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<HistoryList>>>;
-    public historyList(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyList(ordering?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<HistoryList>>;
+    public historyList(ordering?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<HistoryList>>>;
+    public historyList(ordering?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<HistoryList>>>;
+    public historyList(ordering?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (ordering !== undefined && ordering !== null) {
+            queryParameters = queryParameters.set('ordering', <any>ordering);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -146,6 +152,7 @@ export class HistoryService {
 
         return this.httpClient.get<Array<HistoryList>>(`${this.configuration.basePath}/history/`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -202,13 +209,19 @@ export class HistoryService {
     /**
      * 
      * 
+     * @param ordering Which field to use when ordering the results.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public historyStats(observe?: 'body', reportProgress?: boolean): Observable<HistoryStats>;
-    public historyStats(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryStats>>;
-    public historyStats(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryStats>>;
-    public historyStats(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public historyStats(ordering?: string, observe?: 'body', reportProgress?: boolean): Observable<HistoryStats>;
+    public historyStats(ordering?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<HistoryStats>>;
+    public historyStats(ordering?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<HistoryStats>>;
+    public historyStats(ordering?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (ordering !== undefined && ordering !== null) {
+            queryParameters = queryParameters.set('ordering', <any>ordering);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -232,6 +245,7 @@ export class HistoryService {
 
         return this.httpClient.get<HistoryStats>(`${this.configuration.basePath}/history/stats/`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

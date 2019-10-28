@@ -26,7 +26,7 @@ export class HistoryListPage extends ModelListPage<History> {
     }
 
     getPage(page: number) {
-        return this.adminService.adminHistoryList(page, this.pageSize);
+        return this.adminService.adminHistoryList('-created', page, this.pageSize);
     }
 
     remove(data: History[]) {

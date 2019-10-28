@@ -144,7 +144,9 @@ REST_FRAMEWORK = {
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
     ),
 
-    'DEFAULT_METADATA_CLASS': 'drf_auto_endpoint.metadata.AutoMetadata'
+    'DEFAULT_METADATA_CLASS': 'drf_auto_endpoint.metadata.AutoMetadata',
+
+    'DEFAULT_FILTER_BACKENDS': ['rest_framework.filters.OrderingFilter']
 }
 
 DRF_AUTO_METADATA_ADAPTER = 'server.api.adapters.NgxFormlyAdapter'

@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Question } from './question';
+import { AdminQuestion } from './adminQuestion';
 
 
 export interface InlineResponse2003 { 
     next?: string | null;
     previous?: string | null;
     count: number;
-    results: Array<Question>;
+    results: Array<AdminQuestion>;
 }
 

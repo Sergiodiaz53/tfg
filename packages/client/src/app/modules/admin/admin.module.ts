@@ -19,7 +19,12 @@ import { HistoryListPage } from './pages/history-list/history-list.page';
 import { QuestionaryListPage } from './pages/questionary/questionary.page';
 import { PipesModule } from '../../pipes/pipes.module';
 import { ModelListComponent } from './components/model-list/model-list.component';
+import { ModelCreateComponent } from './components/model-create/model-create.component';
 import { QuestionLevelCreatePage } from './pages/question-level-create/question-level-create.page';
+import { QuestionCreatePage } from './pages/question-create/question-create.page';
+import { FormlyFieldFile } from './components/file-type/file-type.component';
+import { FileValueAccessor } from './components/file-type/file-value-accesor';
+import { HistoryCreatePage } from './pages/history-create/history-create.page';
 
 @NgModule({
     declarations: [
@@ -29,10 +34,15 @@ import { QuestionLevelCreatePage } from './pages/question-level-create/question-
         QuestionLevelListPage,
         QuestionLevelCreatePage,
         QuestionListPage,
+        QuestionCreatePage,
         HistoryLineListPage,
         HistoryListPage,
+        HistoryCreatePage,
         QuestionaryListPage,
-        ModelListComponent
+        ModelListComponent,
+        ModelCreateComponent,
+        FormlyFieldFile,
+        FileValueAccessor
     ],
     imports: [
         CommonModule,
@@ -56,6 +66,10 @@ import { QuestionLevelCreatePage } from './pages/question-level-create/question-
                         component: QuestionListPage
                     },
                     {
+                        path: 'model/question/edit',
+                        component: QuestionCreatePage
+                    },
+                    {
                         path: 'model/question/:id',
                         component: QuestionListPage
                     },
@@ -70,6 +84,10 @@ import { QuestionLevelCreatePage } from './pages/question-level-create/question-
                     {
                         path: 'model/history',
                         component: HistoryListPage
+                    },
+                    {
+                        path: 'model/history/edit',
+                        component: HistoryCreatePage
                     },
                     {
                         path: 'model/history/:id',
@@ -88,7 +106,19 @@ import { QuestionLevelCreatePage } from './pages/question-level-create/question-
         ]),
         TranslateModule.forChild(),
         ReactiveFormsModule,
-        FormlyModule.forRoot(),
+        FormlyModule.forRoot({
+            types: [
+                {
+                    name: 'file',
+                    component: FormlyFieldFile,
+                    wrappers: ['form-field']
+                }
+            ],
+            validationMessages: [
+                { name: 'required', message: 'This field is required' },
+                { name: 'other', message: (err, field) => err }
+            ]
+        }),
         FormlyIonicModule,
         NgxDatatableModule,
         PipesModule

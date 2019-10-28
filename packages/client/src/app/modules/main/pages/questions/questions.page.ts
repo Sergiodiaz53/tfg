@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Question, Answer } from '../../../../core/api';
+import { QuestionSimple, Answer } from '../../../../core/api';
 import { flatMap, tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Select, Store } from '@ngxs/store';
@@ -21,7 +21,7 @@ const ANSWERS = 10;
 })
 export class QuestionsPage implements OnInit {
     @Select(QuestionState.current)
-    question$: Question;
+    question$: QuestionSimple;
 
     private questionStarted: number;
 

@@ -1,4 +1,5 @@
 export * from './accessToken';
+export * from './adminQuestion';
 export * from './answer';
 export * from './answerBatch';
 export * from './authToken';
@@ -14,7 +15,6 @@ export * from './inlineResponse2002';
 export * from './inlineResponse2003';
 export * from './inlineResponse2004';
 export * from './inlineResponse2005';
-export * from './question';
 export * from './questionLevel';
 export * from './questionSimple';
 export * from './questionary';

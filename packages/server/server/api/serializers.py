@@ -171,3 +171,9 @@ class UserCreateSerializer(serializers.ModelSerializer):
         models.Questionary.objects.create(**questionary, user=user)
 
         return user
+
+
+class AdminQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Question
+        fields = '__all__'
