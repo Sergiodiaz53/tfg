@@ -23,7 +23,7 @@ export class HistoryLineListPage extends ModelListPage<HistoryLine> {
     }
 
     getPage(page: number) {
-        return this.adminService.adminHistoryLineList(page, this.pageSize);
+        return this.adminService.adminHistoryLineList('-id', page, this.pageSize);
     }
 
     remove(data: HistoryLine[]) {

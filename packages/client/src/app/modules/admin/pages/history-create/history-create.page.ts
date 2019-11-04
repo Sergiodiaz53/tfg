@@ -9,7 +9,7 @@ import { ModelCreatePage } from '../../abstract/model-create-page/model-create-p
     templateUrl: './history-create.page.html',
     styleUrls: ['./history-create.page.scss']
 })
-export class HistoryCreatePage extends ModelCreatePage<History> implements OnInit {
+export class HistoryCreatePage extends ModelCreatePage<History> {
     fields: FormlyFieldConfig[] = [
         {
             key: 'valoration',
@@ -49,9 +49,15 @@ export class HistoryCreatePage extends ModelCreatePage<History> implements OnIni
         super(injector);
     }
 
+    get(id: number) {
+        return this.adminService.adminHistoryRead(id);
+    }
+
+    update(id: number, data: History) {
+        return this.adminService.adminHistoryUpdate(id, data);
+    }
+
     create(data: History) {
         return this.adminService.adminHistoryCreate(data);
     }
-
-    ngOnInit() {}
 }

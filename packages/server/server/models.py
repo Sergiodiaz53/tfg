@@ -134,7 +134,8 @@ class QuestionLevel(models.Model):
 
 class Question(models.Model):
 
-    image = models.ImageField(upload_to=question_image_directory_path)
+    image = models.ImageField(
+        upload_to=question_image_directory_path, blank=True)
     correct_answer = models.CharField(
         choices=ANSWER_CHOICES, max_length=5)
     question_level = models.ForeignKey(

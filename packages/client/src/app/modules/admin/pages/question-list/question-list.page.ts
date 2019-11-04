@@ -22,7 +22,7 @@ export class QuestionListPage extends ModelListPage<AdminQuestion> {
     }
 
     getPage(page: number) {
-        return this.adminService.adminQuestionList(page, this.pageSize);
+        return this.adminService.adminQuestionList('id', page, this.pageSize);
     }
 
     remove(data: AdminQuestion[]) {

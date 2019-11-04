@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    ViewChild,
+    TemplateRef
+} from '@angular/core';
 
 import { ColumnMode, TableColumn, SelectionType } from '@swimlane/ngx-datatable';
 
@@ -17,7 +25,10 @@ export class ModelListComponent implements OnInit {
 
     @Output() pageChange = new EventEmitter<number>();
     @Output() remove = new EventEmitter<any[]>();
+    @Output() edit = new EventEmitter<any>();
     @Output() add = new EventEmitter<void>();
+
+    @ViewChild('editTemplate', { static: true }) editTemplate: TemplateRef<any>;
 
     ColumnMode = ColumnMode;
     SelectionType = SelectionType;
@@ -40,6 +51,10 @@ export class ModelListComponent implements OnInit {
         this.selected = [];
     }
 
+    onEdit(data: any) {
+        this.edit.emit(data.id);
+    }
+
     private addCheckbox() {
         this.columns = [
             {
@@ -51,7 +66,10 @@ export class ModelListComponent implements OnInit {
                 headerCheckboxable: true,
                 checkboxable: true
             },
-            ...this.columns
+            ...this.columns,
+            {
+                cellTemplate: this.editTemplate
+            }
         ];
     }
 }

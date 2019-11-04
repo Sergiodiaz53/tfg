@@ -23,7 +23,7 @@ export class QuestionLevelListPage extends ModelListPage<QuestionLevel> {
     }
 
     getPage(page: number) {
-        return this.adminService.adminQuestionLevelList(page, this.pageSize);
+        return this.adminService.adminQuestionLevelList('id', page, this.pageSize);
     }
 
     remove(data: QuestionLevel[]) {

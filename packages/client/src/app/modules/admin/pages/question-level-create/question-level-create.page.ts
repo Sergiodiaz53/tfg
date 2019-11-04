@@ -23,7 +23,7 @@ export class QuestionLevelCreatePage extends ModelCreatePage<QuestionLevel> impl
             defaultValue: null
         },
         {
-            key: 'average_duration',
+            key: 'averageDuration',
             type: 'input',
             templateOptions: {
                 required: false,
@@ -35,7 +35,7 @@ export class QuestionLevelCreatePage extends ModelCreatePage<QuestionLevel> impl
             defaultValue: 0
         },
         {
-            key: 'duration_threshold',
+            key: 'durationThreshold',
             type: 'input',
             templateOptions: {
                 required: false,
@@ -53,7 +53,15 @@ export class QuestionLevelCreatePage extends ModelCreatePage<QuestionLevel> impl
         super(injector);
     }
 
+    update(id: number, data: QuestionLevel) {
+        return this.adminService.adminQuestionLevelUpdate(id, data);
+    }
+
     create(data: QuestionLevel) {
         return this.adminService.adminQuestionLevelCreate(data);
+    }
+
+    get(id: number) {
+        return this.adminService.adminQuestionLevelRead(id);
     }
 }

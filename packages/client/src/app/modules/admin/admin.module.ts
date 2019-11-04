@@ -25,6 +25,7 @@ import { QuestionCreatePage } from './pages/question-create/question-create.page
 import { FormlyFieldFile } from './components/file-type/file-type.component';
 import { FileValueAccessor } from './components/file-type/file-value-accesor';
 import { HistoryCreatePage } from './pages/history-create/history-create.page';
+import { HistoryLineCreatePage } from './pages/history-line-create/history-line-create.page';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { HistoryCreatePage } from './pages/history-create/history-create.page';
         QuestionListPage,
         QuestionCreatePage,
         HistoryLineListPage,
+        HistoryLineCreatePage,
         HistoryListPage,
         HistoryCreatePage,
         QuestionaryListPage,
@@ -62,6 +64,10 @@ import { HistoryCreatePage } from './pages/history-create/history-create.page';
                         component: QuestionLevelCreatePage
                     },
                     {
+                        path: 'model/question-level/edit/:id',
+                        component: QuestionLevelCreatePage
+                    },
+                    {
                         path: 'model/question',
                         component: QuestionListPage
                     },
@@ -70,16 +76,20 @@ import { HistoryCreatePage } from './pages/history-create/history-create.page';
                         component: QuestionCreatePage
                     },
                     {
-                        path: 'model/question/:id',
-                        component: QuestionListPage
+                        path: 'model/question/edit/:id',
+                        component: QuestionCreatePage
                     },
                     {
                         path: 'model/history-line',
                         component: HistoryLineListPage
                     },
                     {
-                        path: 'model/history-line/:id',
-                        component: HistoryLineListPage
+                        path: 'model/history-line/edit',
+                        component: HistoryLineCreatePage
+                    },
+                    {
+                        path: 'model/history-line/edit/:id',
+                        component: HistoryLineCreatePage
                     },
                     {
                         path: 'model/history',
@@ -90,8 +100,8 @@ import { HistoryCreatePage } from './pages/history-create/history-create.page';
                         component: HistoryCreatePage
                     },
                     {
-                        path: 'model/history/:id',
-                        component: HistoryListPage
+                        path: 'model/history/edit/:id',
+                        component: HistoryCreatePage
                     },
                     {
                         path: 'model/questionary',

@@ -1,0 +1,15 @@
+<ion-content [forceOverscroll]="true">
+    <div class="model-create">
+        <div class="model-create__title">
+            History Line create
+        </div>
+        <div class="model-create__form">
+            <tfg-model-create
+                [fields]="fields"
+                [model]="model"
+                [errors]="errors$ | async"
+                (create)="onSubmit($event)"
+            ></tfg-model-create>
+        </div>
+    </div>
+</ion-content>

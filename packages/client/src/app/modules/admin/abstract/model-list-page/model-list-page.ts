@@ -53,6 +53,13 @@ export abstract class ModelListPage<M> implements OnInit {
         });
     }
 
+    onEdit(data: M) {
+        const url = getComponentRouteUrl(this.activatedRoute);
+        this.navController.navigateForward(`${url}${this.createUpdateUrl}/${data}`, {
+            relativeTo: this.activatedRoute
+        });
+    }
+
     onRemove(data: M[]) {
         this.loadingIndicator = true;
 

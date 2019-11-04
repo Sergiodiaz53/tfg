@@ -685,19 +685,16 @@ export class AdminService {
     /**
      * 
      * 
-     * @param image 
      * @param correctAnswer 
      * @param questionLevel 
+     * @param image 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminQuestionCreate(image: Blob, correctAnswer: string, questionLevel: number, observe?: 'body', reportProgress?: boolean): Observable<AdminQuestion>;
-    public adminQuestionCreate(image: Blob, correctAnswer: string, questionLevel: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AdminQuestion>>;
-    public adminQuestionCreate(image: Blob, correctAnswer: string, questionLevel: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AdminQuestion>>;
-    public adminQuestionCreate(image: Blob, correctAnswer: string, questionLevel: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (image === null || image === undefined) {
-            throw new Error('Required parameter image was null or undefined when calling adminQuestionCreate.');
-        }
+    public adminQuestionCreate(correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'body', reportProgress?: boolean): Observable<AdminQuestion>;
+    public adminQuestionCreate(correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AdminQuestion>>;
+    public adminQuestionCreate(correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AdminQuestion>>;
+    public adminQuestionCreate(correctAnswer: string, questionLevel: number, image?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (correctAnswer === null || correctAnswer === undefined) {
             throw new Error('Required parameter correctAnswer was null or undefined when calling adminQuestionCreate.');
         }
@@ -1171,21 +1168,18 @@ export class AdminService {
      * 
      * 
      * @param id A unique integer value identifying this Question.
-     * @param image 
      * @param correctAnswer 
      * @param questionLevel 
+     * @param image 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminQuestionPartialUpdate(id: number, image: Blob, correctAnswer: string, questionLevel: number, observe?: 'body', reportProgress?: boolean): Observable<AdminQuestion>;
-    public adminQuestionPartialUpdate(id: number, image: Blob, correctAnswer: string, questionLevel: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AdminQuestion>>;
-    public adminQuestionPartialUpdate(id: number, image: Blob, correctAnswer: string, questionLevel: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AdminQuestion>>;
-    public adminQuestionPartialUpdate(id: number, image: Blob, correctAnswer: string, questionLevel: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminQuestionPartialUpdate(id: number, correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'body', reportProgress?: boolean): Observable<AdminQuestion>;
+    public adminQuestionPartialUpdate(id: number, correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AdminQuestion>>;
+    public adminQuestionPartialUpdate(id: number, correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AdminQuestion>>;
+    public adminQuestionPartialUpdate(id: number, correctAnswer: string, questionLevel: number, image?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling adminQuestionPartialUpdate.');
-        }
-        if (image === null || image === undefined) {
-            throw new Error('Required parameter image was null or undefined when calling adminQuestionPartialUpdate.');
         }
         if (correctAnswer === null || correctAnswer === undefined) {
             throw new Error('Required parameter correctAnswer was null or undefined when calling adminQuestionPartialUpdate.');
@@ -1299,21 +1293,18 @@ export class AdminService {
      * 
      * 
      * @param id A unique integer value identifying this Question.
-     * @param image 
      * @param correctAnswer 
      * @param questionLevel 
+     * @param image 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminQuestionUpdate(id: number, image: Blob, correctAnswer: string, questionLevel: number, observe?: 'body', reportProgress?: boolean): Observable<AdminQuestion>;
-    public adminQuestionUpdate(id: number, image: Blob, correctAnswer: string, questionLevel: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AdminQuestion>>;
-    public adminQuestionUpdate(id: number, image: Blob, correctAnswer: string, questionLevel: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AdminQuestion>>;
-    public adminQuestionUpdate(id: number, image: Blob, correctAnswer: string, questionLevel: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public adminQuestionUpdate(id: number, correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'body', reportProgress?: boolean): Observable<AdminQuestion>;
+    public adminQuestionUpdate(id: number, correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AdminQuestion>>;
+    public adminQuestionUpdate(id: number, correctAnswer: string, questionLevel: number, image?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AdminQuestion>>;
+    public adminQuestionUpdate(id: number, correctAnswer: string, questionLevel: number, image?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling adminQuestionUpdate.');
-        }
-        if (image === null || image === undefined) {
-            throw new Error('Required parameter image was null or undefined when calling adminQuestionUpdate.');
         }
         if (correctAnswer === null || correctAnswer === undefined) {
             throw new Error('Required parameter correctAnswer was null or undefined when calling adminQuestionUpdate.');

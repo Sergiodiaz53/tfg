@@ -57,14 +57,24 @@ export class QuestionCreatePage extends ModelCreatePage<AdminQuestion> implement
         super(injector);
     }
 
-    create(data: AdminQuestion) {
-        console.log(data);
-        return this.adminService.adminQuestionCreate(
-            (data.image as any) as File,
+    get(id: number) {
+        return this.adminService.adminQuestionRead(id);
+    }
+
+    update(id: number, data: AdminQuestion) {
+        return this.adminService.adminQuestionUpdate(
+            id,
             data.correctAnswer,
-            data.questionLevel
+            data.questionLevel,
+            (data.image as any) as File
         );
     }
 
-    ngOnInit() {}
+    create(data: AdminQuestion) {
+        return this.adminService.adminQuestionCreate(
+            data.correctAnswer,
+            data.questionLevel,
+            (data.image as any) as File
+        );
+    }
 }

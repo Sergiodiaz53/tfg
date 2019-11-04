@@ -30,3 +30,9 @@
     (select)="onSelect($event)"
     (page)="pageChange.emit($event)"
 ></ngx-datatable>
+
+<ng-template #editTemplate let-row="row">
+    <ion-button size="small" (click)="onEdit(row)">
+        <ion-icon name="create"></ion-icon>
+    </ion-button>
+</ng-template>

@@ -17,7 +17,7 @@ export class QuestionaryListPage extends ModelListPage<Questionary> {
     }
 
     getPage(page: number) {
-        return this.adminService.adminQuestionaryList(page, this.pageSize);
+        return this.adminService.adminQuestionaryList('id', page, this.pageSize);
     }
 
     remove(data: Questionary[]) {
