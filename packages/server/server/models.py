@@ -90,7 +90,7 @@ def question_image_directory_path(instance, filename):
     extension = os.path.splitext(filename)[1]
 
     answers = {ANSWER_CHOICES[0][0]: 'I', ANSWER_CHOICES[1][0]: 'D'}
-    return 'media/questions/{}/{}-{}{}'.format(
+    return 'questions/{}/{}-{}{}'.format(
         instance.question_level.level,
         answers[instance.correct_answer],
         timezone.now().strftime('%Y-%m-%d'),
@@ -150,6 +150,29 @@ class Question(models.Model):
 
     def get_absolute_url(self):
         return reverse('Question_detail', kwargs={'pk': self.pk})
+
+
+@receiver(models.signals.post_delete, sender=Question)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.image:
+        if os.path.isfile(instance.image.path):
+            os.remove(instance.image.path)
+
+
+@receiver(models.signals.pre_save, sender=Question)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = sender.objects.get(pk=instance.pk).image
+    except sender.DoesNotExist:
+        return False
+
+    new_file = instance.image
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
 
 
 class History(models.Model):

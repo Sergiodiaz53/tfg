@@ -10,11 +10,20 @@
                 [pageSize]="page.size"
                 [count]="page.totalElements"
                 [page]="page.pageNumber"
+                [loadingIndicator]="loadingIndicator"
                 (pageChange)="onPage($event)"
                 (remove)="onRemove($event)"
                 (edit)="onEdit($event)"
                 (add)="onAdd()"
-            ></tfg-model-list>
+            >
+                <ng-container moreButtons>
+                    <ion-button (click)="bulkFile.click()">
+                        <ion-icon name="cloud-upload"></ion-icon>
+                    </ion-button>
+                </ng-container>
+            </tfg-model-list>
         </div>
     </div>
 </ion-content>
+
+<input hidden type="file" id="file" #bulkFile (change)="onBulkUpload($event.target.files)" />

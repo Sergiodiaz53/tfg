@@ -1,10 +1,16 @@
+from django.core.files.images import ImageFile
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
+import zipfile
+import re
+import os
 
 from rest_framework import serializers, authtoken
 
 from .. import models
+
+FILENAME_REGEX = '^(\d+)\/(M|H)-(I|D)[^.]+.[^.]+$'
 
 
 class AccessTokenSerializer(serializers.ModelSerializer):
@@ -177,3 +183,47 @@ class AdminQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Question
         fields = '__all__'
+
+
+DIRECTIONS = {
+    'I': models.ANSWER_CHOICES[0][0],
+    'D': models.ANSWER_CHOICES[1][0],
+}
+
+
+class AdminQuestionBulkSerializer(serializers.Serializer):
+
+    file = serializers.FileField()
+
+    def create(self, validated_data):
+        file = validated_data.get('file', 'r')
+        with zipfile.ZipFile(file) as archive:
+            for line in archive.filelist:
+                match = re.search(FILENAME_REGEX, line.filename)
+
+                if match:
+                    path = os.path.join(
+                        settings.MEDIA_ROOT, 'questions/temp')
+
+                    archive.extract(line.filename, path)
+
+                    level = match.group(1)
+                    sex = match.group(2)
+                    direction = DIRECTIONS[match.group(3)]
+
+                    question_level, created = models.QuestionLevel.objects.get_or_create(
+                        level=level)
+
+                    with open(os.path.join(path, line.filename), 'rb') as f:
+                        image = ImageFile(f)
+
+                        question = models.Question(
+                            correct_answer=direction,
+                            question_level=question_level)
+                        question.image.save(line.filename, image, save=False)
+
+                        question.save()
+
+                    os.remove(os.path.join(path, line.filename))
+
+        return ()

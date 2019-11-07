@@ -220,10 +220,28 @@ class AdminQuestionViewSet(viewsets.ModelViewSet):
     parser_classes = (parsers.MultiPartParser,)
     pagination_class = paginations.PageSizePagination
 
+    def get_serializer_class(self):
+        if (self.action == 'bulk'):
+            return serializers.AdminQuestionBulkSerializer
+        else:
+            return super().get_serializer_class()
+
     def create(self, request):
         question_level = models.QuestionLevel.objects.get(
             pk=request.POST.get('question_level'))
 
-        print(question_level)
-
         return super(AdminQuestionViewSet, self).create(request)
+
+    @swagger_auto_schema(
+        responses=({200: ''})
+    )
+    @action(methods=['put'], detail=False)
+    def bulk(self, request):
+        serializer = self.get_serializer(data=request.data)
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            status=status.HTTP_200_OK
+        )
