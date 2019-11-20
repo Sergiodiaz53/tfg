@@ -1,26 +1,31 @@
-
+import csv
+import zipfile
+from io import StringIO, BytesIO
 from random import randint
-from django.utils import timezone
+from openpyxl import Workbook
+from openpyxl.writer.excel import save_virtual_workbook
+
 import pytz
 
-from django.db.models import IntegerField, Count, Sum, F, Avg, Case, When
-from django.db.models.functions import TruncDay
 from django.apps import apps
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.db.models import Avg, Case, Count, F, IntegerField, Sum, When
+from django.db.models.functions import TruncDay
+from django.http import HttpResponse
+from django.utils import timezone
 from django.utils.decorators import method_decorator
-
-from rest_framework import viewsets, mixins, status, authtoken, parsers
-from rest_framework.decorators import action
-from rest_framework.authentication import (
-    TokenAuthentication, SessionAuthentication)
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny
-
 from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema, no_body
+from drf_yasg.utils import no_body, swagger_auto_schema
+from rest_framework import authtoken, mixins, parsers, status, views, viewsets
+from rest_framework.authentication import (SessionAuthentication,
+                                           TokenAuthentication)
+from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 
 from .. import models
-from . import serializers, paginations
+from . import paginations, serializers
 
 question_exclude_param = openapi.Parameter(
     'exclude', openapi.IN_QUERY,
@@ -245,3 +250,71 @@ class AdminQuestionViewSet(viewsets.ModelViewSet):
         return Response(
             status=status.HTTP_200_OK
         )
+
+
+class AdminExportView(viewsets.ViewSet):
+    # permission_classes = (IsAuthenticated,)
+
+    @action(methods=['get'], detail=False, url_path=r'export(?:\.(?P<ext>[a-z0-9]+))?')
+    def export(self, request, ext='csv'):
+        if ext == 'xls':
+            return self.export_xls()
+        else:
+            return self.export_csv()
+
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+    def export_csv(self):
+        return self.create_zip(self.create_csv())
+
+    def export_xls(self):
+        return self.create_zip(self.create_xls(), True)
+
+    def create_csv(self):
+        files = {}
+        models = apps.get_app_config('server').get_models()
+
+        for model in models:
+            si = StringIO()
+            writer = csv.writer(si)
+
+            values = model.objects.all().values_list()
+            writer.writerow([field.name for field in model._meta.fields])
+
+            for value in values:
+                writer.writerow(value)
+
+            files['{}.csv'.format(model._meta.verbose_name_plural)] = si
+
+        return files
+
+    def create_xls(self):
+
+        wb = Workbook()
+        wb.remove_sheet(wb.active)
+
+        for [filename, data] in self.create_csv().items():
+            ws = wb.create_sheet(filename.split('.')[0])
+
+            print(data.getvalue())
+            for row in csv.reader(data.getvalue().split('\n')):
+                ws.append(row)
+
+        bi = BytesIO()
+        bi.write(save_virtual_workbook(wb))
+        wb.close()
+
+        return {'data.xlsx': bi}
+
+    def create_zip(self, files, bytes=False):
+        response = HttpResponse(content_type='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=data.zip'
+
+        with zipfile.ZipFile(response, mode='w', compression=zipfile.ZIP_DEFLATED) as zf:
+            for [filename, data] in files.items():
+                if bytes:
+                    zf.writestr(filename, data.getvalue())
+                else:
+                    zf.writestr(filename, str.encode(data.getvalue(), 'utf-8'))
+
+        return response

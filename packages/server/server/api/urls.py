@@ -1,5 +1,4 @@
 from rest_framework.authtoken import views as authtoken_views
-# from rest_framework.routers import DefaultRouter
 from drf_auto_endpoint.router import router
 from django.contrib.auth import get_user_model
 from django.urls import path, include
@@ -21,7 +20,7 @@ router.register(models.HistoryLine, url=r'admin/history-line'),
 router.register(models.Questionary, url=r'admin/questionary',
                 serializer=serializers.QuestionarySerializer),
 router.register(get_user_model(), url=r'admin/user')
+router.registerViewSet(
+    r'admin', views.AdminExportView, basename='export')
 
-urlpatterns = [
-    path('', include(router.urls))
-]
+urlpatterns = router.urls
