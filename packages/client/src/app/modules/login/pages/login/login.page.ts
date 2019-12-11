@@ -32,6 +32,7 @@ export class LoginPage implements OnInit {
     }
 
     async onLogin() {
+        console.log(this.loginCredentials);
         this.credentialErrorsShown = false;
 
         const loading = await this.loadingController.create();

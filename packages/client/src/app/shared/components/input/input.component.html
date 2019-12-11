@@ -1,5 +1,6 @@
 <div class="input input--rounded">
   <span class="input__icon mo-usuario"></span>
 
-  <input class="input__input" type="text" placeholder="Usuario">
+  <input class="input__input" type="text" [placeholder]="placeholder" [value]="value" [disabled]="isDisabled"
+    (input)="onInput($event.target.value)">
 </div>

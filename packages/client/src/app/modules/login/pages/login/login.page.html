@@ -1,22 +1,36 @@
 <ion-content padding>
-    <form [formGroup]="loginCredentials" (ngSubmit)="onLogin()">
-        <tfg-input></tfg-input>
-        <tfg-input></tfg-input>
+    <div class="grid grid-center">
+        <div class="login__logo"></div>
+    </div>
 
-        <ion-button expand="block" type="submit" [disabled]="loginCredentials.invalid" translate>
+
+    <div class="grid grid-middle grid-column">
+        <span class="login__info">Imaginería Motora Graduada</span>
+        <span class="login__info login__info--small">para</span>
+        <span class="login__info login__info--big">SUELOPÉLVICO</span>
+    </div>
+
+
+    <form [formGroup]="loginCredentials" class="login__form" (ngSubmit)="onLogin()">
+        <div class="grid grid-column">
+            <div class="col login__input">
+                <tfg-input formControlName="username" placeholder="Usuario"></tfg-input>
+            </div>
+            <div class="col login__input">
+                <tfg-input formControlName="username" placeholder="Contraseña"></tfg-input>
+            </div>
+        </div>
+
+        <ion-button class="login__button" expand="block" type="submit" [disabled]="loginCredentials.invalid" translate>
             Login
         </ion-button>
 
-        <ion-text *ngIf="credentialErrorsShown" color="danger">
+        <ion-text *ngIf="credentialErrorsShown" color="danger" text-center>
             <h6 translate>Incorrect username or password</h6>
         </ion-text>
     </form>
 
-    <ion-grid>
-        <ion-row justify-content-center>
-            <ion-col size="auto">
-                <a routerLink="./signup" translate>Create Account</a>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    <div class="grid grid-center">
+        <a routerLink="./signup" translate>Create Account</a>
+    </div>
 </ion-content>
