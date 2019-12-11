@@ -1,0 +1,111 @@
+@font-face {
+    font-family: "mohedo";
+    font-style: normal;
+    font-weight: normal;
+    src: url("./mohedo.eot?10472304");
+    src: url("./mohedo.eot?10472304#iefix") format("embedded-opentype"),
+        url("./mohedo.woff2?10472304") format("woff2"), url("./mohedo.woff?10472304") format("woff"),
+        url("./mohedo.ttf?10472304") format("truetype");
+}
+
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'mohedo';
+    src: url('../fonts/mohedo.svg?10472304#mohedo') format('svg');
+  }
+}
+*/
+
+[class^="mo-"]::before,
+[class*=" mo-"]::before {
+
+    display: inline-block;
+    width: 1em;
+    margin-right: 0.2em;
+
+    /* Animation center compensation - margins should be symmetric */
+
+    /* remove if not needed */
+    margin-left: 0.2em;
+    font-family: "mohedo";
+    font-style: normal;
+    font-weight: normal;
+
+    /* opacity: .8; */
+
+    /* For safety - reset parent styles, that can break glyph codes */
+    font-variant: normal;
+
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+    text-align: center;
+    text-decoration: inherit;
+    text-transform: none;
+    speak: none;
+
+    /* you can be more comfortable with increased icons size */
+
+    /* font-size: 120%; */
+
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Uncomment for 3D effect */
+
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.mo-incorrecto::before {
+    content: "\e800";
+} /* '' */
+.mo-sobre::before {
+    content: "\e801";
+} /* '' */
+.mo-llave::before {
+    content: "\e802";
+} /* '' */
+.mo-usuario::before {
+    content: "\e803";
+} /* '' */
+.mo-medico::before {
+    content: "\e804";
+} /* '' */
+.mo-mohedo::before {
+    content: "\e805";
+} /* '' */
+.mo-cruz::before {
+    content: "\e806";
+} /* '' */
+.mo-mujer::before {
+    content: "\e807";
+} /* '' */
+.mo-hombre::before {
+    content: "\e808";
+} /* '' */
+.mo-barras::before {
+    content: "\e809";
+} /* '' */
+.mo-cerebro::before {
+    content: "\e80a";
+} /* '' */
+.mo-notas::before {
+    content: "\e80b";
+} /* '' */
+.mo-correcto::before {
+    content: "\e80c";
+} /* '' */
+.mo-izquierda::before {
+    content: "\e80d";
+} /* '' */
+.mo-derecha::before {
+    content: "\e80e";
+} /* '' */
+.mo-entrenar::before {
+    content: "\e80f";
+} /* '' */

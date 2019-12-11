@@ -1,0 +1,79 @@
+@mixin breakpoint($breakpoint, $query) {
+    @media (max-width: $query) {
+        @content;
+    }
+}
+
+@mixin createGrids($suffix: "") {
+    $grid-bp: $grid-name;
+
+    @if $suffix != "" {
+        $grid-bp: $grid-name + "-" + $suffix;
+    }
+
+    @for $i from 1 through $grid-columns {
+        .#{$grid-bp}-#{$i} > .#{$grid-column-name} {
+            flex-basis: map-get($grid-column-fractions, $i);
+            max-width: map-get($grid-column-fractions, $i);
+        }
+    }
+}
+
+@mixin createColumns($suffix: "") {
+    $grid-column-bp: $grid-column-name;
+
+    @if $suffix != "" {
+        $grid-column-bp: $grid-column-name + "-" + $suffix;
+    }
+
+    @include createOffsetColumns($grid-column-bp, 0);
+    @include createHiddenColumns($grid-column-bp);
+
+    @for $i from 1 through $grid-columns {
+        .#{$grid-name} > .#{$grid-column-bp}-#{$i} {
+            flex: none;
+            flex-basis: map-get($grid-column-percentages, $i);
+            max-width: map-get($grid-column-percentages, $i);
+        }
+
+        .#{$grid-name}-column > .#{$grid-column-bp}-#{$i} {
+            flex-basis: auto;
+        }
+
+        @include createOffsetColumns($grid-column-bp, $i);
+    }
+}
+
+@mixin createOffsetColumns($name, $suffix) {
+    .#{$name}-push-#{$suffix} {
+        margin-left: map-get($grid-column-percentages, $suffix);
+    }
+
+    .#{$name}-push-right-#{$suffix} {
+        margin-right: map-get($grid-column-percentages, $suffix);
+    }
+}
+
+@mixin createHiddenColumns($name) {
+    .#{$name}-hidden {
+        display: none;
+    }
+}
+
+@mixin createFirstLastColumns($suffix: "") {
+    $grid-fl: $grid-column-name;
+
+    @if $suffix != "" {
+        $grid-fl: $grid-column-name + "-" + $suffix;
+    }
+
+    .#{$grid-fl} {
+        &-first {
+            order: -1;
+        }
+
+        &-last {
+            order: 1;
+        }
+    }
+}

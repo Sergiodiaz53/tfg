@@ -9,6 +9,7 @@ import { SignUpPage } from './pages/signup/signup.page';
 import { QuestionaryComponent } from './components/questionary/questionary.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
                 component: SignUpPage
             }
         ]),
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
+        SharedComponentsModule
     ],
     declarations: [LoginPage, SignUpPage, QuestionaryComponent, ProfileComponent]
 })

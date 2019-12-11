@@ -1,0 +1,23 @@
+$grid-column-unit: 100% / $grid-columns;
+$grid-column-fractions: (
+    0: 0
+);
+$grid-column-percentages: (
+    0: 0
+);
+
+@for $i from 1 through $grid-columns {
+    $fraction: 1 / $i;
+    $grid-column-fractions: map-merge(
+        $grid-column-fractions,
+        (
+            $i: $fraction * 100%
+        )
+    );
+    $grid-column-percentages: map-merge(
+        $grid-column-percentages,
+        (
+            $i: $grid-column-unit * $i
+        )
+    );
+}
