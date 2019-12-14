@@ -1,0 +1,23 @@
+.register-access-data {
+    &__header {
+        height: 44px;
+        background-color: #f8f8f8;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    &__icon {
+        position: relative;
+        top: 2px;
+        font-size: 38px;
+    }
+
+    &__content {
+        padding: 10px;
+    }
+
+    &__info {
+        margin-bottom: 20px;
+        font-size: 20px;
+        text-align: center;
+    }
+}

@@ -10,6 +10,8 @@ import { QuestionaryComponent } from './components/questionary/questionary.compo
 import { ProfileComponent } from './components/profile/profile.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedComponentsModule } from '../../shared/components/shared-components.module';
+import { RegisterAccessDataComponent } from './components/register-access-data/register-access-data.component';
+import { InfoComponent } from './components/info/info.component';
 
 @NgModule({
     imports: [
@@ -29,6 +31,13 @@ import { SharedComponentsModule } from '../../shared/components/shared-component
         TranslateModule.forChild(),
         SharedComponentsModule
     ],
-    declarations: [LoginPage, SignUpPage, QuestionaryComponent, ProfileComponent]
+    declarations: [
+        LoginPage,
+        SignUpPage,
+        QuestionaryComponent,
+        ProfileComponent,
+        RegisterAccessDataComponent,
+        InfoComponent
+    ]
 })
 export class LoginPageModule {}

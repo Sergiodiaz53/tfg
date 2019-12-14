@@ -1,5 +1,16 @@
-<ion-content padding>
-    <form [formGroup]="signupParams" (ngSubmit)="onSignup()">
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Registro (paso 1 de 3)
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <tfg-register-access-data></tfg-register-access-data>
+    <!-- <form [formGroup]="signupParams" (ngSubmit)="onSignup()">
         <ion-item>
             <ion-label position="floating" translate>Username</ion-label>
             <ion-input type="text" formControlName="username" required></ion-input>
@@ -19,13 +30,9 @@
 
         <app-questionary [(form)]="questionayForm"></app-questionary>
 
-        <ion-button
-            expand="block"
-            type="submit"
-            [disabled]="signupParams.invalid || questionayForm.invalid || profileForm.invalid"
-            translate
-        >
+        <ion-button expand="block" type="submit"
+            [disabled]="signupParams.invalid || questionayForm.invalid || profileForm.invalid" translate>
             Signup
         </ion-button>
-    </form>
+    </form> -->
 </ion-content>
