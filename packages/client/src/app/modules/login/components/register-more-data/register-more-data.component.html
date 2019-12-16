@@ -1,0 +1,113 @@
+<div class="grid grid-column grid-no-gutter register-more-data">
+  <h1 class="register-more-data__info">
+    Para conocer su estado actual de salud, por favor, responda a las siguientes cuestiones:
+  </h1>
+  <ion-list [inset]="false" lines="full">
+    <ion-item>
+      <ion-label class="ion-text-wrap">Fecha de nacimiento</ion-label>
+      <ion-input type="date"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Peso (Kg)</ion-label>
+      <ion-input type="number" min="0" max="200"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Altura (cm)</ion-label>
+      <ion-input type="number" min=0 max=300></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="false" lines="full">
+    <ion-list-header>
+      En la última semana, ¿ha experimentado algún dolor o molestia en alguna de estas zonas?
+    </ion-list-header>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Zona perineal (entre el ano y la vagina)</ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Vulva o labios</ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Clitoris</ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Debajo de su ombligo, zona del pubis o vejiga</ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="false" lines="full">
+    <ion-list-header>
+      En las última semana, ¿con qué frecuencia ha tenido dolor en algunar de esas zonas?
+    </ion-list-header>
+    <ion-item>
+      <ion-label class="ion-text-wrap">
+        Frecuencia
+      </ion-label>
+      <ion-select>
+        <ion-select-option *ngFor="let frequency of Frequency | keyvalue" [value]="frequency.value">
+          {{ frequency.key }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="false" lines="full">
+    <ion-list-header>
+      En la última semana, ha tenido...
+    </ion-list-header>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Dolor o quemazon al orinar</ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-text-wrap">Dolor en caso de haber tenido relaciones sexuales</ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="false" lines="full">
+    <ion-list-header>¿Cómo valorarías ese grado de dolor o molestia?</ion-list-header>
+    <ion-item>
+      <ion-range min="0" max="10" [pin]="true">
+        <ion-label slot="start">0</ion-label>
+        <ion-label slot="end">10</ion-label>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="false" lines="full">
+    <ion-list-header>
+      Durante la última semana, ¿cómo le ha impedido ese dolor hacer las cosas normalmente hace?
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Me lo ha impedido...</ion-label>
+      <ion-select>
+        <ion-select-option *ngFor="let stopDoingThings of StopDoingThings | keyvalue" [value]="stopDoingThings.value">
+          {{ stopDoingThings.key }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list [inset]="false" lines="full">
+    <ion-list-header>
+      Durante la última semana, ¿cuánto pensó en los síntomas?
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Frecuencia</ion-label>
+      <ion-select>
+        <ion-select-option *ngFor="let thinkSymptoms of ThinkSymptoms | keyvalue" [value]="thinkSymptoms.value">
+          {{ thinkSymptoms.key }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" type="submit">
+    Registrarme
+  </ion-button>
+</div>

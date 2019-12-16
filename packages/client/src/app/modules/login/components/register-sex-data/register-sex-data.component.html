@@ -1,0 +1,28 @@
+<div class="grid grid-column grid-no-gutter register-sex-data">
+  <h1 class="register-sex-data__info">
+    Por favor, indique su sexo:
+  </h1>
+  <hr>
+  <div class="grid grid-center">
+    <div class="col register-sex-data__sex-button-col">
+      <div
+        class="grid grid-column grid-middle grid-no-gutter register-sex-data__sex-button register-sex-data__sex-button--male"
+        (click)="sex.emit(Sex.Male)">
+        <span class="mo-hombre register-sex-data__sex-icon"></span>
+        <span class="register-sex-data__sex-name">Hombre</span>
+      </div>
+    </div>
+    <div class="col register-sex-data__sex-button-col">
+      <div
+        class="grid grid-column grid-middle grid-no-gutter register-sex-data__sex-button register-sex-data__sex-button--female"
+        (click)="sex.emit(Sex.Female)">
+        <span class="mo-mujer register-sex-data__sex-icon"></span>
+        <span class="register-sex-data__sex-name">Mujer</span>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <tfg-info>
+    Esto nos permitirá afinar las características de la terapia.
+  </tfg-info>
+</div>

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../../../core/api';
-import { LoadingController } from '@ionic/angular';
+import { UserService, UserProfileCreate } from '../../../../core/api';
+import { LoadingController, IonSlides, IonSlide } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -14,6 +14,15 @@ export class SignUpPage implements OnInit {
     questionayForm: FormGroup;
     profileForm: FormGroup;
 
+    registerStep = 1;
+
+    slideOptions = {
+        allowTouchMove: false
+    };
+
+    @ViewChild(IonSlides, { static: true })
+    slides: IonSlides;
+
     constructor(
         private router: Router,
         private fb: FormBuilder,
@@ -22,6 +31,8 @@ export class SignUpPage implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.nextSlide();
+        this.nextSlide();
         this.signupParams = this.fb.group(
             {
                 username: [null, [Validators.required]],
@@ -30,6 +41,17 @@ export class SignUpPage implements OnInit {
             },
             { validators: this.passwordValidator }
         );
+    }
+
+    nextSlide() {
+        this.slides.slideNext().then(() => {
+            this.registerStep += 1;
+        });
+    }
+
+    onSex(sex: UserProfileCreate.SexEnum) {
+        console.log(sex);
+        this.nextSlide();
     }
 
     async onSignup() {

@@ -4,12 +4,22 @@
             <ion-back-button></ion-back-button>
         </ion-buttons>
         <ion-title>
-            Registro (paso 1 de 3)
+            Registro (paso {{ registerStep }} de 3)
         </ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <tfg-register-access-data></tfg-register-access-data>
+    <ion-slides [options]="slideOptions">
+        <ion-slide>
+            <tfg-register-access-data (continue)="nextSlide()"></tfg-register-access-data>
+        </ion-slide>
+        <ion-slide>
+            <tfg-register-sex-data (sex)="onSex($event)"></tfg-register-sex-data>
+        </ion-slide>
+        <ion-slide>
+            <tfg-register-more-data></tfg-register-more-data>
+        </ion-slide>
+    </ion-slides>
     <!-- <form [formGroup]="signupParams" (ngSubmit)="onSignup()">
         <ion-item>
             <ion-label position="floating" translate>Username</ion-label>

@@ -1,0 +1,35 @@
+.register-sex-data {
+    &__info {
+        font-size: 16px;
+        color: #757575;
+    }
+
+    &__sex-button {
+        color: #ffffff;
+        border-radius: 24px;
+
+        &--male {
+            background-color: #b5bb00;
+        }
+
+        &--female {
+            background-color: #df94b8;
+        }
+    }
+
+    &__sex-button-col {
+        padding: 15px;
+
+        & + & {
+            border-left: 1px solid #dfdfdf;
+        }
+    }
+
+    &__sex-icon {
+        font-size: 100px;
+    }
+
+    &__sex-name {
+        margin-bottom: 10px;
+    }
+}

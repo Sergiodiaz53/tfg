@@ -11,7 +11,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 import { RegisterAccessDataComponent } from './components/register-access-data/register-access-data.component';
+import { RegisterSexDataComponent } from './components/register-sex-data/register-sex-data.component';
 import { InfoComponent } from './components/info/info.component';
+import { RegisterMoreDataComponent } from './components/register-more-data/register-more-data.component';
 
 @NgModule({
     imports: [
@@ -37,6 +39,8 @@ import { InfoComponent } from './components/info/info.component';
         QuestionaryComponent,
         ProfileComponent,
         RegisterAccessDataComponent,
+        RegisterSexDataComponent,
+        RegisterMoreDataComponent,
         InfoComponent
     ]
 })
