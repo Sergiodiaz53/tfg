@@ -11,13 +11,16 @@
 <ion-content>
     <ion-slides [options]="slideOptions">
         <ion-slide>
-            <tfg-register-access-data (continue)="nextSlide()"></tfg-register-access-data>
+            <tfg-register-access-data [(accessDataForm)]="accessDataFom" (continue)="nextSlide()">
+            </tfg-register-access-data>
         </ion-slide>
         <ion-slide>
             <tfg-register-sex-data (sex)="onSex($event)"></tfg-register-sex-data>
         </ion-slide>
         <ion-slide>
-            <tfg-register-more-data></tfg-register-more-data>
+            <tfg-register-more-data [(moreDataForm)]="moreDataForm" [(questironaryForm)]="questionayDataForm"
+                (continue)="register()">
+            </tfg-register-more-data>
         </ion-slide>
     </ion-slides>
     <!-- <form [formGroup]="signupParams" (ngSubmit)="onSignup()">

@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
 
 import { LoginPage } from './pages/login/login.page';
 import { SignUpPage } from './pages/signup/signup.page';
-import { QuestionaryComponent } from './components/questionary/questionary.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 import { RegisterAccessDataComponent } from './components/register-access-data/register-access-data.component';
@@ -36,8 +34,6 @@ import { RegisterMoreDataComponent } from './components/register-more-data/regis
     declarations: [
         LoginPage,
         SignUpPage,
-        QuestionaryComponent,
-        ProfileComponent,
         RegisterAccessDataComponent,
         RegisterSexDataComponent,
         RegisterMoreDataComponent,

@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
     templateUrl: 'signup.page.html'
 })
 export class SignUpPage implements OnInit {
-    signupParams: FormGroup;
-    questionayForm: FormGroup;
-    profileForm: FormGroup;
+    accessDataFom: FormGroup;
+    questionayDataForm: FormGroup;
+    moreDataForm: FormGroup;
 
     registerStep = 1;
 
@@ -31,9 +31,7 @@ export class SignUpPage implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.nextSlide();
-        this.nextSlide();
-        this.signupParams = this.fb.group(
+        this.accessDataFom = this.fb.group(
             {
                 username: [null, [Validators.required]],
                 password: [null, [Validators.required]],
@@ -54,15 +52,20 @@ export class SignUpPage implements OnInit {
         this.nextSlide();
     }
 
+    register() {
+        console.log(this.moreDataForm.getRawValue());
+        console.log(this.questionayDataForm.getRawValue());
+    }
+
     async onSignup() {
         const loading = await this.loadingController.create();
         await loading.present();
 
         this.userApiService
             .userCreate({
-                ...this.signupParams.getRawValue(),
-                questionary: this.questionayForm.getRawValue(),
-                profile: this.profileForm.getRawValue()
+                ...this.accessDataFom.getRawValue(),
+                questionary: this.questionayDataForm.getRawValue(),
+                profile: this.moreDataForm.getRawValue()
             })
             .pipe(finalize(() => loading.dismiss()))
             .subscribe({
