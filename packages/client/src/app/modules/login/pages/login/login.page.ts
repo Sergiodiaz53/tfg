@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
@@ -26,13 +26,12 @@ export class LoginPage implements OnInit {
 
     ngOnInit() {
         this.loginCredentials = this.fb.group({
-            username: [''],
-            password: ['']
+            username: ['', [Validators.required]],
+            password: ['', [Validators.required]]
         });
     }
 
     async onLogin() {
-        console.log(this.loginCredentials);
         this.credentialErrorsShown = false;
 
         const loading = await this.loadingController.create();

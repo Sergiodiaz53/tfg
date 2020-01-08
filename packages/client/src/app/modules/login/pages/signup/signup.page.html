@@ -19,33 +19,8 @@
         </ion-slide>
         <ion-slide>
             <tfg-register-more-data [(moreDataForm)]="moreDataForm" [(questironaryForm)]="questionayDataForm"
-                (continue)="register()">
+                (continue)="onSignup()">
             </tfg-register-more-data>
         </ion-slide>
     </ion-slides>
-    <!-- <form [formGroup]="signupParams" (ngSubmit)="onSignup()">
-        <ion-item>
-            <ion-label position="floating" translate>Username</ion-label>
-            <ion-input type="text" formControlName="username" required></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label position="floating" translate>Password</ion-label>
-            <ion-input type="password" formControlName="password" required></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label position="floating" translate>Confirm password</ion-label>
-            <ion-input type="password" formControlName="confirmPassword" required></ion-input>
-        </ion-item>
-
-        <app-profile [(form)]="profileForm"></app-profile>
-
-        <app-questionary [(form)]="questionayForm"></app-questionary>
-
-        <ion-button expand="block" type="submit"
-            [disabled]="signupParams.invalid || questionayForm.invalid || profileForm.invalid" translate>
-            Signup
-        </ion-button>
-    </form> -->
 </ion-content>

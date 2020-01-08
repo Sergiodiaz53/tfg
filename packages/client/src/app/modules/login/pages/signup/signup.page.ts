@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService, UserProfileCreate } from '../../../../core/api';
-import { LoadingController, IonSlides, IonSlide } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IonSlides, LoadingController } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
+import { UserProfileCreate, UserService } from '../../../../core/api';
 
 @Component({
     selector: 'app-signup',
@@ -25,21 +25,11 @@ export class SignUpPage implements OnInit {
 
     constructor(
         private router: Router,
-        private fb: FormBuilder,
         private loadingController: LoadingController,
         private userApiService: UserService
     ) {}
 
-    ngOnInit() {
-        this.accessDataFom = this.fb.group(
-            {
-                username: [null, [Validators.required]],
-                password: [null, [Validators.required]],
-                confirmPassword: [null, [Validators.required]]
-            },
-            { validators: this.passwordValidator }
-        );
-    }
+    ngOnInit() {}
 
     nextSlide() {
         this.slides.slideNext().then(() => {
@@ -50,11 +40,6 @@ export class SignUpPage implements OnInit {
     onSex(sex: UserProfileCreate.SexEnum) {
         console.log(sex);
         this.nextSlide();
-    }
-
-    register() {
-        console.log(this.moreDataForm.getRawValue());
-        console.log(this.questionayDataForm.getRawValue());
     }
 
     async onSignup() {
@@ -73,11 +58,5 @@ export class SignUpPage implements OnInit {
                     this.router.navigate(['../'], { skipLocationChange: true });
                 }
             });
-    }
-
-    private passwordValidator(formGroup: FormGroup) {
-        return formGroup.get('password').value === formGroup.get('confirmPassword').value
-            ? null
-            : { mismatch: true };
     }
 }

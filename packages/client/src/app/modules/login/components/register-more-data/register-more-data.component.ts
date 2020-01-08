@@ -1,6 +1,13 @@
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Questionary } from './../../../../core/api/model/questionary';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Questionary, PainFrequencyEnum } from './../../../../core/api/model/questionary';
+import {
+    Component,
+    OnInit,
+    Output,
+    EventEmitter,
+    Input,
+    ComponentFactoryResolver
+} from '@angular/core';
 
 @Component({
     selector: 'tfg-register-more-data',
@@ -30,21 +37,28 @@ export class RegisterMoreDataComponent implements OnInit {
             height: [null, [Validators.required, Validators.min(0)]],
             weight: [null, [Validators.required, Validators.min(0)]]
         });
+
         this.questironaryForm = this.fb.group(
             {
                 perinealAreaPain: [false],
                 vulvaPain: [false],
                 clitorisPain: [false],
                 bladderPain: [false],
-                painFrequency: [null],
+                painFrequency: [{ value: null, disabled: true }],
                 peePain: [false],
                 sexualRelationsPain: [false],
-                painIntensity: [null],
-                stopDoingThings: [null, [Validators.required]],
-                thinkSymptoms: [null, [Validators.required]],
-                sameHealthLife: [null, [Validators.required]]
+                painIntensity: [{ value: null, disabled: true }],
+                stopDoingThings: [{ value: null, disabled: true }, [Validators.required]],
+                thinkSymptoms: [{ value: null, disabled: true }, [Validators.required]],
+                sameHealthLife: [{ value: null, disabled: true }, [Validators.required]]
             },
-            { validators: [this.painFrequencyValidator, this.sexualPainIntensityValidator] }
+            {
+                validators: [
+                    this.painFrequencyValidator,
+                    this.sexualPainIntensityValidator,
+                    this.lastValuesValidator
+                ]
+            }
         );
 
         this.moreDataFormChange.emit(this.moreDataForm);
@@ -60,8 +74,16 @@ export class RegisterMoreDataComponent implements OnInit {
             formGroup.get('clitorisPain').value ||
             formGroup.get('bladderPain').value;
 
+        const painFrequency = formGroup.get('painFrequency');
+
         if (anyPainSelected) {
-            validate = formGroup.get('painFrequency').value !== null ? null : { mismatch: true };
+            validate = painFrequency.value !== null ? null : { mismatch: true };
+        }
+
+        if (anyPainSelected && painFrequency.disabled) {
+            painFrequency.enable({ onlySelf: true });
+        } else if (!anyPainSelected && painFrequency.enable) {
+            painFrequency.disable({ onlySelf: true });
         }
 
         return validate;
@@ -70,10 +92,43 @@ export class RegisterMoreDataComponent implements OnInit {
     private sexualPainIntensityValidator(formGroup: FormGroup) {
         let validate = null;
 
-        if (formGroup.get('sexualRelationsPain').value) {
-            validate = formGroup.get('painIntensity').value > 0 ? null : { mismatch: true };
+        const hasPain =
+            formGroup.get('sexualRelationsPain').value || formGroup.get('peePain').value;
+        const painIntensity = formGroup.get('painIntensity');
+
+        if (hasPain) {
+            validate = painIntensity.value > 0 ? null : { mismatch: true };
+        }
+
+        if (hasPain && painIntensity.disabled) {
+            painIntensity.enable({ onlySelf: true });
+        } else if (!hasPain && painIntensity.enabled) {
+            painIntensity.disable({ onlySelf: true });
         }
 
         return validate;
+    }
+
+    private lastValuesValidator(formGroup: FormGroup) {
+        const painIntensity = formGroup.get('painIntensity');
+        const painFrequency = formGroup.get('painFrequency');
+
+        const stopDoingThings = formGroup.get('stopDoingThings');
+        const thinkSymptoms = formGroup.get('thinkSymptoms');
+        const sameHealthLife = formGroup.get('sameHealthLife');
+
+        const painEnabled = painIntensity.enabled || painFrequency.enabled;
+
+        if (painEnabled && stopDoingThings.disabled) {
+            stopDoingThings.enable({ onlySelf: true });
+            thinkSymptoms.enable({ onlySelf: true });
+            sameHealthLife.enable({ onlySelf: true });
+        } else if (!painEnabled && stopDoingThings.enabled) {
+            stopDoingThings.disable({ onlySelf: true });
+            thinkSymptoms.disable({ onlySelf: true });
+            sameHealthLife.disable({ onlySelf: true });
+        }
+
+        return null;
     }
 }
