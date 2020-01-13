@@ -12,6 +12,7 @@ import { ValorationComponent } from './components/valoration/valoration.componen
 import { HistoryStatsComponent } from './components/history-stats/history-stats.component';
 import { ChartDirective } from '../../shared/directives/chart-js/chart-js.directive';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { TranslateModule } from '@ngx-translate/core';
                 component: HistoryPage
             }
         ]),
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
+        SharedComponentsModule
     ],
     declarations: [
         HomePage,

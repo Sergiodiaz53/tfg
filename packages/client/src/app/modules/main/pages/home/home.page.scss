@@ -1,1 +1,37 @@
+@import "../../../../../scss/mixins";
 
+.home {
+    &__section-grid {
+        @include customGrid(16px, 16px);
+    }
+
+    &__section-button {
+        padding: 0 10px 10px;
+        color: #ffffff;
+        border-radius: 4px;
+
+        &--fundamentals {
+            background-color: #b5bd00;
+        }
+
+        &--start {
+            background-color: #d78fb1;
+        }
+
+        &--profile {
+            background-color: #ebc80c;
+        }
+
+        &--history {
+            background-color: #a390c2;
+        }
+    }
+
+    &__section-icon {
+        font-size: 100px;
+    }
+
+    &__section-title {
+        font-size: 16px;
+    }
+}

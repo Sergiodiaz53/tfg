@@ -1,20 +1,46 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
         <ion-title translate>Main</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-list>
-        <ion-item lines="full" (click)="start()">
-            <ion-label translate>
-                Start
-            </ion-label>
-        </ion-item>
-        <ion-item lines="full" routerLink="./histories">
-            <ion-label translate>
-                Histories
-            </ion-label>
-        </ion-item>
-    </ion-list>
+<ion-content padding>
+    <ion-text>
+        Seleccione una opción del menú
+    </ion-text>
+    <hr>
+    <div class="grid grid-2 home__section-grid">
+        <div class="col">
+            <div class="grid grid-column grid-middle grid-no-gutter home__section-button home__section-button--fundamentals"
+                (click)="start()">
+                <span class="mo-cerebro home__section-icon"></span>
+                <span class="home__section-title">Fundamentos</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="grid grid-column grid-middle grid-no-gutter home__section-button home__section-button--start">
+                <span class="mo-entrenar home__section-icon"></span>
+                <span class="home__section-title">Comenzar</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="grid grid-column grid-middle grid-no-gutter home__section-button home__section-button--profile">
+                <span class="mo-notas home__section-icon"></span>
+                <span class="home__section-title">Mis datos</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="grid grid-column grid-middle grid-no-gutter home__section-button home__section-button--history"
+                routerLink="./histories">
+                <span class="mo-barras home__section-icon"></span>
+                <span class="home__section-title">Resultados</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <tfg-info>
+        Pulse ‘Comenzar’ para realizar la prueba de entrenamiento de lateralidad ahora. Si lo desea, puede revisar su
+        historial de resultados, editar sus datos de usuario o leer un poco más sobre la base científica de esta
+        terapia.
+    </tfg-info>
 </ion-content>

@@ -77,3 +77,11 @@
         }
     }
 }
+
+@mixin customGrid($gutter: 0, $gutter-vertical: 0) {
+    margin: 0 (-$gutter / 2);
+
+    > .#{$grid-column-name} {
+        padding: 0 ($gutter / 2) $gutter-vertical;
+    }
+}

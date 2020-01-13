@@ -1,13 +1,6 @@
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Questionary, PainFrequencyEnum } from './../../../../core/api/model/questionary';
-import {
-    Component,
-    OnInit,
-    Output,
-    EventEmitter,
-    Input,
-    ComponentFactoryResolver
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Questionary } from './../../../../core/api/model/questionary';
 
 @Component({
     selector: 'tfg-register-more-data',

@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedComponentsModule } from '../../shared/components/shared-components.module';
 import { RegisterAccessDataComponent } from './components/register-access-data/register-access-data.component';
 import { RegisterSexDataComponent } from './components/register-sex-data/register-sex-data.component';
-import { InfoComponent } from './components/info/info.component';
 import { RegisterMoreDataComponent } from './components/register-more-data/register-more-data.component';
 
 @NgModule({
@@ -36,8 +35,7 @@ import { RegisterMoreDataComponent } from './components/register-more-data/regis
         SignUpPage,
         RegisterAccessDataComponent,
         RegisterSexDataComponent,
-        RegisterMoreDataComponent,
-        InfoComponent
+        RegisterMoreDataComponent
     ]
 })
 export class LoginPageModule {}
