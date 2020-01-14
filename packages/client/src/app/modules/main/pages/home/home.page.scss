@@ -12,18 +12,34 @@
 
         &--fundamentals {
             background-color: #b5bd00;
+
+            &:active {
+                background-color: #a4aa00;
+            }
         }
 
         &--start {
             background-color: #d78fb1;
+
+            &:active {
+                background-color: #ba7c9a;
+            }
         }
 
         &--profile {
             background-color: #ebc80c;
+
+            &:active {
+                background-color: #d5b50a;
+            }
         }
 
         &--history {
             background-color: #a390c2;
+
+            &:active {
+                background-color: #917fad;
+            }
         }
     }
 

@@ -1,7 +1,9 @@
 .valoration {
-    &__bar {
-        width: 100%;
-        height: 40px;
-        background-image: linear-gradient(to right, #96d229, #fed842, #f70d28);
+    --bar-background-active: none;
+
+    &__text {
+        width: 28px;
+        font-size: 12px;
+        text-align: center;
     }
 }

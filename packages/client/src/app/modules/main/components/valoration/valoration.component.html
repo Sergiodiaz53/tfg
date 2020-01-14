@@ -1,9 +1,4 @@
-<div class="valoration">
-    <ion-text text-center>
-        <h3 translate>
-            How do you feel today?
-        </h3>
-    </ion-text>
-
-    <div class="valoration__bar" (click)="setValoration($event)"></div>
-</div>
+<ion-range class="valoration" min="0" max="1" step="0.01" (ionChange)="onValue($event)">
+    <ion-label class="valoration__text" slot="start">Sin dolor</ion-label>
+    <ion-label class="valoration__text" slot="end">Máx. dolor</ion-label>
+</ion-range>

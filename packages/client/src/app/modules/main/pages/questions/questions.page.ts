@@ -23,6 +23,8 @@ export class QuestionsPage implements OnInit {
     @Select(QuestionState.current)
     question$: QuestionSimple;
 
+    private valoration;
+
     private questionStarted: number;
 
     constructor(private location: Location, private store: Store) {}

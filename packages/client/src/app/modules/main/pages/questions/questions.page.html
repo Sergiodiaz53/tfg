@@ -1,11 +1,14 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title translate>Questions</ion-title>
+    <ion-toolbar color="primary">
+        <ion-title translate>Comenzando</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <ng-container *ngIf="question$ | async as question; else valorationTemplate">
+
+    <ng-container *ngIf="question$ | async as question; else valorationTemplate"></ng-container>
+
+    <!-- <ng-container *ngIf="question$ | async as question; else valorationTemplate">
         <ion-grid>
             <ion-row justify-content-center>
                 <img class="question__image" [src]="question.image" alt="" />
@@ -24,9 +27,23 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-    </ng-container>
+    </ng-container> -->
 </ion-content>
 
 <ng-template #valorationTemplate>
-    <app-valoration (valoration)="onValoration($event)"></app-valoration>
+    <div class="grid grid-center">
+        <ion-text>Valore su nivel de dolor actual:</ion-text>
+    </div>
+    <hr>
+    <app-valoration #valoration></app-valoration>
+    <hr>
+    <tfg-info>
+        Utilice el dedo para indicar el punto que corresponda a suu percepción de dolor.
+    </tfg-info>
+
+    <ion-button [color]="valoration.value == null ? 'medium' : 'primary'" expand="block"
+        [disabled]="valoration.value == null" [fill]="valoration.value == null ? 'outline' : 'solid'"
+        (click)="onValoration(valoration.value)">
+        Aceptar
+    </ion-button>
 </ng-template>

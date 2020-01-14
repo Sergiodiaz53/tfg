@@ -6,16 +6,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     styleUrls: ['valoration.component.scss']
 })
 export class ValorationComponent implements OnInit {
-    @Output() valoration = new EventEmitter<number>();
+    value: number;
 
     constructor() {}
 
     ngOnInit() {}
 
-    setValoration(event: MouseEvent) {
-        const element = event.target as HTMLElement;
-        const value = (event.x - element.offsetLeft) / element.offsetWidth;
-
-        this.valoration.next(value);
+    onValue(value: CustomEvent) {
+        this.value = value.detail.value;
     }
 }
