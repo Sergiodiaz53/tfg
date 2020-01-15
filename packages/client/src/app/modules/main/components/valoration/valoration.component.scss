@@ -1,5 +1,9 @@
 .valoration {
     --bar-background-active: none;
+    --bar-background: linear-gradient(to right, #cccccc 0%, #cccccc 100%);
+    --knob-background: white;
+    --knob-box-shadow: 0 0 4px rgba(160, 160, 160, 1), 0 4px 5px rgba(200, 200, 200, 0.7);
+    --knob-size: 36px;
 
     &__text {
         width: 28px;

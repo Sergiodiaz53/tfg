@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title translate>Comenzando...</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="grid grid-center">
+        <ion-text>Valore su nivel de dolor actual:</ion-text>
+    </div>
+    <hr>
+    <app-valoration #valoration></app-valoration>
+    <hr>
+    <tfg-info>
+        Utilice el dedo para indicar el punto que corresponda a suu percepción de dolor.
+    </tfg-info>
+
+    <a routerLink="./histories">Histories</a>
+
+    <ion-button routerLink="./histories" [color]="valoration.value == null ? 'medium' : 'primary'" expand="block"
+        [disabled]="valoration.value == null" [fill]="valoration.value == null ? 'outline' : 'solid'"
+        (click)="onValoration(valoration.value)">
+        Aceptar
+    </ion-button>
+</ion-content>

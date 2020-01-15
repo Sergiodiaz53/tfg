@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './pages/home/home.page';
-import { QuestionsPage } from './pages/questions/questions.page';
 import { HistoriesPage } from './pages/histories/histories.page';
 import { HistoryPage } from './pages/history/history.page';
 import { ValorationComponent } from './components/valoration/valoration.component';
@@ -13,6 +12,9 @@ import { HistoryStatsComponent } from './components/history-stats/history-stats.
 import { ChartDirective } from '../../shared/directives/chart-js/chart-js.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedComponentsModule } from '../../shared/components/shared-components.module';
+import { ValorationPage } from './pages/valoration/valoration.page';
+import { QuestionsPage } from './pages/questions/questions.page';
+import { BeforeStartPage } from './pages/before-start/before-start.page';
 
 @NgModule({
     imports: [
@@ -23,6 +25,14 @@ import { SharedComponentsModule } from '../../shared/components/shared-component
             {
                 path: '',
                 component: HomePage
+            },
+            {
+                path: 'valoration',
+                component: ValorationPage
+            },
+            {
+                path: 'before-start',
+                component: BeforeStartPage
             },
             {
                 path: 'questions',
@@ -42,8 +52,10 @@ import { SharedComponentsModule } from '../../shared/components/shared-component
     ],
     declarations: [
         HomePage,
-        QuestionsPage,
         ValorationComponent,
+        ValorationPage,
+        BeforeStartPage,
+        QuestionsPage,
         HistoriesPage,
         HistoryPage,
         HistoryStatsComponent,

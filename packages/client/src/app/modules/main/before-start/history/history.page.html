@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title translate>History</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item *ngIf="history$ | async as history">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-text>
+                        <span translate [translateParams]="{ value: history.valoration }">
+                            Valoration
+                        </span>
+                    </ion-text>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col translate>Answer</ion-col>
+                <ion-col translate>Duration</ion-col>
+                <ion-col translate>Correct answer</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let historyLine of history.historyLines">
+                <ion-col translate>{{ historyLine.answer }}</ion-col>
+                <ion-col>{{ historyLine.duration }}</ion-col>
+                <ion-col translate>{{ historyLine.correctAnswer }}</ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+</ion-content>

@@ -15,11 +15,11 @@ import {
 const ANSWERS = 10;
 
 @Component({
-    selector: 'app-questions',
-    templateUrl: 'questions.page.html',
-    styleUrls: ['questions.page.scss']
+    selector: 'app-valoration-page',
+    templateUrl: 'valoration.page.html',
+    styleUrls: ['valoration.page.scss']
 })
-export class QuestionsPage implements OnInit {
+export class ValorationPage implements OnInit {
     @Select(QuestionState.current)
     question$: QuestionSimple;
 
