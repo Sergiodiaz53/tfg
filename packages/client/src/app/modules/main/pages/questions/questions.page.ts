@@ -23,11 +23,15 @@ export class QuestionsPage implements OnInit {
     @Select(QuestionState.current)
     question$: QuestionSimple;
 
+    AnswerEnum = Answer.AnswerEnum;
+
     private questionStarted: number;
 
     constructor(private location: Location, private store: Store) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.getNextQuestion().subscribe();
+    }
 
     onValoration(valoration: number) {
         this.store

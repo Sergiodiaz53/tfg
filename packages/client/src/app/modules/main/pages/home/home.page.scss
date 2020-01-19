@@ -2,7 +2,25 @@
 
 .home {
     &__section-grid {
-        @include customGrid(16px, 16px);
+        & > .col {
+            padding: 15px 25px;
+            border-color: rgba(223, 223, 223);
+            border-style: solid;
+            border-width: 0;
+
+            &:nth-child(1) {
+                border-right-width: 1px;
+                border-bottom-width: 1px;
+            }
+
+            &:nth-child(2) {
+                border-bottom-width: 1px;
+            }
+
+            &:nth-child(3) {
+                border-right-width: 1px;
+            }
+        }
     }
 
     &__section-button {

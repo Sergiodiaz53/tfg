@@ -1,0 +1,31 @@
+.answer-button-group {
+    padding: 0 20px;
+
+    > .col {
+        padding: 10px 20px;
+
+        &:first-child {
+            border-right: 1px solid rgb(223, 223, 223);
+        }
+    }
+}
+
+.answer-button {
+    height: 163px;
+    padding-bottom: 10px;
+    color: white;
+    background-color: #65addf;
+    border-radius: 4px;
+
+    &:active {
+        background-color: #5e75b7;
+    }
+
+    &__icon {
+        font-size: 100px;
+    }
+
+    &__text {
+        font-size: 16px;
+    }
+}

@@ -1,9 +1,14 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-title translate>Comenzando...</ion-title>
+        <ion-title translate>Sesión en curso</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-    questions
+<ion-content>
+    <ng-container *ngIf="question$ | async as question">
+        <img [src]="question.image" alt="">
+    </ng-container>
+
+    <tfg-answer-button-group (left)="answer(AnswerEnum.Left)" (right)="answer(AnswerEnum.Right)">
+    </tfg-answer-button-group>
 </ion-content>

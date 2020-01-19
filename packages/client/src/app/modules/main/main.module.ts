@@ -1,3 +1,4 @@
+import { AnswerButtonGroupComponent } from './components/answer-button-group/answer-button-group.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -59,6 +60,7 @@ import { BeforeStartPage } from './pages/before-start/before-start.page';
         HistoriesPage,
         HistoryPage,
         HistoryStatsComponent,
+        AnswerButtonGroupComponent,
         ChartDirective
     ]
 })
