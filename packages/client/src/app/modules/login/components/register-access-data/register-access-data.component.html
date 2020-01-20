@@ -3,7 +3,7 @@
     <div class="col grid grid-center grid-middle register-access-data__header">
       <span class="mo-mohedo register-access-data__icon"></span> MOHEDO - Suelo Pélvico
     </div>
-    <div class="register-access-data__content">
+    <div class="grid grid-column grid-no-gutter register-access-data__content">
 
       <h1 class="register-access-data__info">
         En primer lugar, elija sus datos de acceso al sistema
@@ -26,10 +26,10 @@
         <tfg-input formControlName="professionalCode" placeholder="Código de profesional (si lo tiene)" icon="mo-cruz">
         </tfg-input>
       </div>
-      <div class="col">
-        <ion-button [disabled]="accessDataForm.invalid" expand="block" type="submit" (click)="continue.emit()">
+      <div class="col register-access-data__button">
+        <tfg-button [disabled]="accessDataForm.invalid" expand="block" type="submit" (click)="continue.emit()">
           Continuar
-        </ion-button>
+        </tfg-button>
       </div>
 
       <div class="col">

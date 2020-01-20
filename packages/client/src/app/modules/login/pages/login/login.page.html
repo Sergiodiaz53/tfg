@@ -7,7 +7,7 @@
     <div class="grid grid-middle grid-column">
         <span class="login__info">Imaginería Motora Graduada</span>
         <span class="login__info login__info--small">para</span>
-        <span class="login__info login__info--big">SUELOPÉLVICO</span>
+        <span class="login__info login__info--big">SUELO PÉLVICO</span>
     </div>
 
 
@@ -22,9 +22,9 @@
             </div>
         </div>
 
-        <ion-button class="login__button" expand="block" type="submit" [disabled]="loginCredentials.invalid" translate>
+        <tfg-button class="login__button" expand="block" type="submit" [disabled]="loginCredentials.invalid">
             Login
-        </ion-button>
+        </tfg-button>
 
         <ion-text *ngIf="credentialErrorsShown" color="danger" text-center>
             <h6 translate>Incorrect username or password</h6>

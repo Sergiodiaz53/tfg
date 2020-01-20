@@ -1,8 +1,10 @@
 .login {
     &__logo {
+        position: relative;
+        top: 35px;
         width: 221px;
         height: 221px;
-        margin-bottom: 20px;
+        margin-bottom: 55px;
         background-color: #ffffff;
         background-image: url("../../../../../assets/images/mohedo-logo.png");
         background-repeat: no-repeat;
@@ -35,7 +37,12 @@
         margin-top: 20px;
     }
 
+    &__input {
+        padding-bottom: 10px;
+    }
+
     &__button {
+        margin-top: 10px;
         margin-bottom: 30px;
     }
 }

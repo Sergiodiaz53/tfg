@@ -1,23 +1,26 @@
 .register-access-data {
     &__header {
         height: 44px;
+        font-size: 17px;
+        font-weight: 500;
         background-color: #f8f8f8;
         border-bottom: 1px solid #dddddd;
     }
 
     &__icon {
         position: relative;
-        top: 2px;
-        font-size: 38px;
+        font-size: 34px;
     }
 
     &__content {
         padding: 10px;
     }
 
-    &__info {
-        margin-bottom: 20px;
-        font-size: 20px;
-        text-align: center;
+    &__input {
+        padding: 5px;
+    }
+
+    &__button {
+        margin-top: 15px;
     }
 }

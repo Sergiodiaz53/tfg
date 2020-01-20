@@ -7,7 +7,8 @@ import { UserProfileCreate, UserService } from '../../../../core/api';
 
 @Component({
     selector: 'app-signup',
-    templateUrl: 'signup.page.html'
+    templateUrl: 'signup.page.html',
+    styleUrls: ['signup.page.scss']
 })
 export class SignUpPage implements OnInit {
     accessDataFom: FormGroup;
