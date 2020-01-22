@@ -27,6 +27,10 @@ import { FileValueAccessor } from './components/file-type/file-value-accesor';
 import { HistoryCreatePage } from './pages/history-create/history-create.page';
 import { HistoryLineCreatePage } from './pages/history-line-create/history-line-create.page';
 
+export function otherValidationMessages(err, field) {
+    return err;
+}
+
 @NgModule({
     declarations: [
         AdminPage,
@@ -126,7 +130,7 @@ import { HistoryLineCreatePage } from './pages/history-line-create/history-line-
             ],
             validationMessages: [
                 { name: 'required', message: 'This field is required' },
-                { name: 'other', message: (err, field) => err }
+                { name: 'other', message: otherValidationMessages }
             ]
         }),
         FormlyIonicModule,

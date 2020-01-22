@@ -11,7 +11,7 @@ export abstract class ModelCreatePage<M> implements OnInit {
 
     errors$ = new BehaviorSubject<any>({});
 
-    protected model: Partial<M>;
+    model: Partial<M>;
 
     protected adminService: AdminService;
     protected router: Router;
