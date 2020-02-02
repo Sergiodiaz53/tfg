@@ -1,7 +1,7 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, Router } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -25,11 +25,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { UserState } from './shared/states/user/user.state';
 import { of, EMPTY } from 'rxjs';
-import { flatMap, catchError, map } from 'rxjs/operators';
+import { flatMap, catchError, map, tap } from 'rxjs/operators';
 import { LoginUser } from './shared/states/user/user.actions';
 import { QuestionState } from './shared/states/question/question.state';
 import { HistoriesState } from './shared/states/histories/histories.state';
 import { AvailableLanguagesService } from './shared/services/available-languages/available-languages.service';
+import { inject } from '@angular/core/testing';
 
 export function configurationFactory(): Configuration {
     return new Configuration({
@@ -40,7 +41,14 @@ export function configurationFactory(): Configuration {
 export function onAutologin(store: Store) {
     return () =>
         of(store.selectSnapshot(UserState.token))
-            .pipe(flatMap(token => (token ? store.dispatch(new LoginUser({ token })) : EMPTY)))
+            .pipe(
+                flatMap(token => (token ? store.dispatch(new LoginUser({ token })) : EMPTY)),
+                catchError(() => {
+                    self.localStorage.clear();
+
+                    return of(location.reload());
+                })
+            )
             .toPromise();
 }
 

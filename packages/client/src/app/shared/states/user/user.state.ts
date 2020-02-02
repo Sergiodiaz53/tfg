@@ -1,7 +1,7 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { UserDetail, AccessTokenService, UserService } from '../../../core/api';
 import { LoginUser } from './user.actions';
-import { tap, flatMap, map } from 'rxjs/operators';
+import { tap, flatMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 export interface UserModel extends UserDetail {
